@@ -1,0 +1,38 @@
+{
+  "name": "json-fetch",
+  "version": "1.0.0",
+  "description": "A wrapper for ES6 fetch method for interacting with JSON apis",
+  "author": "Good Eggs <open-source@goodeggs.com>",
+  "contributors": [
+    "dannynelson <danny@goodeggs.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "fetch api json"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/goodeggs/json-fetch.git"
+  },
+  "homepage": "https://github.com/goodeggs/json-fetch",
+  "bugs": "https://github.com/goodeggs/json-fetch/issues",
+  "dependencies": {
+    "es6-promise": "^3.0.2",
+    "isomorphic-fetch": "^2.2.0",
+    "promise-retry": "^1.0.1"
+  },
+  "devDependencies": {
+    "coffee-script": ">=1.8.x",
+    "mocha": "~1.x.x",
+    "chai": "~1.x.x",
+    "mocha-sinon": "~1.x.x",
+    "jshint": "*"
+  },
+  "scripts": {
+    "test": "jshint lib/*.js && mocha"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  }
+}
