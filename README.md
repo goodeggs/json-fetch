@@ -1,12 +1,17 @@
 # JSON Fetch
 
-A wrapper for ES6 fetch method for interacting with JSON apis
+A wrapper around ES6 fetch to simplify interacting with JSON APIs.
+
+- resolve with json for 200-level responses
+- reject with an error for non 200-level responses
+- retry request for network errors
+- automatically JSON stringify request body
+- set JSON request headers
 
 [![build status][travis-badge]][travis-link]
 [![npm version][npm-badge]][npm-link]
 [![MIT license][license-badge]][license-link]
 [![we're hiring][hiring-badge]][hiring-link]
-
 
 ## Usage
 
@@ -15,7 +20,29 @@ npm install json-fetch
 ```
 
 ```js
-var jsonFetch = require('json-fetch');
+import es6Promise from 'es6-promise'
+es6Promise.polyfill()
+import 'isomorphic-fetch'
+import createJsonFetch from 'json-fetch'
+const jsonFetch = createJsonFetch(fetch)
+
+jsonFetch('http://www.test.com/products/1234', {
+  method: 'POST',
+  body: {name: 'apple'}
+}).then(response => {
+  // handle 200-level responses:
+  console.log(response.body) // json response here
+  console.log(response.status)
+  console.log(response.statusText)
+  console.log(response.headers)
+}).catch(err => {
+  // handle non 200-level responses:
+  console.log(err.message)
+  console.log(err.body) // err test
+  console.log(err.status)
+  console.log(err.statusText)
+  console.log(err.headers)
+})
 ```
 
 ## Contributing

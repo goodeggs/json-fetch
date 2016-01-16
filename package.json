@@ -1,7 +1,7 @@
 {
   "name": "json-fetch",
   "version": "1.0.0",
-  "description": "A wrapper for ES6 fetch method for interacting with JSON apis",
+  "description": "A wrapper around ES6 fetch to simplify interacting with JSON APIs.",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
     "dannynelson <danny@goodeggs.com>"
@@ -18,19 +18,26 @@
   "homepage": "https://github.com/goodeggs/json-fetch",
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "dependencies": {
-    "es6-promise": "^3.0.2",
-    "isomorphic-fetch": "^2.2.0",
+    "object-assign": "^4.0.1",
     "promise-retry": "^1.0.1"
   },
   "devDependencies": {
-    "coffee-script": ">=1.8.x",
-    "mocha": "~1.x.x",
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
     "chai": "~1.x.x",
-    "mocha-sinon": "~1.x.x",
-    "jshint": "*"
+    "es6-promise": "^3.0.2",
+    "isomorphic-fetch": "^2.2.0",
+    "mocha": "~1.x.x",
+    "nock": "^5.2.1"
   },
   "scripts": {
-    "test": "jshint lib/*.js && mocha"
+    "build": "babel src -d lib",
+    "pretest": "npm run build",
+    "prepublish": "npm run build",
+    "test": "mocha",
+    "ci": "npm run test"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
