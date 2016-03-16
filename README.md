@@ -7,6 +7,7 @@ A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 - retry request for network errors
 - automatically JSON stringify request body
 - set JSON request headers
+- include request credentials
 
 [![build status][travis-badge]][travis-link]
 [![npm version][npm-badge]][npm-link]
@@ -22,9 +23,7 @@ npm install json-fetch
 ```js
 import es6Promise from 'es6-promise'
 es6Promise.polyfill()
-import 'isomorphic-fetch'
-import createJsonFetch from 'json-fetch'
-const jsonFetch = createJsonFetch(fetch)
+import jsonFetch from 'json-fetch'
 
 jsonFetch('http://www.test.com/products/1234', {
   method: 'POST',
@@ -38,7 +37,7 @@ jsonFetch('http://www.test.com/products/1234', {
 }).catch(err => {
   // handle non 200-level responses:
   console.log(err.message)
-  console.log(err.body) // err test
+  console.log(err.body)
   console.log(err.status)
   console.log(err.statusText)
   console.log(err.headers)
