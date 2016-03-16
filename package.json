@@ -18,6 +18,7 @@
   "homepage": "https://github.com/goodeggs/json-fetch",
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "object-assign": "^4.0.1",
     "promise-retry": "^1.0.1"
   },

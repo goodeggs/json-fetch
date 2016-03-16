@@ -4,9 +4,7 @@ import es6promise from 'es6-promise'
 const expect = chai.expect
 
 es6promise.polyfill()
-import 'isomorphic-fetch'
-import createJsonFetch from '..'
-const jsonFetch = createJsonFetch(fetch)
+import jsonFetch from '..'
 
 describe('jsonFetch',() => {
   it('resolves with json body for 200-level status codes', () => {
