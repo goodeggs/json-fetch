@@ -8,7 +8,10 @@
   ],
   "license": "MIT",
   "keywords": [
-    "fetch api json"
+    "fetch",
+    "api",
+    "json",
+    "es6"
   ],
   "main": "lib/index.js",
   "repository": {
