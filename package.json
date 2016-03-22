@@ -1,6 +1,6 @@
 {
   "name": "json-fetch",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A wrapper around ES6 fetch to simplify interacting with JSON APIs.",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
@@ -45,8 +45,12 @@
     "ci": "npm run test"
   },
   "babel": {
-    "presets": ["es2015"],
-    "plugins": ["add-module-exports"]
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
