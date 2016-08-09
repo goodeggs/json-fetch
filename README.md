@@ -27,7 +27,8 @@ import jsonFetch from 'json-fetch'
 
 jsonFetch('http://www.test.com/products/1234', {
   method: 'POST',
-  body: {name: 'apple'}
+  body: {name: 'apple'},
+  credentials: 'omit', // "include" by default, be careful!
 }).then(response => {
   // handle 200-level responses:
   console.log(response.body) // json response here
