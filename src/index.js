@@ -9,12 +9,12 @@ export default function jsonFetch(URL, fetchOptions = {}, MAX_RETRY_ATTEMPTS = 5
     'Content-Type': 'application/json',
   };
 
-  fetchOptionsClone.credentials = 'include';
+  if (fetchOptionsClone.credentials === undefined) fetchOptionsClone.credentials = 'include';
+
   fetchOptionsClone.headers = objectAssign({}, jsonHeaders, fetchOptions.headers);
   try {
     fetchOptionsClone.body = JSON.stringify(fetchOptions.body);
   } catch (err) {}
-
 
   return promiseRetry((retry) => {
     return fetch(URL, fetchOptionsClone).catch(retry);
