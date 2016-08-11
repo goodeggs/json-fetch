@@ -22,8 +22,7 @@
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "object-assign": "^4.0.1",
-    "promise-retry": "^1.0.1"
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "babel": "^6.3.26",
@@ -33,7 +32,6 @@
     "babel-register": "^6.4.3",
     "chai": "~1.x.x",
     "es6-promise": "^3.0.2",
-    "isomorphic-fetch": "^2.2.0",
     "mocha": "~1.x.x",
     "nock": "^5.2.1"
   },
