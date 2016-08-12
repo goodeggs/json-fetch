@@ -1,8 +1,7 @@
 import 'isomorphic-fetch';
-import promiseRetry from 'promise-retry';
 import objectAssign from 'object-assign';
 
-export default function jsonFetch(URL, fetchOptions = {}, MAX_RETRY_ATTEMPTS = 5) {
+export default function jsonFetch(URL, fetchOptions = {}) {
   let fetchOptionsClone = objectAssign({}, fetchOptions);
   const jsonHeaders = {
     'Accept': 'application/json',
@@ -16,11 +15,8 @@ export default function jsonFetch(URL, fetchOptions = {}, MAX_RETRY_ATTEMPTS = 5
     fetchOptionsClone.body = JSON.stringify(fetchOptions.body);
   } catch (err) {}
 
-  return promiseRetry((retry) => {
-    return fetch(URL, fetchOptionsClone).catch(retry);
-  }, {
-    retries: MAX_RETRY_ATTEMPTS
-  }).then((response) => {
+  return fetch(URL, fetchOptionsClone)
+  .then((response) => {
     const jsonFetchResponse = {
       status: response.status,
       statusText: response.statusText,
