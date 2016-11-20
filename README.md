@@ -45,6 +45,40 @@ jsonFetch('http://www.test.com/products/1234', {
 })
 ```
 
+### Retry Behavior
+
+By default, jsonFetch doesn't retry requests. However, you may opt in to jsonFetch's very flexible retry behavior, provided by the excellent [`promise-retry`](https://github.com/IndigoUnited/node-promise-retry) library. Here's a quick example:
+
+```js
+import jsonFetch, {retriers} from 'json-fetch'
+
+jsonFetch('http://www.test.com/products/1234', {
+  method: 'POST',
+  body: {name: 'apple'},
+  shouldRetry: retries.isNetworkError // after every request, retry if a network error is thrown
+  retry: {
+    // Retry 5 times, in addition to the original request
+    retries: 5,
+  }
+}).then(response => {
+  // handle responses
+});
+```
+
+Any option that `promise-retry` accepts will be passed through from `options.retry`. See [the promise-retry documentation](https://github.com/IndigoUnited/node-promise-retry#promiseretryfn-options) for all options.
+
+### Custom Retry Logic
+
+We've provided two default "retrier" functions that decide to retry 503/504 status code responses and network errors (`jsonFetch.retriers.is5xx` and `jsonFetch.retriers.isNetworkError` respectively). You can easily provide your own custom retrier function to `options.shouldRetry`.
+
+The contract for a retrier function is:
+
+```js
+shouldRetry([Error || FetchResponse]) returns bool
+```
+
+You can use any attribute of the [FetchResponse](https://developer.mozilla.org/en-US/docs/Web/API/Response) or Error to determine whether to retry or not. Your function _must_ handle both errors (such as network errors) and FetchResponse objects without blowing up. We recommend stateless, side-effect free functions. You do not need to worry about the maximum number of retries -- promise-retry will stop retrying after the maximum you specify. See the tests and `src/retriers.js` file for examples.
+
 ## Contributing
 
 Please follow our [Code of Conduct](https://github.com/goodeggs/json-fetch/blob/master/CODE_OF_CONDUCT.md)
