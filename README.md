@@ -45,6 +45,10 @@ jsonFetch('http://www.test.com/products/1234', {
 })
 ```
 
+### Credentials
+
+The `credentials` option to fetch ([documented here in github/fetch](https://github.com/github/fetch#sending-cookies)) for conditionally sending cookies is set to `include` by default, which works better for us.
+
 ### Retry Behavior
 
 By default, jsonFetch doesn't retry requests. However, you may opt in to jsonFetch's very flexible retry behavior, provided by the excellent [`promise-retry`](https://github.com/IndigoUnited/node-promise-retry) library. Here's a quick example:
