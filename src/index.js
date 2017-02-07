@@ -47,17 +47,11 @@ export default function jsonFetch(URL, options = {}) {
       statusText: response.statusText,
       headers: response.headers
     };
-    if (200 <= response.status && response.status < 300) {
-      return response.json().then(function (json) {
-        return objectAssign({}, jsonFetchResponse, {body: json});
-      })
-    } else if (response.status === 404) {
-      return objectAssign({}, jsonFetchResponse, {body: undefined});
-    } else {
-      return response.text().then(function(text) {
-        const err = objectAssign(new Error(response.statusText), jsonFetchResponse, {body: text});
-        throw err;
-      });
+
+    if (response.headers.get('Content-Type') === 'application/json') {
+      return response.json().then((json) => objectAssign({}, jsonFetchResponse, {body: json}))
     }
+
+    return response.text().then((text) => objectAssign({}, jsonFetchResponse, {body: text}))
   });
 }

@@ -2,12 +2,11 @@
 
 A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 
-- resolve with json for 200-level responses
-- reject with an error for non 200-level responses
-- retry request for network errors
 - automatically JSON stringify request body
 - set JSON request headers
-- include request credentials
+- resolve with json for any response with the `Content-Type`: `application/json` header
+- include request credentials by default (can be overridden!)
+- configurable retry option for requests
 
 [![build status][travis-badge]][travis-link]
 [![npm version][npm-badge]][npm-link]

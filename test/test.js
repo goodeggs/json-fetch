@@ -8,8 +8,13 @@ es6promise.polyfill()
 import jsonFetch, {retriers} from '..'
 
 describe('jsonFetch',() => {
+  let sandbox
+
+  beforeEach(() => sandbox = sinon.sandbox.create())
+  afterEach(() => sandbox.restore())
+
   describe('single request with no retry', () => {
-    it('resolves with json body for 200-level status codes', () => {
+    it('resolves with json body for 200 status codes', () => {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, {name: 'apple'})
@@ -21,28 +26,39 @@ describe('jsonFetch',() => {
       })
     })
 
-    it('resolves with undefined for 404 status code', () => {
+    it('resolves with JSON body for 500 status codes', () => {
       nock('http://www.test.com')
         .get('/products/1234')
-        .reply(404, 'not found')
+        .reply(500, '"Something went wrong"', {'Content-Type': 'application/json'})
       return jsonFetch('http://www.test.com/products/1234').then((response) => {
-        expect(response.body).to.equal(undefined)
-        expect(response.status).to.equal(404)
-        expect(response.statusText).to.equal('Not Found')
+        expect(response.body).to.deep.equal('Something went wrong')
+        expect(response.status).to.equal(500)
+        expect(response.statusText).to.equal('Internal Server Error')
         expect(response.headers).to.be.ok
       })
     })
 
-    it('rejects with an error for all other status codes', () => {
+    it('resolves with non-JSON body', () => {
       nock('http://www.test.com')
         .get('/products/1234')
-        .reply(500, 'Something went wrong')
-      return jsonFetch('http://www.test.com/products/1234').catch((err) => {
-        expect(err.message).to.deep.equal('Internal Server Error')
-        expect(err.body).to.deep.equal('Something went wrong')
-        expect(err.status).to.equal(500)
-        expect(err.statusText).to.equal('Internal Server Error')
-        expect(err.headers).to.be.ok
+        .reply(200, 'This is not JSON', {'Content-Type': 'text/plain'})
+      return jsonFetch('http://www.test.com/products/1234').then((response) => {
+        expect(response.body).to.deep.equal('This is not JSON')
+      })
+    })
+
+    it('rejects when there is a connection error', () => {
+      sandbox.stub(global, 'fetch', () => {
+        throw new Error('Something is broken!')
+      });
+      let errorThrown = false;
+      return jsonFetch('http://www.test.com/products/1234')
+      .catch((err) => {
+        errorThrown = true;
+        expect(err.message).to.deep.equal('Something is broken!');
+      })
+      .then(() => {
+        expect(errorThrown).to.be.true();
       })
     })
 
