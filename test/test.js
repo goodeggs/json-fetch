@@ -38,6 +38,15 @@ describe('jsonFetch',() => {
       })
     })
 
+    it('resolves with JSON body when content-type contains other values but includes application/json', () => {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(204, '[{}]', {'Content-Type': 'application/json; charset=utf-8'})
+      return jsonFetch('http://www.test.com/products/1234').then((response) => {
+        expect(response.body).to.deep.equal([{}])
+      })
+    })
+
     it('resolves with non-JSON body', () => {
       nock('http://www.test.com')
         .get('/products/1234')

@@ -48,7 +48,7 @@ export default function jsonFetch(URL, options = {}) {
       headers: response.headers
     };
 
-    if (response.headers.get('Content-Type') === 'application/json') {
+    if (response.headers.get('Content-Type').includes('application/json')) {
       return response.json().then((json) => objectAssign({}, jsonFetchResponse, {body: json}))
     }
 
