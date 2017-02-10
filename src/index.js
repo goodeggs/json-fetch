@@ -45,13 +45,25 @@ export default function jsonFetch(URL, options = {}) {
     const jsonFetchResponse = {
       status: response.status,
       statusText: response.statusText,
-      headers: response.headers
+      headers: response.headers,
     };
 
-    if (response.headers.get('Content-Type').includes('application/json')) {
-      return response.json().then((json) => objectAssign({}, jsonFetchResponse, {body: json}))
-    }
+    return response.text()
+    .then((text) => {
+      const response = objectAssign({}, jsonFetchResponse, {text});
 
-    return response.text().then((text) => objectAssign({}, jsonFetchResponse, {body: text}))
+      if (response.headers.get('Content-Type').includes('application/json')) {
+        try {
+          response['body'] = JSON.parse(text);
+        } catch (e) {
+          e.response = response;
+          throw e;       
+        }
+      } else {
+        response['body'] = text;
+      }
+
+      return response;
+    })
   });
 }

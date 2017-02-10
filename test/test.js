@@ -233,4 +233,15 @@ describe('jsonFetch',() => {
       });
     });
   })
+
+  describe('malformed json', () => {
+    it('throws error with malformed text', () => {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(200, '{"name": "apple""}', {'Content-Type': 'application/json'})
+      return jsonFetch('http://www.test.com/products/1234').catch((e) => {
+        expect(e.response.text).to.equal('{"name": "apple""}')
+      })
+    })
+  })
 })
