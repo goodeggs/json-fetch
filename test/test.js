@@ -244,4 +244,15 @@ describe('jsonFetch',() => {
       })
     })
   })
+
+  describe('missing content type', () => {
+    it('handles it gracefully', () => {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(200, 'test', {})
+      return jsonFetch('http://www.test.com/products/1234').then((response) => {
+        expect(response.body).to.equal('test')
+      })
+    })
+  })
 })
