@@ -1,6 +1,6 @@
 {
   "name": "json-fetch",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A wrapper around ES6 fetch to simplify interacting with JSON APIs.",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
