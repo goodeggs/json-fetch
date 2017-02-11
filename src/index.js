@@ -51,7 +51,8 @@ export default function jsonFetch(URL, options = {}) {
         text,
       };
 
-      if (jsonFetchResponse.headers.get('Content-Type').includes('application/json')) {
+      const contentType = jsonFetchResponse.headers.get('Content-Type') || '';
+      if (contentType.includes('application/json')) {
         try {
           jsonFetchResponse.body = JSON.parse(text);
         } catch (err) {
