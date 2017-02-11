@@ -42,16 +42,27 @@ export default function jsonFetch(URL, options = {}) {
       })
   }, retryOptions)
   .then((response) => {
-    const jsonFetchResponse = {
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers
-    };
+    return response.text()
+    .then((text) => {
+      const jsonFetchResponse = {
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers,
+        text,
+      };
 
-    if (response.headers.get('Content-Type').includes('application/json')) {
-      return response.json().then((json) => objectAssign({}, jsonFetchResponse, {body: json}))
-    }
+      if (jsonFetchResponse.headers.get('Content-Type').includes('application/json')) {
+        try {
+          jsonFetchResponse.body = JSON.parse(text);
+        } catch (err) {
+          err.response = jsonFetchResponse;
+          throw err;       
+        }
+      } else {
+        jsonFetchResponse.body = text;
+      }
 
-    return response.text().then((text) => objectAssign({}, jsonFetchResponse, {body: text}))
+      return jsonFetchResponse;
+    })
   });
 }

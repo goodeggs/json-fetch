@@ -1,5 +1,12 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
-  - '0.10'
-  - '0.12'
-
+- 6.9.1
+cache:
+  directories:
+    - "/home/travis/.npm"
+env:
+  global:
+    - NODE_ENV=test
+    - FORCE_LOGS=yes
