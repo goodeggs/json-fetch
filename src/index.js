@@ -22,9 +22,11 @@ type JsonFetchResponse = {
 }
 
 export default async function jsonFetch (requestUrl: string, requestOptions: JsonFetchRequestOptions = {}): Promise<JsonFetchResponse> {
+  const expectedStatuses = requestOptions.expectedStatuses;
   const jsonRequestOptions = getJsonRequestOptions(requestOptions);
   const response = await retryFetch(requestUrl, jsonRequestOptions);
   const jsonFetchResponse = await createJsonFetchResponse(response);
+  assertExpectedStatus(expectedStatuses, jsonFetchResponse);
   return jsonFetchResponse;
 }
 
@@ -67,6 +69,11 @@ function isApplicationJson (headers: Headers): boolean {
   return responseContentType.includes('application/json');
 }
 
+function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<number>, jsonFetchResponse: T): void {
+  if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status))
+    throw new FetchUnexpectedStatusError(jsonFetchResponse);
+}
+
 function getJsonRequestOptions (requestOptions: JsonFetchRequestOptions): JsonFetchRequestOptions {
   const result = Object.assign({}, requestOptions);
   if (requestOptions.credentials === undefined)
@@ -79,4 +86,15 @@ function getJsonRequestOptions (requestOptions: JsonFetchRequestOptions): JsonFe
   // $FlowFixMe
   }, requestOptions.headers);
   return result;
+}
+
+class FetchUnexpectedStatusError extends Error {
+  name: string;
+  response: JsonFetchResponse;
+  constructor (response: Object) {
+    super();
+    this.name = 'FetchUnexpectedStatusError';
+    this.message = `unexpected fetch response status ${response.status}`;
+    this.response = response;
+  }
 }

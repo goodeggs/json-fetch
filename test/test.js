@@ -77,6 +77,40 @@ describe('jsonFetch', async function () {
     });
   });
 
+  describe('expected statuses', function () {
+    it('errors with FetchUnexpectedStatus if the response has an unexpected status code', async function () {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(400, 'not found');
+      try {
+        await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]})
+      } catch (err) {
+        expect(err.name).to.equal('FetchUnexpectedStatusError');
+        expect(err.message).to.equal('unexpected fetch response status 400');
+        expect(err.response).to.have.property('status', 400);
+        expect(err.response).to.have.property('text', 'not found');
+        return;
+      }
+      throw new Error('expected to throw')
+    });
+
+    it('returns a response with an expected status code', async function () {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(201, 'not found');
+      const response = await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]});
+      expect(response).to.have.property('status', 201);
+    });
+
+    it('returns a response without an expected status code', async function () {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(404, 'not found');
+      const response = await jsonFetch('http://www.test.com/products/1234');
+      expect(response).to.have.property('status', 404);
+    });
+  });
+
   describe('retry', async function () {
     beforeEach(() => {
       sinon.spy(global, 'fetch');
