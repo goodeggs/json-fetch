@@ -57,6 +57,7 @@ describe('jsonFetch', async function () {
         await jsonFetch('http://www.test.com/products/1234');
       } catch (err) {
         errorThrown = true;
+        expect(err.name).to.deep.equal('FetchNetworkError');
         expect(err.message).to.deep.equal('Something is broken!');
       }
       expect(errorThrown).to.be.true();
@@ -86,7 +87,7 @@ describe('jsonFetch', async function () {
         await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]})
       } catch (err) {
         expect(err.name).to.equal('FetchUnexpectedStatusError');
-        expect(err.message).to.equal('unexpected fetch response status 400');
+        expect(err.message).to.equal('Unexpected fetch response status 400');
         expect(err.response).to.have.property('status', 400);
         expect(err.response).to.have.property('text', 'not found');
         return;
