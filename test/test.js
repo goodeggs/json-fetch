@@ -211,6 +211,7 @@ describe('jsonFetch', async function () {
         });
 
         it('attempts to retry on a 5xx error code', async function () {
+          sinon.spy(retriers, 'is5xx');
           sinon.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
           try {
             await jsonFetch('http://www.test.com/', {
@@ -222,6 +223,7 @@ describe('jsonFetch', async function () {
             });
           } catch (err) {
             expect(fetch.callCount).to.equal(4);
+            expect(retriers.is5xx.callCount).to.equal(4);
             return;
           }
           throw new Error('Should have failed');
@@ -247,6 +249,7 @@ describe('jsonFetch', async function () {
         });
 
         it('attempts to retry on a network error', async function () {
+          sinon.spy(retriers, 'isNetworkError');
           sinon.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
           try {
             await jsonFetch('foo.bar', {
@@ -258,6 +261,7 @@ describe('jsonFetch', async function () {
             });
           } catch (err) {
             expect(fetch.callCount).to.equal(6);
+            expect(retriers.isNetworkError.callCount).to.equal(6);
             expect(err.message).to.equal('ECONRST');
             return;
           }
