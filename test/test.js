@@ -6,7 +6,7 @@ import {expect} from 'goodeggs-test-helpers/chai';
 import sinon from 'sinon';
 import nock from 'nock';
 
-import jsonFetch, {retriers} from '..';
+import jsonFetch, {retriers} from '../src';
 
 describe('jsonFetch', async function () {
   describe('single request with no retry', async function () {
@@ -84,7 +84,7 @@ describe('jsonFetch', async function () {
         .get('/products/1234')
         .reply(400, 'not found');
       try {
-        await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]})
+        await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]});
       } catch (err) {
         expect(err.name).to.equal('FetchUnexpectedStatusError');
         expect(err.message).to.equal('Unexpected fetch response status 400');
@@ -92,7 +92,7 @@ describe('jsonFetch', async function () {
         expect(err.response).to.have.property('text', 'not found');
         return;
       }
-      throw new Error('expected to throw')
+      throw new Error('expected to throw');
     });
 
     it('returns a response with an expected status code', async function () {
@@ -190,19 +190,19 @@ describe('jsonFetch', async function () {
   describe('retriers', async function () {
     describe('.is5xx', async function () {
       it('accepts a 503 and 504 status codes', async function () {
-        expect(retriers.is5xx({status: 503})).to.equal(true);
-        expect(retriers.is5xx({status: 504})).to.equal(true);
+        expect(retriers.is5xx(new Response('', {status: 503}))).to.equal(true);
+        expect(retriers.is5xx(new Response('', {status: 504}))).to.equal(true);
       });
 
       it('rejects all other inputs', async function () {
         expect(retriers.is5xx(new Error())).to.equal(false);
-        expect(retriers.is5xx({status: 200})).to.equal(false);
-        expect(retriers.is5xx({status: 400})).to.equal(false);
-        expect(retriers.is5xx({status: 404})).to.equal(false);
-        expect(retriers.is5xx({status: 499})).to.equal(false);
-        expect(retriers.is5xx({status: 500})).to.equal(false);
-        expect(retriers.is5xx({status: 501})).to.equal(false);
-        expect(retriers.is5xx({status: 502})).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 200}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 400}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 404}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 499}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 500}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 501}))).to.equal(false);
+        expect(retriers.is5xx(new Response('', {status: 502}))).to.equal(false);
       });
 
       describe('used within jsonFetch', async function () {
@@ -235,10 +235,10 @@ describe('jsonFetch', async function () {
       });
 
       it('rejects any non errors', async function () {
-        expect(retriers.isNetworkError('foo')).to.equal(false);
-        expect(retriers.isNetworkError({})).to.equal(false);
-        expect(retriers.isNetworkError({status: 200})).to.equal(false);
-        expect(retriers.isNetworkError({status: 500})).to.equal(false);
+        expect(retriers.isNetworkError(new Response('foo'))).to.equal(false);
+        expect(retriers.isNetworkError(new Response(''))).to.equal(false);
+        expect(retriers.isNetworkError(new Response('', {status: 200}))).to.equal(false);
+        expect(retriers.isNetworkError(new Response('', {status: 500}))).to.equal(false);
       });
 
       describe('used within jsonFetch', async function () {
