@@ -5,7 +5,7 @@ A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 - automatically JSON stringify request body
 - set JSON request headers
 - resolve with json for any response with the `Content-Type`: `application/json` header
-- include request credentials by default (can be overridden!)
+- include request credentials by default
 - configurable retry option for requests
 
 [![build status][travis-badge]][travis-link]
@@ -20,22 +20,25 @@ npm install json-fetch
 ```
 
 ```js
-import es6Promise from 'es6-promise'
-es6Promise.polyfill()
 import jsonFetch from 'json-fetch'
 
 jsonFetch('http://www.test.com/products/1234', {
+  body: {name: 'apple'}, // content to be JSON stringified
+  credentials: 'omit', // "include" by default
+  expectedStatuses: [201], // rejects "FetchUnexpectedStatusError" on unexpected status (optional)
+  // supports all normal json-fetch options:
   method: 'POST',
-  body: {name: 'apple'},
-  credentials: 'omit', // "include" by default, be careful!
-}).then(response => {
-  // handle 200-level responses:
+})
+.then((response) => {
+  // handle response with expected status:
   console.log(response.body) // json response here
   console.log(response.status)
   console.log(response.statusText)
   console.log(response.headers)
-}).catch(err => {
-  // handle non 200-level responses:
+})
+.catch((err) => {
+  // handle response with unexpected status:
+  console.log(err.name)
   console.log(err.message)
   console.log(err.body)
   console.log(err.status)
@@ -43,10 +46,6 @@ jsonFetch('http://www.test.com/products/1234', {
   console.log(err.headers)
 })
 ```
-
-### Credentials
-
-The `credentials` option to fetch ([documented here in github/fetch](https://github.com/github/fetch#sending-cookies)) for conditionally sending cookies is set to `include` by default, which works better for us.
 
 ### Retry Behavior
 
