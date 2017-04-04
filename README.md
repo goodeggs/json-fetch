@@ -40,10 +40,11 @@ jsonFetch('http://www.test.com/products/1234', {
   // handle response with unexpected status:
   console.log(err.name)
   console.log(err.message)
-  console.log(err.body)
-  console.log(err.status)
-  console.log(err.statusText)
-  console.log(err.headers)
+  console.log(err.response.status)
+  console.log(err.response.statusText)
+  console.log(err.response.body)
+  console.log(err.response.text)
+  console.log(err.response.headers)
 })
 ```
 
