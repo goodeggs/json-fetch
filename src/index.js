@@ -53,10 +53,10 @@ async function createJsonFetchResponse (response: Response): Promise<JsonFetchRe
   };
 }
 
-function getResponseBody (responseHeaders: Headers, responseText: string): mixed {
+function getResponseBody (responseHeaders: Headers, responseText: string): ?JSON {
   if (isApplicationJson(responseHeaders))
     return JSON.parse(responseText);
-  return responseText;
+  return null;
 }
 
 function isApplicationJson (headers: Headers): boolean {
