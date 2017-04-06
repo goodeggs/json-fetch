@@ -12,7 +12,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
     parsedOptions.headers['Content-Type'] = 'application/json';
   }
 
-  if (jsonFetchOptions.credentials !== undefined) {
+  if (jsonFetchOptions.credentials === undefined) {
     parsedOptions.credentials = 'include';
   }
 

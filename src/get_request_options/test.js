@@ -9,6 +9,7 @@ import getRequestOptions from '.';
 describe('getRequestOptions', async function () {
   it('populates an options object without undefined keys', function () {
     const expected = {
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
       },
@@ -19,6 +20,7 @@ describe('getRequestOptions', async function () {
 
   it('sets content type header only when there is a body', function () {
     const expected = {
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
