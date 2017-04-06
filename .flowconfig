@@ -2,3 +2,4 @@
 .*node_modules/fbjs.*
 build/*
 .coverage/*
+.*/node_modules/nock/node_modules/changelog/examples/node.json
