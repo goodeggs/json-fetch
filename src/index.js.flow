@@ -27,7 +27,7 @@ export type JsonFetchResponse = {
   statusText: string,
   headers: Headers,
   text: string,
-  body: mixed,
+  body: JSON,
 }
 
 declare function jsonFetch (requestUrl: string, requestOptions: ?JsonFetchOptions): Promise<JsonFetchResponse>;
