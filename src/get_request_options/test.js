@@ -3,8 +3,6 @@ import 'goodeggs-test-helpers';
 
 import {describe, it} from 'mocha';
 import {expect} from 'goodeggs-test-helpers/chai';
-// import sinon from 'sinon';
-// import nock from 'nock';
 
 import getRequestOptions from '.';
 

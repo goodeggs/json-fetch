@@ -1,11 +1,11 @@
+// @flow
 import pick from 'lodash.pick';
 
 import type {JsonFetchOptions} from '../index.js.flow';
 
 export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): RequestOptions {
-  const parsedOptions = {
-    headers: {},
-  };
+  const parsedOptions = {};
+  parsedOptions.headers = {};
 
   if (jsonFetchOptions.body !== undefined) {
     parsedOptions.body = JSON.stringify(jsonFetchOptions.body);
@@ -17,6 +17,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
   }
 
   parsedOptions.headers = Object.assign(
+    {},
     {
       Accept: 'application/json',
     },
@@ -26,9 +27,9 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
 
   const pickedOptions = pick(jsonFetchOptions, [
     'body',
+    'cache',
     'credentials',
     'headers',
-    'cache',
     'integrity',
     'method',
     'mode',
