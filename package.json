@@ -52,7 +52,7 @@
     "sinon": "^1.17.6"
   },
   "scripts": {
-    "build": "babel src -d lib && cp src/index.js.flow lib/",
+    "build": "rm -rf lib/ && babel src -d lib && cp src/index.js.flow lib/",
     "pretest": "yarn run build",
     "prepublish": "yarn run build",
     "test": "eslint 'src/**.*.js' && flow && mocha --compilers js:babel-register 'src/**/test.js'"
