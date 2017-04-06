@@ -45,7 +45,7 @@ describe('jsonFetch', async function () {
         .get('/products/1234')
         .reply(200, 'This is not JSON', {'Content-Type': 'text/plain'});
       const response = await jsonFetch('http://www.test.com/products/1234');
-      expect(response.body).to.deep.equal('This is not JSON');
+      expect(response.body).to.equal(undefined);
     });
 
     it('rejects when there is a connection error', async function () {
@@ -292,7 +292,7 @@ describe('jsonFetch', async function () {
         .get('/products/1234')
         .reply(200, 'test', {});
       const response = await jsonFetch('http://www.test.com/products/1234');
-      expect(response.body).to.equal('test');
+      expect(response.body).to.equal(undefined);
     });
   });
 });
