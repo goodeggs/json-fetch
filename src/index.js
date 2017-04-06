@@ -2,8 +2,10 @@
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
 
-export {default as retriers} from './retriers';
+import getRequestOptions from './get_request_options';
 import type {JsonFetchOptions, JsonFetchResponse} from '.'; // eslint-disable-line
+
+export {default as retriers} from './retriers';
 
 const DEFAULT_RETRY_OPTIONS = {retries: 0};
 const DEFAULT_SHOULD_RETRY = () => false;
@@ -65,25 +67,6 @@ function isApplicationJson (headers: Headers): boolean {
 function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<number>, jsonFetchResponse: T): void {
   if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status))
     throw new FetchUnexpectedStatusError(jsonFetchResponse);
-}
-
-function getRequestOptions (jsonFetchOptions: JsonFetchOptions): RequestOptions {
-  return {
-    body: jsonFetchOptions.body !== undefined ? JSON.stringify(jsonFetchOptions.body) : undefined,
-    credentials: jsonFetchOptions.credentials !== undefined ? 'include' : undefined,
-    // $FlowFixMe
-    headers: Object.assign({
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }, jsonFetchOptions.headers),
-    cache: jsonFetchOptions.cache,
-    integrity: jsonFetchOptions.integrity,
-    method: jsonFetchOptions.method,
-    mode: jsonFetchOptions.mode,
-    redirect: jsonFetchOptions.redirect,
-    referrer: jsonFetchOptions.referrer,
-    referrerPolicy: jsonFetchOptions.referrerPolicy,
-  };
 }
 
 class FetchUnexpectedStatusError extends Error {
