@@ -52,8 +52,8 @@
   },
   "scripts": {
     "build": "babel src -d lib && cp src/index.js.flow lib/",
-    "pretest": "npm run build",
-    "prepublish": "npm run build",
+    "pretest": "yarn run build",
+    "prepublish": "yarn run build",
     "test": "eslint 'src/**.*.js' && flow && mocha --compilers js:babel-register"
   },
   "eslintConfig": {
