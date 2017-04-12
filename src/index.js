@@ -37,7 +37,7 @@ async function retryFetch (requestUrl: string, jsonFetchOptions: JsonFetchOption
     }, retryOptions);
     return response;
   } catch (err) {
-    err.name = 'FetchNetworkError';
+    err.name = 'FetchError';
     throw err;
   }
 }
