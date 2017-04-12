@@ -57,7 +57,7 @@ describe('jsonFetch', async function () {
         await jsonFetch('http://www.test.com/products/1234');
       } catch (err) {
         errorThrown = true;
-        expect(err.name).to.deep.equal('FetchNetworkError');
+        expect(err.name).to.deep.equal('FetchError');
         expect(err.message).to.deep.equal('Something is broken!');
       }
       expect(errorThrown).to.be.true();
