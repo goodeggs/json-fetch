@@ -19,6 +19,8 @@ export default async function jsonFetch (requestUrl: string, jsonFetchOptions: J
     return jsonFetchResponse;
   } catch (error) {
     error.request = Object.assign({}, jsonFetchOptions, {url: requestUrl});
+    // remove all headers as it contains potentially sensitive data
+    delete error.request.headers;
     throw error;
   }
 }

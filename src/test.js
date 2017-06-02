@@ -299,4 +299,20 @@ describe('jsonFetch', async function () {
       expect(response.body).to.equal(undefined);
     });
   });
+
+  describe('logging sensitive information', async function () {
+    it('does not log headers', async function () {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(200, '{""}', {'Content-Type': 'application/json'});
+      try {
+        await jsonFetch('http://www.test.com/products/1234', {headers: {secret: 'foo'}});
+      } catch (err) {
+        expect(err.request.url).to.equal('http://www.test.com/products/1234');
+        expect(err.request.headers).not.to.exist();
+        return;
+      }
+      throw new Error('expected to throw');
+    });
+  });
 });
