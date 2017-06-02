@@ -59,6 +59,7 @@ describe('jsonFetch', async function () {
         errorThrown = true;
         expect(err.name).to.deep.equal('FetchError');
         expect(err.message).to.deep.equal('Something is broken!');
+        expect(err.request.url).to.deep.equal('http://www.test.com/products/1234');
       }
       expect(errorThrown).to.be.true();
     });
@@ -88,6 +89,7 @@ describe('jsonFetch', async function () {
       } catch (err) {
         expect(err.name).to.equal('FetchUnexpectedStatusError');
         expect(err.message).to.equal('Unexpected fetch response status 400');
+        expect(err.request.url).to.equal('http://www.test.com/products/1234');
         expect(err.response).to.have.property('status', 400);
         expect(err.response).to.have.property('text', 'not found');
         return;
@@ -142,6 +144,8 @@ describe('jsonFetch', async function () {
           },
         });
       } catch (err) {
+        expect(err.request.url).to.equal('http://www.test.com/');
+        expect(err.request.retry.retries).to.equal(5);
         expect(fetch.callCount).to.equal(6); // 5 retries + 1 original = 6
         return;
       }

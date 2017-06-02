@@ -12,10 +12,15 @@ const DEFAULT_SHOULD_RETRY = () => false;
 
 export default async function jsonFetch (requestUrl: string, jsonFetchOptions: JsonFetchOptions = {}): Promise<JsonFetchResponse> {
   const expectedStatuses = jsonFetchOptions.expectedStatuses;
-  const response = await retryFetch(requestUrl, jsonFetchOptions);
-  const jsonFetchResponse = await createJsonFetchResponse(response);
-  assertExpectedStatus(expectedStatuses, jsonFetchResponse);
-  return jsonFetchResponse;
+  try {
+    const response = await retryFetch(requestUrl, jsonFetchOptions);
+    const jsonFetchResponse = await createJsonFetchResponse(response);
+    assertExpectedStatus(expectedStatuses, jsonFetchResponse);
+    return jsonFetchResponse;
+  } catch (error) {
+    error.request = Object.assign({}, jsonFetchOptions, {url: requestUrl});
+    throw error;
+  }
 }
 
 async function retryFetch (requestUrl: string, jsonFetchOptions: JsonFetchOptions): Promise<Response> {
