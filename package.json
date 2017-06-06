@@ -68,6 +68,7 @@
     ],
     "rules": {
       "no-eq-null": "off",
+      "prefer-reflect": "off",
       "lodash/prefer-lodash-typecheck": "off",
       "lodash/prefer-constant": "off"
     },
