@@ -18,9 +18,7 @@ export default async function jsonFetch (requestUrl: string, jsonFetchOptions: J
     assertExpectedStatus(expectedStatuses, jsonFetchResponse);
     return jsonFetchResponse;
   } catch (error) {
-    error.request = Object.assign({}, jsonFetchOptions, {url: requestUrl});
-    // remove all headers as it contains potentially sensitive data
-    delete error.request.headers;
+    error.request = getErrorRequestData({requestUrl, requestOptions: jsonFetchOptions});
     throw error;
   }
 }
@@ -79,4 +77,11 @@ function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<n
     err.response = jsonFetchResponse;
     throw err;
   }
+}
+
+function getErrorRequestData ({requestUrl, requestOptions}) {
+  const data = Object.assign({}, requestOptions, {url: requestUrl});
+  // do not include headers as they potentially contain sensitive information
+  delete data.headers;
+  return data;
 }
