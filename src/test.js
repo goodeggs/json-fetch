@@ -300,8 +300,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('logging sensitive information', async function () {
-    it('does not log headers', async function () {
+  describe('thrown errors', async function () {
+    it('does not include request headers', async function () {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, '{""}', {'Content-Type': 'application/json'});
