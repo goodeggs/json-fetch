@@ -1,14 +1,14 @@
 // @flow
 // type BaseOptions extends RequestOptions ... :(
 // TODO: https://github.com/facebook/flow/issues/396
-// https://github.com/facebook/flow/blob/2278be3ffbc2f5ebb965e91f83fc8d957fc7d779/lib/bom.js#L819
+// https://github.com/facebook/flow/blob/6845995f50fe524e8a66119955662c61e8fe8f35/lib/bom.js#L854
 export type JsonFetchOptions = {
   body?: any,
   cache?: ?CacheType,
   credentials?: ?CredentialsType,
   headers?: ?HeadersInit,
   integrity?: ?string,
-  method?: ?MethodType,
+  method?: ?string,
   mode?: ?ModeType,
   redirect?: ?RedirectType,
   referrer?: ?string,
