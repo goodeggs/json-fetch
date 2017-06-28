@@ -54,13 +54,27 @@ async function createJsonFetchResponse (response: Response): Promise<JsonFetchRe
     statusText: response.statusText,
     headers: response.headers,
     text: responseText,
-    body: getResponseBody(response.headers, responseText),
+    body: getResponseBody(response, responseText),
   };
 }
 
-function getResponseBody (responseHeaders: Headers, responseText: string): ?JSON {
-  if (isApplicationJson(responseHeaders))
-    return JSON.parse(responseText);
+function createErrorResponse (response: Response, responseText: string) {
+  return {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+    text: responseText
+  };
+}
+
+function getResponseBody (response: Response, responseText: string): ?JSON {
+  if (isApplicationJson(response.headers))
+    try {
+      return JSON.parse(responseText);
+    } catch (err) {
+      err.response = createErrorResponse(response, responseText);
+      throw err;
+    }
   return undefined;
 }
 
