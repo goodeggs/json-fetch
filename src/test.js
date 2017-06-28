@@ -75,7 +75,8 @@ describe('jsonFetch', async function () {
         errorThrown = true;
         expect(err.name).to.deep.equal('SyntaxError');
         expect(err.message).to.match(/Unexpected token/);
-        expect(err.responseText).to.deep.equal('foo');
+        expect(err.response.text).to.deep.equal('foo');
+        expect(err.response.status).to.deep.equal(200);
         expect(err.request.url).to.deep.equal('http://www.test.com/products/1234');
       }
       expect(errorThrown).to.be.true();
