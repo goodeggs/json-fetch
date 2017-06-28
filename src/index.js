@@ -60,7 +60,13 @@ async function createJsonFetchResponse (response: Response): Promise<JsonFetchRe
 
 function getResponseBody (responseHeaders: Headers, responseText: string): ?JSON {
   if (isApplicationJson(responseHeaders))
-    return JSON.parse(responseText);
+    try {
+      return JSON.parse(responseText);
+    } catch (err) {
+      err.responseText = responseText
+      err.responseHeaders = responseHeaders
+      throw err;
+    }
   return undefined;
 }
 

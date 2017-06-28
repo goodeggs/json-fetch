@@ -64,6 +64,23 @@ describe('jsonFetch', async function () {
       expect(errorThrown).to.be.true();
     });
 
+    it('rejects with responseText when there is a json parse error', async function () {
+      nock('http://www.test.com')
+        .get('/products/1234')
+        .reply(200, 'foo', {'Content-Type': 'application/json; charset=utf-8'});
+      let errorThrown = false;
+      try {
+        await jsonFetch('http://www.test.com/products/1234');
+      } catch (err) {
+        errorThrown = true;
+        expect(err.name).to.deep.equal('SyntaxError');
+        expect(err.message).to.match(/Unexpected token/);
+        expect(err.responseText).to.deep.equal('foo');
+        expect(err.request.url).to.deep.equal('http://www.test.com/products/1234');
+      }
+      expect(errorThrown).to.be.true();
+    });
+
     it('sends json request body', async function () {
       nock('http://www.test.com')
         .post('/products/1234', {name: 'apple'})
