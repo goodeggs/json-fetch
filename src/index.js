@@ -1,4 +1,5 @@
 // @flow
+import 'babel-polyfill';
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
 
@@ -63,7 +64,7 @@ function createErrorResponse (response: Response, responseText: string) {
     status: response.status,
     statusText: response.statusText,
     headers: response.headers,
-    text: responseText
+    text: responseText,
   };
 }
 
