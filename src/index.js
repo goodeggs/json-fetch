@@ -64,7 +64,7 @@ function createErrorResponse (response: Response, responseText: string) {
     status: response.status,
     statusText: response.statusText,
     headers: response.headers,
-    text: responseText
+    text: responseText,
   };
 }
 
