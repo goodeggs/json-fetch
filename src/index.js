@@ -1,4 +1,5 @@
 // @flow
+import 'babel-polyfill';
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
 
