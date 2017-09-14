@@ -1,7 +1,8 @@
 // @flow
-import 'babel-polyfill';
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
+import stringIncludes from 'string-includes';
+import arrayIncludes from 'array-includes';
 
 import getRequestOptions from './get_request_options';
 import type {JsonFetchOptions, JsonFetchResponse} from '.'; // eslint-disable-line
@@ -81,11 +82,11 @@ function getResponseBody (response: Response, responseText: string): ?JSON {
 
 function isApplicationJson (headers: Headers): boolean {
   const responseContentType = headers.get('Content-Type') || '';
-  return responseContentType.includes('application/json');
+  return stringIncludes(responseContentType, 'application/json');
 }
 
 function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<number>, jsonFetchResponse: T): void {
-  if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status)) {
+  if (Array.isArray(expectedStatuses) && !arrayIncludes(expectedStatuses, jsonFetchResponse.status)) {
     const err = new Error(`Unexpected fetch response status ${jsonFetchResponse.status}`);
     err.name = 'FetchUnexpectedStatusError';
     // $FlowFixMe

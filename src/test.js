@@ -301,7 +301,7 @@ describe('jsonFetch', async function () {
       try {
         await jsonFetch('http://www.test.com/products/1234');
       } catch (err) {
-        expect(err.message).to.equal('Unexpected string in JSON at position 16');
+        expect(err.message).to.contain('Unexpected string');
         return;
       }
       throw new Error('expected to throw');

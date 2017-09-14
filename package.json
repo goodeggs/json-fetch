@@ -21,11 +21,12 @@
   "homepage": "https://github.com/goodeggs/json-fetch",
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "array-includes": "^3.0.3",
     "babel-runtime": "^6.26.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash.pick": "^4.4.0",
-    "promise-retry": "^1.0.1"
+    "promise-retry": "^1.0.1",
+    "string-includes": "^2.0.0"
   },
   "devDependencies": {
     "babel": "^6.3.26",
