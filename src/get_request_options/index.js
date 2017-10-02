@@ -26,6 +26,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
   );
 
   const pickedOptions = pick(jsonFetchOptions, [
+    'agent',
     'body',
     'cache',
     'credentials',
