@@ -59,10 +59,10 @@ async function createJsonFetchResponse (response: Response): Promise<JsonFetchRe
 }
 
 function createErrorResponse (response: Response, responseText: string) {
+  // do not include headers as they potentially contain sensitive information
   return {
     status: response.status,
     statusText: response.statusText,
-    headers: response.headers,
     text: responseText,
   };
 }
