@@ -30,4 +30,14 @@ describe('getRequestOptions', async function () {
     const actual = getRequestOptions({body: {hi: 'hello'}});
     expect(actual).to.deep.equal(expected);
   });
+
+  it('includes whitelisted options', function () {
+    const options = getRequestOptions({timeout: 123});
+    expect(options).to.have.property('timeout', 123);
+  });
+
+  it('excluded non-whitelisted options', function () {
+    const options = getRequestOptions({foo: 'bar'});
+    expect(options).not.to.contain.key('foo');
+  });
 });
