@@ -15,6 +15,7 @@ export type JsonFetchOptions = {
   referrerPolicy?: ?ReferrerPolicyType,
   shouldRetry?: (responseOrError: Response | Error) => boolean,
   retry?: Object,
+  timeout?: number,
   expectedStatuses?: Array<number>,
 }
 
