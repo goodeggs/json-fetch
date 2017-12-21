@@ -1,5 +1,7 @@
 # JSON Fetch
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/goodeggs/json-fetch.svg)](https://greenkeeper.io/)
+
 A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 
 - automatically JSON stringify request body
