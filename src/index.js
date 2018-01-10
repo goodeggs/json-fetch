@@ -3,12 +3,12 @@ import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
 
 import getRequestOptions from './get_request_options';
-import type {JsonFetchOptions, JsonFetchResponse} from '.'; // eslint-disable-line
+import type {JsonFetchOptions, JsonFetchResponse, ShouldRetry} from '.'; // eslint-disable-line
 
 export {default as retriers} from './retriers';
 
 const DEFAULT_RETRY_OPTIONS = {retries: 0};
-const DEFAULT_SHOULD_RETRY = () => false;
+const DEFAULT_SHOULD_RETRY: ShouldRetry = () => false;
 
 export default async function jsonFetch (requestUrl: string, jsonFetchOptions: JsonFetchOptions = {}): Promise<JsonFetchResponse> {
   const expectedStatuses = jsonFetchOptions.expectedStatuses;
