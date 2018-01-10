@@ -1,26 +1,26 @@
 sudo: required
 dist: trusty
-
 language: node_js
 node_js:
-  - 4.8.4
-  - 6.9.1
-  - 8.1.4
-
+- 4.8.4
+- 6.9.1
+- 8.1.4
 cache:
   yarn: true
   directories:
-    - "/home/travis/.npm"
-    - /tmp/ci-tools
-
+  - "/home/travis/.npm"
+  - "/tmp/ci-tools"
 env:
   global:
-    - PATH="/tmp/ci-tools:./node_modules/.bin/:$PATH"
-    - NODE_ENV=test
-    - FORCE_LOGS=yes
-
-before_install: curl -sSL https://github.com/goodeggs/travis-utils/raw/master/install-ci-tools.sh | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=0.21.3
-
+  - PATH="/tmp/ci-tools:./node_modules/.bin/:$PATH"
+  - NODE_ENV=test
+  - FORCE_LOGS=yes
+  - secure: JmHL4thLPcxwHHXNbo8jrmMerT8UVaULwHhF5if3dSBZULI4adbXaViOi9z8ySpVuPgjx6vc7obdKozUG2E0t/kjB9fIr+PVPAz84ajcAYvZ4LqiamROX6fhzqHx6FYgpEqff5kdk34/ZioNAC/AphHYHMwgnJN76OMUHJzDJVYgG7NzM4TXIrqXH2JA62/x7ej3MTvpo0RmsQFQfVs2Lv33fv7NM/WUYoCaGtj+geqpk3AcTDIPVK0cLIap6r87lbo7XVZCDcY9eVgsCMKU9SR2IS+VX0uwv6tr7ag7QJ/gLnp5adPImBWZ8A9/JKahiTDGbmHd6aaaj4wRnB1a2SwOEJc3EaM8pFBtqBoQ8l1PK/MR6SUHdmqudA3x2LoNOvMXmG9ot2m/BCfvoGHo1ER9zznJgUTF+IePLgJbF3BNJ8YHHNNpviDImOF1xer+t0SrlMQRrS4jBlYMcZ75MahyKMF9zXIzryK12sW3ucYGowAsf+26EQVCJNPnZATmgE+eUDMAzk3rqTq+CtMWfp/8JbW4O7qEb5YIhGUDQQpzPDKmTQvOr5+ZC5s3D7xlmSLV8CIEwy/IMzbf66AIu4IuYH2vuyt1Esx3X+6slhISj0EcDedpdkQGWpF7jEMHG0hzJMH3epfarJ8wrY28xC7PtojXNs7ae/aXy4/QdV0= # GH_TOKEN
+before_install:
+- curl -sSL https://github.com/goodeggs/travis-utils/raw/master/install-ci-tools.sh
+  | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=0.21.3
+- yarn global add greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
 install: yarn install
-
 script: yarn test
