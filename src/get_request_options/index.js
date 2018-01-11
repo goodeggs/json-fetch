@@ -37,6 +37,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
     'redirect',
     'referrer',
     'referrerPolicy',
+    'timeout',
   ]);
 
   return Object.assign({}, pickedOptions, parsedOptions);
