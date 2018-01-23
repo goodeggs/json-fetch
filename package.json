@@ -39,7 +39,7 @@
     "babel-preset-es2016": "6.22.0",
     "babel-preset-es2017": "6.22.0",
     "babel-register": "6.24.0",
-    "es6-promise": "4.2.3",
+    "es6-promise": "4.2.4",
     "eslint": "4.x",
     "eslint-plugin-flowtype": "2.30.4",
     "eslint-plugin-goodeggs": "6.0.0",
