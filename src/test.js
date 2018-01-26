@@ -49,7 +49,7 @@ describe('jsonFetch', async function () {
     });
 
     it('rejects when there is a connection error', async function () {
-      this.stub(global, 'fetch', async function () {
+      this.stub(global, 'fetch').callsFake(async function () {
         throw new Error('Something is broken!');
       });
       let errorThrown = false;

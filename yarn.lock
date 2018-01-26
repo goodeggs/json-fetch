@@ -1104,9 +1104,9 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es6-promise@4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.3.tgz#29454b8db21b73fbef1df070c35dc09b7fd606c4"
+es6-promise@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.4.tgz#dc4221c2b16518760bd8c39a52d8f356fc00ed29"
 
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -1387,12 +1387,6 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
-formatio@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/formatio/-/formatio-1.1.1.tgz#5ed3ccd636551097383465d996199100e86161e9"
-  dependencies:
-    samsam "~1.1"
-
 formatio@1.2.0, formatio@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/formatio/-/formatio-1.2.0.tgz#f3b2167d9068c4698a8d51f4f760a39a54d818eb"
@@ -1505,9 +1499,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-goodeggs-test-helpers@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/goodeggs-test-helpers/-/goodeggs-test-helpers-2.0.0.tgz#55ae670663fbd726b8975c898ff2cb3147a9390f"
+goodeggs-test-helpers@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/goodeggs-test-helpers/-/goodeggs-test-helpers-3.0.0.tgz#2ce7867096efe3c4f3fe57922d16075d0cfeab05"
   dependencies:
     bluebird "^3.3.4"
     chai "^3.3.0"
@@ -1517,7 +1511,7 @@ goodeggs-test-helpers@2.0.0:
     chaid "^1.0.2"
     dirty-chai "^1.2.2"
     lodash.isfunction "^3.0.8"
-    sinon "^1.14.1"
+    sinon "^4.1.6"
     sinon-chai "^2.7.0"
 
 graceful-fs@^4.1.2, graceful-fs@^4.1.4:
@@ -1528,9 +1522,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-greenkeeper-lockfile@1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/greenkeeper-lockfile/-/greenkeeper-lockfile-1.12.0.tgz#e2cbb6529ecb2af3dabcf30f027549dceb5fbd6e"
+greenkeeper-lockfile@^1.13.1:
+  version "1.13.1"
+  resolved "https://registry.npmjs.org/greenkeeper-lockfile/-/greenkeeper-lockfile-1.13.1.tgz#b29bef2777641e927742cb102008f4db672f7d66"
   dependencies:
     lodash "^4.17.4"
     require-relative "^0.8.7"
@@ -1629,10 +1623,6 @@ inflight@^1.0.4:
 inherits@2, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
-
-inherits@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
 
 ini@~1.3.0:
   version "1.3.4"
@@ -1936,10 +1926,6 @@ lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@~4.17.0:
 lodash@~4.9.0:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.9.0.tgz#4c20d742f03ce85dc700e0dd7ab9bcab85e6fc14"
-
-lolex@1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/lolex/-/lolex-1.3.2.tgz#7c3da62ffcb30f0f5a80a2566ca24e45d8a01f31"
 
 lolex@^1.6.0:
   version "1.6.0"
@@ -2556,7 +2542,7 @@ safe-buffer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
-samsam@1.1.2, samsam@1.x, samsam@~1.1:
+samsam@1.x:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/samsam/-/samsam-1.1.2.tgz#bec11fdc83a9fda063401210e40176c3024d1567"
 
@@ -2602,14 +2588,17 @@ sinon@4.2.0:
     supports-color "^5.1.0"
     type-detect "^4.0.5"
 
-sinon@^1.14.1:
-  version "1.17.7"
-  resolved "https://registry.yarnpkg.com/sinon/-/sinon-1.17.7.tgz#4542a4f49ba0c45c05eb2e9dd9d203e2b8efe0bf"
+sinon@^4.1.6:
+  version "4.2.1"
+  resolved "https://registry.npmjs.org/sinon/-/sinon-4.2.1.tgz#3664e90ea4bccec6ebde3c06e3da8179983371d9"
   dependencies:
-    formatio "1.1.1"
-    lolex "1.3.2"
-    samsam "1.1.2"
-    util ">=0.10.3 <1"
+    diff "^3.1.0"
+    formatio "1.2.0"
+    lodash.get "^4.4.2"
+    lolex "^2.2.0"
+    nise "^1.2.0"
+    supports-color "^5.1.0"
+    type-detect "^4.0.5"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -2848,12 +2837,6 @@ user-home@^1.1.1:
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
-
-"util@>=0.10.3 <1":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/util/-/util-0.10.3.tgz#7afb1afe50805246489e3db7fe0ed379336ac0f9"
-  dependencies:
-    inherits "2.0.1"
 
 uuid@^3.0.0:
   version "3.0.1"
