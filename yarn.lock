@@ -1104,9 +1104,9 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es6-promise@^4.2.4:
+es6-promise@4.2.4:
   version "4.2.4"
-  resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.4.tgz#dc4221c2b16518760bd8c39a52d8f356fc00ed29"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.4.tgz#dc4221c2b16518760bd8c39a52d8f356fc00ed29"
 
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -1499,9 +1499,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-goodeggs-test-helpers@^3.0.0:
+goodeggs-test-helpers@3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/goodeggs-test-helpers/-/goodeggs-test-helpers-3.0.0.tgz#2ce7867096efe3c4f3fe57922d16075d0cfeab05"
+  resolved "https://registry.yarnpkg.com/goodeggs-test-helpers/-/goodeggs-test-helpers-3.0.0.tgz#2ce7867096efe3c4f3fe57922d16075d0cfeab05"
   dependencies:
     bluebird "^3.3.4"
     chai "^3.3.0"
@@ -1522,9 +1522,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-greenkeeper-lockfile@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.npmjs.org/greenkeeper-lockfile/-/greenkeeper-lockfile-1.13.1.tgz#b29bef2777641e927742cb102008f4db672f7d66"
+greenkeeper-lockfile@1.13.2:
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/greenkeeper-lockfile/-/greenkeeper-lockfile-1.13.2.tgz#3a225f6fef967fc558adf60f5ebfd192fe7d4618"
   dependencies:
     lodash "^4.17.4"
     require-relative "^0.8.7"
@@ -1986,13 +1986,13 @@ mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
 
-minimatch@^3.0.0, minimatch@^3.0.4:
+minimatch@^3.0.0, minimatch@^3.0.3, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
     brace-expansion "^1.1.7"
 
-minimatch@^3.0.2, minimatch@^3.0.3:
+minimatch@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
   dependencies:
@@ -2576,21 +2576,9 @@ sinon-chai@^2.7.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-2.9.0.tgz#34d820042bc9661a14527130d401eb462c49bb84"
 
-sinon@4.2.0:
+sinon@4.2.0, sinon@^4.1.6:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/sinon/-/sinon-4.2.0.tgz#3b7c0d2289a80d2d84c4685f2ec130b7ab9af621"
-  dependencies:
-    diff "^3.1.0"
-    formatio "1.2.0"
-    lodash.get "^4.4.2"
-    lolex "^2.2.0"
-    nise "^1.2.0"
-    supports-color "^5.1.0"
-    type-detect "^4.0.5"
-
-sinon@^4.1.6:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/sinon/-/sinon-4.2.1.tgz#3664e90ea4bccec6ebde3c06e3da8179983371d9"
   dependencies:
     diff "^3.1.0"
     formatio "1.2.0"
