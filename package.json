@@ -41,11 +41,7 @@
     "babel-register": "6.24.0",
     "es6-promise": "4.2.3",
     "eslint": "4.x",
-    "eslint-plugin-flowtype": "2.30.4",
     "eslint-plugin-goodeggs": "6.0.0",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-lodash": "2.5.0",
-    "eslint-plugin-mocha": "4.9.0",
     "flow-bin": "0.64.0",
     "goodeggs-test-helpers": "2.0.0",
     "greenkeeper-lockfile": "1.12.0",
@@ -96,9 +92,7 @@
   },
   "greenkeeper": {
     "ignore": [
-      "eslint",
-      "eslint-plugin-lodash",
-      "eslint-plugin-mocha"
+      "eslint"
     ]
   }
 }
