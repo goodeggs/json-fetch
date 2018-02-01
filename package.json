@@ -43,17 +43,16 @@
     "eslint": "4.x",
     "eslint-plugin-goodeggs": "6.0.0",
     "flow-bin": "0.64.0",
-    "goodeggs-test-helpers": "3.0.0",
+    "goodeggs-test-helpers": "4.0.2",
     "greenkeeper-lockfile": "1.13.2",
     "mocha": "5.0.0",
-    "nock": "9.0.2",
-    "sinon": "4.2.2"
+    "nock": "9.0.2"
   },
   "scripts": {
     "build": "rm -rf lib/ && babel src -d lib && cp src/index.js.flow lib/",
     "pretest": "yarn run build",
-    "prepublish": "yarn run build",
-    "test": "eslint 'src/**.*.js' && flow && mocha --compilers js:babel-register 'src/**/test.js'"
+    "prepublishOnly": "yarn run build",
+    "test": "eslint 'src/**.*.js' && flow && runtest 'src/**/test.js'"
   },
   "eslintConfig": {
     "plugins": [
