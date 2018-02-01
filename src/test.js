@@ -1,14 +1,13 @@
 // @flow
-import 'goodeggs-test-helpers';
-
 import {describe, it, beforeEach, afterEach} from 'mocha';
-import {expect} from 'goodeggs-test-helpers/chai';
-import sinon from 'sinon';
+import {expect, sinon, useSinonSandbox} from 'goodeggs-test-helpers';
 import nock from 'nock';
 
 import jsonFetch, {retriers} from '../src';
 
 describe('jsonFetch', async function () {
+  useSinonSandbox();
+
   describe('single request with no retry', async function () {
     it('resolves with json body for 200 status codes', async function () {
       nock('http://www.test.com')

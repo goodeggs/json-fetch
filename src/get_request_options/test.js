@@ -1,8 +1,6 @@
 // @flow
-import 'goodeggs-test-helpers';
-
 import {describe, it} from 'mocha';
-import {expect} from 'goodeggs-test-helpers/chai';
+import {expect} from 'goodeggs-test-helpers';
 
 import getRequestOptions from '.';
 
