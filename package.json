@@ -46,7 +46,7 @@
     "goodeggs-test-helpers": "4.0.2",
     "greenkeeper-lockfile": "1.13.2",
     "mocha": "5.0.1",
-    "nock": "9.0.2"
+    "nock": "9.1.7"
   },
   "scripts": {
     "build": "rm -rf lib/ && babel src -d lib && cp src/index.js.flow lib/",
