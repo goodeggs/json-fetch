@@ -2108,13 +2108,9 @@ lodash.pick@4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
 
-lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@~4.17.0:
+lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@~4.17.0, lodash@~4.17.2:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-lodash@~4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.9.0.tgz#4c20d742f03ce85dc700e0dd7ab9bcab85e6fc14"
 
 lolex@^1.6.0:
   version "1.6.0"
@@ -2276,18 +2272,19 @@ nise@^1.2.0:
     path-to-regexp "^1.7.0"
     text-encoding "^0.6.4"
 
-nock@9.0.2:
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-9.0.2.tgz#f6a5f4a8d560d61f48b5ad428ccff8dc9b62701e"
+nock@9.1.7:
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-9.1.7.tgz#37fb27f5b8c3de827f9e4d5788a6eec3408fb3cb"
   dependencies:
     chai ">=1.9.2 <4.0.0"
     debug "^2.2.0"
     deep-equal "^1.0.0"
     json-stringify-safe "^5.0.1"
-    lodash "~4.9.0"
+    lodash "~4.17.2"
     mkdirp "^0.5.0"
     propagate "0.4.0"
-    qs "^6.0.2"
+    qs "^6.5.1"
+    semver "^5.3.0"
 
 node-fetch@^1.0.1:
   version "1.6.3"
@@ -2576,7 +2573,11 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-qs@^6.0.2, qs@~6.4.0:
+qs@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
+
+qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
