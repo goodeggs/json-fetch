@@ -206,6 +206,26 @@ describe('jsonFetch', async function () {
       }
       throw new Error('Should have failed');
     });
+
+    it('adds the retryCount to the error', async function () {
+      fetch.restore(); // Don't double stub!
+      sinon.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+      try {
+        await jsonFetch('foo.bar', {
+          shouldRetry: () => true,
+          retry: {
+            retries: 5,
+            factor: 0,
+          },
+        });
+      } catch (err) {
+        expect(fetch.callCount).to.equal(6);
+        expect(err.message).to.equal('ECONRST');
+        expect(err.retryCount).to.equal(5);
+        return;
+      }
+      throw new Error('Should have failed');
+    });
   });
 
   describe('retriers', async function () {
