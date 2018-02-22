@@ -28,13 +28,14 @@ async function retryFetch (requestUrl: string, jsonFetchOptions: JsonFetchOption
   const retryOptions = Object.assign({}, DEFAULT_RETRY_OPTIONS, jsonFetchOptions.retry);
   const requestOptions = getRequestOptions(jsonFetchOptions);
   try {
-    const response = await promiseRetry(async (throwRetryError) => {
+    const response = await promiseRetry(async (throwRetryError, retryCount) => {
       try {
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res))
           throwRetryError();
         return res;
       } catch (err) {
+        err.retryCount = retryCount ? retryCount - 1 : 0;
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err))
           throwRetryError(err);
         throw err;
