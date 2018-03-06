@@ -45,7 +45,7 @@
     "flow-bin": "0.66.0",
     "goodeggs-test-helpers": "4.0.2",
     "greenkeeper-lockfile": "1.13.3",
-    "mocha": "5.0.1",
+    "mocha": "5.0.2",
     "nock": "9.1.7"
   },
   "scripts": {
