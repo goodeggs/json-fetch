@@ -1229,9 +1229,9 @@ eslint-plugin-flowtype@^2.39.1:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-goodeggs@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-6.0.0.tgz#a2012ed517319909e5fd3e34c6a246ab552f8d70"
+eslint-plugin-goodeggs@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-6.1.0.tgz#2ba59a84d71ad641c2cf0e34575acdae81b7ae3c"
   dependencies:
     eslint-plugin-flowtype "^2.39.1"
     eslint-plugin-import "^2.8.0"
