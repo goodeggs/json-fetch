@@ -25,6 +25,10 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
     parsedOptions.headers
   );
 
+  if (Object.keys(parsedOptions.headers).includes('foo')) {
+    console.log('this is not tested');
+  }
+
   const pickedOptions = pick(jsonFetchOptions, [
     'agent',
     'body',
