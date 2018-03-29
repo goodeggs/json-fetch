@@ -51,7 +51,7 @@
     "build": "rm -rf lib/ && babel src -d lib && cp src/index.js.flow lib/",
     "pretest": "yarn run build",
     "prepublishOnly": "yarn run build",
-    "test": "eslint 'src/**.*.js' && flow && runtest 'src/**/test.js'"
+    "test": "eslint 'src/**.*.js' && flow && runtest --coverage 'src/**/test.js'"
   },
   "eslintConfig": {
     "plugins": [
