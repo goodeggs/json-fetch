@@ -87,9 +87,9 @@ function isApplicationJson (headers: Headers): boolean {
 function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<number>, jsonFetchResponse: T): void {
   if (Array.isArray(expectedStatuses) && expectedStatuses.indexOf(jsonFetchResponse.status) === -1) {
     const err = new Error(`Unexpected fetch response status ${jsonFetchResponse.status}`);
-    err.name = 'FetchUnexpectedStatusError';
     // $FlowFixMe
     err.response = jsonFetchResponse;
+    err.name = 'FetchUnexpectedStatusError';
     throw err;
   }
 }
