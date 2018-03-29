@@ -1,6 +1,7 @@
 # JSON Fetch
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/goodeggs/json-fetch.svg)](https://greenkeeper.io/)
+[![codecov badge](https://codecov.io/gh/goodeggs/json-fetch/branch/master/graph/badge.svg)](https://codecov.io/gh/goodeggs/json-fetch)
 
 A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 
