@@ -12,7 +12,6 @@ A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 - configurable retry option for requests
 
 [![build status][travis-badge]][travis-link]
-[![npm version][npm-badge]][npm-link]
 [![MIT license][license-badge]][license-link]
 [![we're hiring][hiring-badge]][hiring-link]
 
