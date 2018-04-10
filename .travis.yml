@@ -18,10 +18,8 @@ env:
 before_install:
 - curl -sSL https://github.com/goodeggs/travis-utils/raw/master/install-ci-tools.sh
   | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=0.21.3
-- yarn global add greenkeeper-lockfile@1 codecov
-before_script: greenkeeper-lockfile-update
+- yarn global add codecov
 after_script:
-- greenkeeper-lockfile-upload
 - codecov
 install: yarn install
 script: yarn test

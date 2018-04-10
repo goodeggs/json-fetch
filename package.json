@@ -87,10 +87,5 @@
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "eslint"
-    ]
   }
 }
