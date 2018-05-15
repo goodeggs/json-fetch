@@ -45,7 +45,7 @@
     "flow-bin": "0.71.0",
     "goodeggs-test-helpers": "5.1.1",
     "mocha": "5.1.1",
-    "nock": "9.2.5"
+    "nock": "9.2.6"
   },
   "scripts": {
     "build": "rm -rf lib/ && babel src -d lib && cp src/index.js.flow lib/",
