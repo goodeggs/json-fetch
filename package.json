@@ -44,7 +44,7 @@
     "eslint-plugin-goodeggs": "6.1.1",
     "flow-bin": "0.71.0",
     "goodeggs-test-helpers": "5.1.1",
-    "mocha": "5.1.1",
+    "mocha": "5.2.0",
     "nock": "9.2.6"
   },
   "scripts": {
