@@ -1,12 +1,12 @@
 // @flow
 import {describe, it, beforeEach, afterEach} from 'mocha';
-import {expect, sinon, useSinonSandbox} from 'goodeggs-test-helpers';
+import {expect, useSinonSandbox} from 'goodeggs-test-helpers';
 import nock from 'nock';
 
 import jsonFetch, {retriers} from '../src';
 
 describe('jsonFetch', async function () {
-  useSinonSandbox();
+  const {sandbox} = useSinonSandbox();
 
   describe('single request with no retry', async function () {
     it('resolves with json body for 200 status codes', async function () {
@@ -48,7 +48,7 @@ describe('jsonFetch', async function () {
     });
 
     it('rejects when there is a connection error', async function () {
-      this.stub(global, 'fetch').callsFake(async function () {
+      sandbox.stub(global, 'fetch').callsFake(async function () {
         throw new Error('Something is broken!');
       });
       let errorThrown = false;
@@ -133,7 +133,7 @@ describe('jsonFetch', async function () {
 
   describe('retry', async function () {
     beforeEach(() => {
-      sinon.spy(global, 'fetch');
+      sandbox.spy(global, 'fetch');
     });
 
     afterEach(() => {
@@ -190,7 +190,7 @@ describe('jsonFetch', async function () {
 
     it('respects the should retry function for a network error', async function () {
       fetch.restore(); // Don't double stub!
-      sinon.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+      sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
           shouldRetry: () => true,
@@ -209,7 +209,7 @@ describe('jsonFetch', async function () {
 
     it('adds the retryCount to the error', async function () {
       fetch.restore(); // Don't double stub!
-      sinon.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+      sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
           shouldRetry: () => true,
@@ -252,8 +252,8 @@ describe('jsonFetch', async function () {
         });
 
         it('attempts to retry on a 5xx error code', async function () {
-          sinon.spy(retriers, 'is5xx');
-          sinon.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
+          sandbox.spy(retriers, 'is5xx');
+          sandbox.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
           try {
             await jsonFetch('http://www.test.com/', {
               shouldRetry: retriers.is5xx,
@@ -290,8 +290,8 @@ describe('jsonFetch', async function () {
         });
 
         it('attempts to retry on a network error', async function () {
-          sinon.spy(retriers, 'isNetworkError');
-          sinon.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+          sandbox.spy(retriers, 'isNetworkError');
+          sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
           try {
             await jsonFetch('foo.bar', {
               shouldRetry: retriers.isNetworkError,

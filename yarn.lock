@@ -1594,9 +1594,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-goodeggs-test-helpers@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/goodeggs-test-helpers/-/goodeggs-test-helpers-5.1.1.tgz#1a9cf8f8670089c4425aed37f8abe9e4ae877052"
+goodeggs-test-helpers@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.npmjs.org/goodeggs-test-helpers/-/goodeggs-test-helpers-6.1.1.tgz#7887b37c0e6f44d450133470452f395542f32b0b"
   dependencies:
     chai "4.1.2"
     chai-as-promised "7.1.1"
