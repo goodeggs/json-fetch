@@ -21,13 +21,13 @@ export type JsonFetchOptions = {
   expectedStatuses?: Array<number>,
 };
 
-export type JsonFetchResponse = {
-  status: number,
-  statusText: string,
-  headers: Headers,
-  text: string,
-  body: any,
-};
+export type JsonFetchResponse = {|
+  +status: number,
+  +statusText: string,
+  +headers: Headers,
+  +text: string,
+  +body: any,
+|};
 
 declare function jsonFetch (requestUrl: string, requestOptions: ?JsonFetchOptions): Promise<JsonFetchResponse>;
 declare var retriers: {
