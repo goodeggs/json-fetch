@@ -40,7 +40,7 @@
     "babel-preset-es2017": "6.24.1",
     "babel-register": "6.26.0",
     "es6-promise": "4.2.4",
-    "eslint": "4.19.1",
+    "eslint": "5.4.0",
     "eslint-plugin-goodeggs": "6.1.1",
     "flow-bin": "^0.77.0",
     "goodeggs-test-helpers": "^6.1.1",
