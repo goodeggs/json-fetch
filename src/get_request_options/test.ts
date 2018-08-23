@@ -1,5 +1,5 @@
-// @flow
 import {describe, it} from 'mocha';
+// @ts-ignore pls2write libdef
 import {expect} from 'goodeggs-test-helpers';
 
 import getRequestOptions from '.';
@@ -35,6 +35,7 @@ describe('getRequestOptions', async function () {
   });
 
   it('excluded non-whitelisted options', function () {
+    // @ts-ignore intentionally wrong
     const options = getRequestOptions({foo: 'bar'});
     expect(options).not.to.contain.key('foo');
   });

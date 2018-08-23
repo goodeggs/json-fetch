@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "./",
+    "outDir": "lib",
+    "module": "commonjs",
+    "lib": ["dom", "esnext"],
+    "downlevelIteration": true,
+    "strict": true,
+    "noEmit": true
+  }
+}

@@ -1,14 +1,37 @@
-// @flow
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
 
 import getRequestOptions from './get_request_options';
-import type {JsonFetchOptions, JsonFetchResponse, ShouldRetry} from '.'; // eslint-disable-line
 
 export {default as retriers} from './retriers';
 
+export interface JsonFetchOptions {
+  body?: any;
+  cache?: RequestCache;
+  credentials?: RequestCredentials;
+  headers?: HeadersInit;
+  integrity?: string;
+  method?: string;
+  mode?: RequestMode;
+  redirect?: RequestRedirect;
+  referrer?: string;
+  referrerPolicy?: ReferrerPolicy;
+  shouldRetry?: (responseOrError: Response | Error) => boolean;
+  retry?: object;
+  timeout?: number;
+  expectedStatuses?: Array<number>;
+};
+
+interface JsonFetchResponse {
+  status: number,
+  statusText: string,
+  headers: Headers,
+  text: string,
+  body: any,
+}
+
 const DEFAULT_RETRY_OPTIONS = {retries: 0};
-const DEFAULT_SHOULD_RETRY: ShouldRetry = () => false;
+const DEFAULT_SHOULD_RETRY = () => false;
 
 export default async function jsonFetch (requestUrl: string, jsonFetchOptions: JsonFetchOptions = {}): Promise<JsonFetchResponse> {
   const expectedStatuses = jsonFetchOptions.expectedStatuses;
@@ -31,8 +54,10 @@ async function retryFetch (requestUrl: string, jsonFetchOptions: JsonFetchOption
     const response = await promiseRetry(async (throwRetryError, retryCount) => {
       try {
         const res = await fetch(requestUrl, requestOptions);
-        if (shouldRetry(res))
+        if (shouldRetry(res)) {
+          // @ts-ignore throwRetryError takes an error argument...
           throwRetryError();
+        }
         return res;
       } catch (err) {
         err.retryCount = retryCount ? retryCount - 1 : 0;
@@ -68,14 +93,15 @@ function createErrorResponse (response: Response, responseText: string) {
   };
 }
 
-function getResponseBody (response: Response, responseText: string): ?JSON {
-  if (isApplicationJson(response.headers))
+function getResponseBody (response: Response, responseText: string): JSON | void {
+  if (isApplicationJson(response.headers)) {
     try {
       return JSON.parse(responseText);
     } catch (err) {
       err.response = createErrorResponse(response, responseText);
       throw err;
     }
+  }
   return undefined;
 }
 
@@ -84,17 +110,17 @@ function isApplicationJson (headers: Headers): boolean {
   return /application\/json/.test(responseContentType);
 }
 
-function assertExpectedStatus <T: {+status: number}> (expectedStatuses: ?Array<number>, jsonFetchResponse: T): void {
+function assertExpectedStatus (expectedStatuses: Array<number> | void, jsonFetchResponse: {status: number}): void {
   if (Array.isArray(expectedStatuses) && expectedStatuses.indexOf(jsonFetchResponse.status) === -1) {
     const err = new Error(`Unexpected fetch response status ${jsonFetchResponse.status}`);
     err.name = 'FetchUnexpectedStatusError';
-    // $FlowFixMe
+    // @ts-ignore Error doesn't have a `response` field?
     err.response = jsonFetchResponse;
     throw err;
   }
 }
 
-function getErrorRequestData ({requestUrl, requestOptions}) {
+function getErrorRequestData ({requestUrl, requestOptions}: {requestUrl: string, requestOptions: JsonFetchOptions}) {
   const data = Object.assign({}, requestOptions, {url: requestUrl});
   // do not include headers as they potentially contain sensitive information
   delete data.headers;

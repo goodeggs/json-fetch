@@ -1,5 +1,6 @@
 // @flow
 import {describe, it, beforeEach, afterEach} from 'mocha';
+// @ts-ignore pls2write libdef
 import {expect, useSinonSandbox} from 'goodeggs-test-helpers';
 import nock from 'nock';
 
@@ -132,23 +133,17 @@ describe('jsonFetch', async function () {
   });
 
   describe('retry', async function () {
-    beforeEach(() => {
-      sandbox.spy(global, 'fetch');
-    });
-
-    afterEach(() => {
-      fetch.restore();
-    });
-
     it('does not retry by default', async function () {
+      const fetchSpy = sandbox.spy(global, 'fetch');
       nock('http://www.test.com')
         .get('/')
         .reply(200, {});
       await jsonFetch('http://www.test.com/');
-      expect(fetch.callCount).to.equal(1);
+      expect(fetchSpy.callCount).to.equal(1);
     });
 
     it('does specified number of retries', async function () {
+      const fetchSpy = sandbox.spy(global, 'fetch');
       nock('http://www.test.com')
         .get('/')
         .reply(200, {});
@@ -163,20 +158,21 @@ describe('jsonFetch', async function () {
       } catch (err) {
         expect(err.request.url).to.equal('http://www.test.com/');
         expect(err.request.retry.retries).to.equal(5);
-        expect(fetch.callCount).to.equal(6); // 5 retries + 1 original = 6
+        expect(fetchSpy.callCount).to.equal(6); // 5 retries + 1 original = 6
         return;
       }
       throw new Error('Should have failed');
     });
 
     it('respects the shouldRetry() function', async function () {
+      const fetchSpy = sandbox.spy(global, 'fetch');
       nock('http://www.test.com')
         .get('/')
         .times(6)
         .reply(200, {});
       try {
         await jsonFetch('http://www.test.com/', {
-          shouldRetry: () => fetch.callCount < 3,
+          shouldRetry: () => fetchSpy.callCount < 3,
           retry: {
             retries: 5,
             factor: 0,
@@ -185,12 +181,11 @@ describe('jsonFetch', async function () {
       } catch (err) {
         throw new Error('Should not fail');
       }
-      expect(fetch.callCount).to.equal(3); // 2 retries + 1 original = 3
+      expect(fetchSpy.callCount).to.equal(3); // 2 retries + 1 original = 3
     });
 
     it('respects the should retry function for a network error', async function () {
-      fetch.restore(); // Don't double stub!
-      sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+      const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
           shouldRetry: () => true,
@@ -200,7 +195,7 @@ describe('jsonFetch', async function () {
           },
         });
       } catch (err) {
-        expect(fetch.callCount).to.equal(6);
+        expect(fetchStub.callCount).to.equal(6);
         expect(err.message).to.equal('ECONRST');
         return;
       }
@@ -208,8 +203,7 @@ describe('jsonFetch', async function () {
     });
 
     it('adds the retryCount to the error', async function () {
-      fetch.restore(); // Don't double stub!
-      sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+      const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
           shouldRetry: () => true,
@@ -219,7 +213,7 @@ describe('jsonFetch', async function () {
           },
         });
       } catch (err) {
-        expect(fetch.callCount).to.equal(6);
+        expect(fetchStub.callCount).to.equal(6);
         expect(err.message).to.equal('ECONRST');
         expect(err.retryCount).to.equal(5);
         return;
@@ -247,13 +241,9 @@ describe('jsonFetch', async function () {
       });
 
       describe('used within jsonFetch', async function () {
-        afterEach(() => {
-          fetch.restore();
-        });
-
         it('attempts to retry on a 5xx error code', async function () {
-          sandbox.spy(retriers, 'is5xx');
-          sandbox.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
+          const retriersIs5xxSpy = sandbox.spy(retriers, 'is5xx');
+          const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
           try {
             await jsonFetch('http://www.test.com/', {
               shouldRetry: retriers.is5xx,
@@ -263,8 +253,8 @@ describe('jsonFetch', async function () {
               },
             });
           } catch (err) {
-            expect(fetch.callCount).to.equal(4);
-            expect(retriers.is5xx.callCount).to.equal(4);
+            expect(fetchStub.callCount).to.equal(4);
+            expect(retriersIs5xxSpy.callCount).to.equal(4);
             return;
           }
           throw new Error('Should have failed');
@@ -286,12 +276,12 @@ describe('jsonFetch', async function () {
 
       describe('used within jsonFetch', async function () {
         afterEach(() => {
-          fetch.restore();
+          // fetch.restore();
         });
 
         it('attempts to retry on a network error', async function () {
-          sandbox.spy(retriers, 'isNetworkError');
-          sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
+          const retriersIsNetworkErrorSpy = sandbox.spy(retriers, 'isNetworkError');
+          const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
           try {
             await jsonFetch('foo.bar', {
               shouldRetry: retriers.isNetworkError,
@@ -301,8 +291,8 @@ describe('jsonFetch', async function () {
               },
             });
           } catch (err) {
-            expect(fetch.callCount).to.equal(6);
-            expect(retriers.isNetworkError.callCount).to.equal(6);
+            expect(fetchStub.callCount).to.equal(6);
+            expect(retriersIsNetworkErrorSpy.callCount).to.equal(6);
             expect(err.message).to.equal('ECONRST');
             return;
           }
