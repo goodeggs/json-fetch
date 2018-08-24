@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+import _ from 'lodash';
 import promiseRetry from 'promise-retry';
 
 import getRequestOptions from './get_request_options';
@@ -20,7 +21,7 @@ export interface JsonFetchOptions {
   retry?: object;
   timeout?: number;
   expectedStatuses?: Array<number>;
-};
+}
 
 interface JsonFetchResponse {
   status: number,
@@ -31,7 +32,7 @@ interface JsonFetchResponse {
 }
 
 const DEFAULT_RETRY_OPTIONS = {retries: 0};
-const DEFAULT_SHOULD_RETRY = () => false;
+const DEFAULT_SHOULD_RETRY = _.constant(false);
 
 export default async function jsonFetch (requestUrl: string, jsonFetchOptions: JsonFetchOptions = {}): Promise<JsonFetchResponse> {
   const expectedStatuses = jsonFetchOptions.expectedStatuses;
@@ -111,7 +112,7 @@ function isApplicationJson (headers: Headers): boolean {
 }
 
 function assertExpectedStatus (expectedStatuses: Array<number> | void, jsonFetchResponse: {status: number}): void {
-  if (Array.isArray(expectedStatuses) && expectedStatuses.indexOf(jsonFetchResponse.status) === -1) {
+  if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status)) {
     const err = new Error(`Unexpected fetch response status ${jsonFetchResponse.status}`);
     err.name = 'FetchUnexpectedStatusError';
     // @ts-ignore Error doesn't have a `response` field?

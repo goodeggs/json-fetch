@@ -1,5 +1,5 @@
-// @flow
-import {describe, it, beforeEach, afterEach} from 'mocha';
+import _ from 'lodash';
+import {describe, it, afterEach} from 'mocha';
 // @ts-ignore pls2write libdef
 import {expect, useSinonSandbox} from 'goodeggs-test-helpers';
 import nock from 'nock';
@@ -149,7 +149,7 @@ describe('jsonFetch', async function () {
         .reply(200, {});
       try {
         await jsonFetch('http://www.test.com/', {
-          shouldRetry: () => true,
+          shouldRetry: _.constant(true),
           retry: {
             retries: 5,
             factor: 0,
@@ -188,7 +188,7 @@ describe('jsonFetch', async function () {
       const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
-          shouldRetry: () => true,
+          shouldRetry: _.constant(true),
           retry: {
             retries: 5,
             factor: 0,
@@ -206,7 +206,7 @@ describe('jsonFetch', async function () {
       const fetchStub = sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
         await jsonFetch('foo.bar', {
-          shouldRetry: () => true,
+          shouldRetry: _.constant(true),
           retry: {
             retries: 5,
             factor: 0,

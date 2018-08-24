@@ -22,7 +22,7 @@
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "dependencies": {
     "isomorphic-fetch": "2.2.1",
-    "lodash.pick": "4.4.0",
+    "lodash": "^4.17.10",
     "promise-retry": "1.1.1"
   },
   "devDependencies": {
@@ -63,10 +63,10 @@
       "typescript"
     ],
     "extends": [
-      "plugin:goodeggs/goodeggs",
-      "plugin:flowtype/recommended"
+      "plugin:goodeggs/goodeggs"
     ],
     "rules": {
+      "no-undef": "off",
       "no-eq-null": "off",
       "prefer-reflect": "off",
       "lodash/prefer-lodash-typecheck": "off",

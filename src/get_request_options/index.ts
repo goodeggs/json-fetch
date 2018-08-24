@@ -1,5 +1,4 @@
-// @flow
-import pick from 'lodash.pick';
+import _ from 'lodash';
 
 import {JsonFetchOptions} from '../';
 
@@ -25,7 +24,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
     parsedOptions.headers
   );
 
-  const pickedOptions = pick(jsonFetchOptions, [
+  const pickedOptions = _.pick(jsonFetchOptions, [
     'agent',
     'body',
     'cache',
