@@ -51,7 +51,7 @@
     "typescript-eslint-parser": "^18.0.0"
   },
   "scripts": {
-    "build": "rm -rf lib/ && babel --extensions '.ts' src -d lib && cp src/index.js.flow lib/",
+    "build": "rm -rf lib/ && babel --extensions '.ts' src -d lib && tsc && cp types/index.d.ts lib/ && cp src/index.js.flow lib/",
     "pretest": "yarn run build",
     "prepublishOnly": "yarn run build",
     "test": "eslint 'src/**/*.ts' && flow && babel-node --extensions '.ts' node_modules/.bin/_mocha 'src/**/test.ts'"

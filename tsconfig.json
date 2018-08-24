@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "rootDir": "./",
-    "outDir": "lib",
-    "module": "commonjs",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "lib": ["dom", "esnext"],
-    "downlevelIteration": true,
-    "strict": true,
-    "noEmit": true
-  }
+    "module": "commonjs",
+    "outDir": "types",
+    "rootDir": "src",
+    "strict": true
+  },
+  "files": [
+    "src/index.ts"
+  ]
 }
