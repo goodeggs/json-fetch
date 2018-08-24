@@ -8,15 +8,15 @@ export {default as retriers} from './retriers';
 
 export interface JsonFetchOptions {
   body?: any;
-  cache?: RequestCache;
-  credentials?: RequestCredentials;
-  headers?: HeadersInit;
-  integrity?: string;
-  method?: string;
-  mode?: RequestMode;
-  redirect?: RequestRedirect;
-  referrer?: string;
-  referrerPolicy?: ReferrerPolicy;
+  cache?: RequestCache | void;
+  credentials?: RequestCredentials | void;
+  headers?: HeadersInit | void;
+  integrity?: string | void;
+  method?: string | void;
+  mode?: RequestMode | void;
+  redirect?: RequestRedirect | void;
+  referrer?: string | void;
+  referrerPolicy?: ReferrerPolicy | void;
   shouldRetry?: (responseOrError: Response | Error) => boolean;
   retry?: object;
   timeout?: number;
