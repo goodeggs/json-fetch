@@ -34,7 +34,7 @@
     "@babel/preset-typescript": "^7.0.0-rc.2",
     "@babel/register": "^7.0.0-rc.2",
     "@babel/runtime": "^7.0.0-rc.2",
-    "@types/lodash.pick": "^4.4.4",
+    "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.2.5",
     "@types/nock": "^9.3.0",
     "@types/promise-retry": "^1.1.2",
