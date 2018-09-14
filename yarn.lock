@@ -1222,19 +1222,19 @@ eslint-plugin-flowtype@^2.39.1:
   dependencies:
     lodash "^4.17.10"
 
-eslint-plugin-goodeggs@6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-6.1.1.tgz#dcc7f402b928fe61070eb079262eb018dce5caa8"
+eslint-plugin-goodeggs@6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-6.7.0.tgz#5fda48e4ac24f08ef0f08612eb5cfe2c9fa83322"
   dependencies:
     eslint-plugin-flowtype "^2.39.1"
-    eslint-plugin-import "^v2.12.0"
+    eslint-plugin-import "^v2.14.0"
     eslint-plugin-lodash "^2.5.0"
-    eslint-plugin-mocha "^4.11.0"
+    eslint-plugin-mocha "^5.2.0"
     globals "^10.3.0"
 
-eslint-plugin-import@^v2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.12.0.tgz#dad31781292d6664b25317fd049d2e2b2f02205d"
+eslint-plugin-import@^v2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.14.0.tgz#6b17626d2e3e6ad52cfce8807a845d15e22111a8"
   dependencies:
     contains-path "^0.1.0"
     debug "^2.6.8"
@@ -1253,9 +1253,9 @@ eslint-plugin-lodash@^2.5.0:
   dependencies:
     lodash "~4.17.0"
 
-eslint-plugin-mocha@^4.11.0:
-  version "4.12.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-4.12.1.tgz#dbacc543b178b4536ec5b19d7f8e8864d85404bf"
+eslint-plugin-mocha@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-5.2.0.tgz#d8786d9fff8cb8b5f6e4b61e40395d6568a5c4e2"
   dependencies:
     ramda "^0.25.0"
 
