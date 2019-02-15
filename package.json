@@ -45,23 +45,36 @@
     "babel-preset-es2017": "6.24.1",
     "babel-register": "6.26.0",
     "es6-promise": "4.2.5",
-    "eslint": "4.19.1",
-    "eslint-plugin-goodeggs": "7.1.0",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-goodeggs": "7.3.2",
+    "eslint-plugin-prettier": "^3.0.1",
     "flow-bin": "^0.81.0",
     "goodeggs-test-helpers": "^6.1.1",
     "leasot": "^7.3.1",
     "mocha": "5.2.0",
     "nock": "10.0.0",
-    "nyc": "^13.3.0"
+    "nyc": "^13.3.0",
+    "prettier": "^1.16.4"
   },
   "scripts": {
     "build": "yarn run build:clean && yarn run build:transpile",
     "build:clean": "rm -rf lib",
     "build:transpile": "babel src --out-dir lib --copy-files",
+    "lint": "yarn run lint:src && yarn run lint:prettier",
+    "lint:src": "yarn run lint:src:glob '**/*.{js,jsx,ts,tsx}'",
+    "lint:src:glob": "eslint --ignore-path .eslintignore",
+    "lint:prettier": "yarn run lint:prettier:glob '**/*.{yml,json,md,gql,graphql,flow}'",
+    "lint:prettier:glob": "prettier --ignore-path .eslintignore --list-different",
+    "fmt": "yarn run fmt:src && yarn run fmt:prettier",
+    "fmt:src": "yarn run fmt:src:glob '**/*.{js,jsx,ts,tsx}'",
+    "fmt:src:glob": "eslint --ignore-path .eslintignore --fix",
+    "fmt:prettier": "yarn run fmt:prettier:glob '**/*.{yml,json,md,gql,graphql,flow}'",
+    "fmt:prettier:glob": "prettier --ignore-path .eslintignore --write",
     "prepublishOnly": "yarn run build",
     "postversion": "git push --follow-tags",
     "tdd": "yarn run test:mocha --watch",
-    "test": "yarn run todos && yarn run typecheck && yarn run test:mocha:coverage",
+    "test": "yarn run todos && yarn run lint && yarn run typecheck && yarn run test:mocha:coverage",
     "test:mocha": "yarn run test:mocha:glob 'src/**/test.js'",
     "test:mocha:coverage": "yarn run nyc --report-dir=.coverage --temp-directory=.coverage/.nyc_output --reporter=lcov --reporter=text-summary yarn run test:mocha",
     "test:mocha:glob": "NODE_ENV=test yarn run mocha --opts mocha.opts",
@@ -70,21 +83,15 @@
     "typecheck": "flow"
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "plugins": [
-      "goodeggs",
-      "flowtype"
+      "goodeggs"
     ],
     "extends": [
       "plugin:goodeggs/goodeggs",
-      "plugin:flowtype/recommended"
+      "prettier",
+      "plugin:prettier/recommended"
     ],
-    "rules": {
-      "no-eq-null": "off",
-      "prefer-reflect": "off",
-      "lodash/prefer-lodash-typecheck": "off",
-      "lodash/prefer-includes": "off",
-      "lodash/prefer-constant": "off"
-    },
     "env": {
       "browser": true,
       "node": true
