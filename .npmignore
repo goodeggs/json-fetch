@@ -1,6 +1,2 @@
-.editorconfig
-.gitignore
-.travis.yml
-test
-src
-yarn.lock
+*
+!lib/**
