@@ -4,7 +4,8 @@
   "description": "A wrapper around ES6 fetch to simplify interacting with JSON APIs.",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
-    "dannynelson <danny@goodeggs.com>"
+    "dannynelson <danny@goodeggs.com>",
+    "Arlo Armstrong <arlo@goodeggs.com>"
   ],
   "license": "MIT",
   "keywords": [
