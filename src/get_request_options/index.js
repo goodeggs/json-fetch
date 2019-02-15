@@ -1,5 +1,5 @@
 // @flow
-import pick from 'lodash.pick';
+import _ from 'lodash';
 
 import type {JsonFetchOptions} from '../index.js.flow';
 
@@ -25,7 +25,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
     parsedOptions.headers
   );
 
-  const pickedOptions = pick(jsonFetchOptions, [
+  const pickedOptions = _.pick(jsonFetchOptions, [
     'agent',
     'body',
     'cache',
