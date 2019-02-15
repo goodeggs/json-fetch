@@ -49,8 +49,10 @@
     "eslint-plugin-goodeggs": "7.1.0",
     "flow-bin": "^0.81.0",
     "goodeggs-test-helpers": "^6.1.1",
+    "leasot": "^7.3.1",
     "mocha": "5.2.0",
-    "nock": "10.0.0"
+    "nock": "10.0.0",
+    "nyc": "^13.3.0"
   },
   "scripts": {
     "build": "yarn run build:clean && yarn run build:transpile",
@@ -58,7 +60,14 @@
     "build:transpile": "babel src --out-dir lib --copy-files",
     "prepublishOnly": "yarn run build",
     "postversion": "git push --follow-tags",
-    "test": "eslint 'src/**.*.js' && flow && runtest --coverage 'src/**/test.js'"
+    "tdd": "yarn run test:mocha --watch",
+    "test": "yarn run todos && yarn run typecheck && yarn run test:mocha:coverage",
+    "test:mocha": "yarn run test:mocha:glob 'src/**/test.js'",
+    "test:mocha:coverage": "yarn run nyc --report-dir=.coverage --temp-directory=.coverage/.nyc_output --reporter=lcov --reporter=text-summary yarn run test:mocha",
+    "test:mocha:glob": "NODE_ENV=test yarn run mocha --opts mocha.opts",
+    "todos": "yarn run todos:glob '**/*.{js,jsx,ts,tsx}'",
+    "todos:glob": "leasot --exit-nicely --tags '\\$FlowFixMe' --ignore='node_modules/**','lib/**','flow-typed/**'",
+    "typecheck": "flow"
   },
   "eslintConfig": {
     "plugins": [
