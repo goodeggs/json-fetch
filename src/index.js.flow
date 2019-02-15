@@ -29,10 +29,13 @@ export type JsonFetchResponse = {|
   +body: any,
 |};
 
-declare function jsonFetch (requestUrl: string, requestOptions: ?JsonFetchOptions): Promise<JsonFetchResponse>;
+declare function jsonFetch(
+  requestUrl: string,
+  requestOptions: ?JsonFetchOptions,
+): Promise<JsonFetchResponse>;
 declare var retriers: {
-  is5xx (response: Response | Error): boolean;
-  isNetworkError (response: Response | Error): boolean;
+  is5xx(response: Response | Error): boolean,
+  isNetworkError(response: Response | Error): boolean,
 };
 
 declare export var retriers: typeof retriers;

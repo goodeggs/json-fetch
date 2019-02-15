@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import type {JsonFetchOptions} from '../index.js.flow';
 
-export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): RequestOptions {
+export default function getRequestOptions(jsonFetchOptions: JsonFetchOptions): RequestOptions {
   const parsedOptions = {};
   parsedOptions.headers = {};
 
@@ -22,7 +22,7 @@ export default function getRequestOptions (jsonFetchOptions: JsonFetchOptions): 
       Accept: 'application/json',
     },
     jsonFetchOptions.headers,
-    parsedOptions.headers
+    parsedOptions.headers,
   );
 
   const pickedOptions = _.pick(jsonFetchOptions, [

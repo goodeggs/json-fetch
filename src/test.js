@@ -5,11 +5,11 @@ import nock from 'nock';
 
 import jsonFetch, {retriers} from '../src';
 
-describe('jsonFetch', async function () {
+describe('jsonFetch', async function() {
   const {sandbox} = useSinonSandbox();
 
-  describe('single request with no retry', async function () {
-    it('resolves with json body for 200 status codes', async function () {
+  describe('single request with no retry', async function() {
+    it('resolves with json body for 200 status codes', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, {name: 'apple'});
@@ -20,7 +20,7 @@ describe('jsonFetch', async function () {
       expect(response.headers).to.be.ok();
     });
 
-    it('resolves with JSON body for 500 status codes', async function () {
+    it('resolves with JSON body for 500 status codes', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(500, '"Something went wrong"', {'Content-Type': 'application/json'});
@@ -31,7 +31,7 @@ describe('jsonFetch', async function () {
       expect(response.headers).to.be.ok();
     });
 
-    it('resolves with JSON body when content-type contains other values but includes application/json', async function () {
+    it('resolves with JSON body when content-type contains other values but includes application/json', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(204, '[{}]', {'Content-Type': 'application/json; charset=utf-8'});
@@ -39,7 +39,7 @@ describe('jsonFetch', async function () {
       expect(response.body).to.deep.equal([{}]);
     });
 
-    it('resolves with non-JSON body', async function () {
+    it('resolves with non-JSON body', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, 'This is not JSON', {'Content-Type': 'text/plain'});
@@ -47,8 +47,8 @@ describe('jsonFetch', async function () {
       expect(response.body).to.equal(undefined);
     });
 
-    it('rejects when there is a connection error', async function () {
-      sandbox.stub(global, 'fetch').callsFake(async function () {
+    it('rejects when there is a connection error', async function() {
+      sandbox.stub(global, 'fetch').callsFake(async function() {
         throw new Error('Something is broken!');
       });
       let errorThrown = false;
@@ -63,7 +63,7 @@ describe('jsonFetch', async function () {
       expect(errorThrown).to.be.true();
     });
 
-    it('rejects with responseText when there is a json parse error', async function () {
+    it('rejects with responseText when there is a json parse error', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, 'foo', {'Content-Type': 'application/json; charset=utf-8'});
@@ -81,7 +81,7 @@ describe('jsonFetch', async function () {
       expect(errorThrown).to.be.true();
     });
 
-    it('sends json request body', async function () {
+    it('sends json request body', async function() {
       nock('http://www.test.com')
         .post('/products/1234', {name: 'apple'})
         .reply(201, {_id: '1234', name: 'apple'});
@@ -96,8 +96,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('expected statuses', function () {
-    it('errors with FetchUnexpectedStatus if the response has an unexpected status code', async function () {
+  describe('expected statuses', function() {
+    it('errors with FetchUnexpectedStatus if the response has an unexpected status code', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(400, 'not found');
@@ -114,15 +114,17 @@ describe('jsonFetch', async function () {
       throw new Error('expected to throw');
     });
 
-    it('returns a response with an expected status code', async function () {
+    it('returns a response with an expected status code', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(201, 'not found');
-      const response = await jsonFetch('http://www.test.com/products/1234', {expectedStatuses: [201]});
+      const response = await jsonFetch('http://www.test.com/products/1234', {
+        expectedStatuses: [201],
+      });
       expect(response).to.have.property('status', 201);
     });
 
-    it('returns a response without an expected status code', async function () {
+    it('returns a response without an expected status code', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(404, 'not found');
@@ -131,7 +133,7 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('retry', async function () {
+  describe('retry', async function() {
     beforeEach(() => {
       sandbox.spy(global, 'fetch');
     });
@@ -140,7 +142,7 @@ describe('jsonFetch', async function () {
       fetch.restore();
     });
 
-    it('does not retry by default', async function () {
+    it('does not retry by default', async function() {
       nock('http://www.test.com')
         .get('/')
         .reply(200, {});
@@ -148,7 +150,7 @@ describe('jsonFetch', async function () {
       expect(fetch.callCount).to.equal(1);
     });
 
-    it('does specified number of retries', async function () {
+    it('does specified number of retries', async function() {
       nock('http://www.test.com')
         .get('/')
         .reply(200, {});
@@ -169,7 +171,7 @@ describe('jsonFetch', async function () {
       throw new Error('Should have failed');
     });
 
-    it('respects the shouldRetry() function', async function () {
+    it('respects the shouldRetry() function', async function() {
       nock('http://www.test.com')
         .get('/')
         .times(6)
@@ -188,7 +190,7 @@ describe('jsonFetch', async function () {
       expect(fetch.callCount).to.equal(3); // 2 retries + 1 original = 3
     });
 
-    it('respects the should retry function for a network error', async function () {
+    it('respects the should retry function for a network error', async function() {
       fetch.restore(); // Don't double stub!
       sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
@@ -207,7 +209,7 @@ describe('jsonFetch', async function () {
       throw new Error('Should have failed');
     });
 
-    it('adds the retryCount to the error', async function () {
+    it('adds the retryCount to the error', async function() {
       fetch.restore(); // Don't double stub!
       sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
       try {
@@ -228,14 +230,14 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('retriers', async function () {
-    describe('.is5xx', async function () {
-      it('accepts a 503 and 504 status codes', async function () {
+  describe('retriers', async function() {
+    describe('.is5xx', async function() {
+      it('accepts a 503 and 504 status codes', async function() {
         expect(retriers.is5xx(new Response('', {status: 503}))).to.equal(true);
         expect(retriers.is5xx(new Response('', {status: 504}))).to.equal(true);
       });
 
-      it('rejects all other inputs', async function () {
+      it('rejects all other inputs', async function() {
         expect(retriers.is5xx(new Error())).to.equal(false);
         expect(retriers.is5xx(new Response('', {status: 200}))).to.equal(false);
         expect(retriers.is5xx(new Response('', {status: 400}))).to.equal(false);
@@ -246,12 +248,12 @@ describe('jsonFetch', async function () {
         expect(retriers.is5xx(new Response('', {status: 502}))).to.equal(false);
       });
 
-      describe('used within jsonFetch', async function () {
+      describe('used within jsonFetch', async function() {
         afterEach(() => {
           fetch.restore();
         });
 
-        it('attempts to retry on a 5xx error code', async function () {
+        it('attempts to retry on a 5xx error code', async function() {
           sandbox.spy(retriers, 'is5xx');
           sandbox.stub(global, 'fetch').returns(Promise.resolve({status: 503}));
           try {
@@ -272,24 +274,24 @@ describe('jsonFetch', async function () {
       });
     });
 
-    describe('.isNetworkError', async function () {
-      it('accepts any errors', async function () {
+    describe('.isNetworkError', async function() {
+      it('accepts any errors', async function() {
         expect(retriers.isNetworkError(new Error())).to.equal(true);
       });
 
-      it('rejects any non errors', async function () {
+      it('rejects any non errors', async function() {
         expect(retriers.isNetworkError(new Response('foo'))).to.equal(false);
         expect(retriers.isNetworkError(new Response(''))).to.equal(false);
         expect(retriers.isNetworkError(new Response('', {status: 200}))).to.equal(false);
         expect(retriers.isNetworkError(new Response('', {status: 500}))).to.equal(false);
       });
 
-      describe('used within jsonFetch', async function () {
+      describe('used within jsonFetch', async function() {
         afterEach(() => {
           fetch.restore();
         });
 
-        it('attempts to retry on a network error', async function () {
+        it('attempts to retry on a network error', async function() {
           sandbox.spy(retriers, 'isNetworkError');
           sandbox.stub(global, 'fetch').returns(Promise.reject(new Error('ECONRST')));
           try {
@@ -312,8 +314,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('malformed json', async function () {
-    it('throws error with malformed text', async function () {
+  describe('malformed json', async function() {
+    it('throws error with malformed text', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, '{"name": "apple""}', {'Content-Type': 'application/json'});
@@ -327,8 +329,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('missing content type', async function () {
-    it('handles it gracefully', async function () {
+  describe('missing content type', async function() {
+    it('handles it gracefully', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, 'test', {});
@@ -337,8 +339,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('thrown errors', async function () {
-    it('does not include request headers', async function () {
+  describe('thrown errors', async function() {
+    it('does not include request headers', async function() {
       nock('http://www.test.com')
         .get('/products/1234')
         .reply(200, '{""}', {'Content-Type': 'application/json'});
