@@ -1,0 +1,6 @@
+{
+  "javascript.validate.enable": false,
+  "files.exclude": {
+    "flow-typed/*": true
+  }
+}
