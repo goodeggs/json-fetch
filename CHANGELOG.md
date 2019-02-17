@@ -1,6 +1,10 @@
-# [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v7.5.2...master)
+# [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
-# [7.5.1](https://github.com/goodeggs/json-fetch/compare/v7.5.1...v7.5.2)
+# [8.0.0](https://github.com/goodeggs/json-fetch/compare/v7.5.1...v8.0.0)
+
+## Breaking change
+
+- Only support [Node 8+](https://github.com/nodejs/Release#release-schedule) due to requirements from updated dependencies.
 
 ## Adopt Good Eggs developer tooling best practices
 
@@ -12,5 +16,4 @@
 - Package scripts to run all the above
 - Deploy from CI
 - Use a changelog ;)
-
-## Update dependencies
+- Update dependencies
