@@ -19,8 +19,6 @@ A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 
 ```
 yarn add json-fetch
-# or...
-npm install json-fetch
 ```
 
 ```js
