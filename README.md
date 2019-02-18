@@ -86,8 +86,7 @@ You can use any attribute of the [FetchResponse](https://developer.mozilla.org/e
 
 ## Contributing
 
-Please follow our [Code of Conduct](https://github.com/goodeggs/json-fetch/blob/master/CODE_OF_CONDUCT.md)
-when contributing to this project.
+Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) when contributing to this project.
 
 ```
 yarn install
