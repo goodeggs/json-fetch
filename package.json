@@ -31,7 +31,7 @@
   "dependencies": {
     "@babel/runtime": "^7.3.1",
     "isomorphic-fetch": "2.2.1",
-    "lodash": "^4.17.11",
+    "lodash.pick": "^4.4.0",
     "promise-retry": "1.1.1"
   },
   "devDependencies": {
@@ -103,6 +103,9 @@
     "env": {
       "browser": true,
       "node": true
+    },
+    "rules": {
+      "goodeggs/lodash-import-scope": "off"
     }
   },
   "husky": {

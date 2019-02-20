@@ -1,7 +1,6 @@
 // @flow
 import 'isomorphic-fetch';
 import promiseRetry from 'promise-retry';
-import _ from 'lodash';
 
 import getRequestOptions from './get_request_options';
 import type {JsonFetchOptions, JsonFetchResponse, ShouldRetry} from '.'; // eslint-disable-line
@@ -93,7 +92,7 @@ function assertExpectedStatus<T: {+status: number}>(
   expectedStatuses: ?Array<number>,
   jsonFetchResponse: T,
 ): void {
-  if (Array.isArray(expectedStatuses) && !_.includes(expectedStatuses, jsonFetchResponse.status)) {
+  if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status)) {
     const err = new Error(`Unexpected fetch response status ${jsonFetchResponse.status}`);
     err.name = 'FetchUnexpectedStatusError';
     // $FlowFixMe
