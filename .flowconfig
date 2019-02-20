@@ -1,5 +1,5 @@
 [ignore]
 .*node_modules/fbjs.*
-build/*
+lib/*
 .coverage/*
 .*/node_modules/nock/node_modules/changelog/examples/node.json
