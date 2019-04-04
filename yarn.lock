@@ -1618,10 +1618,10 @@ eslint-plugin-flowtype@^3.0.0:
   dependencies:
     lodash "^4.17.11"
 
-eslint-plugin-goodeggs@7.3.2:
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-7.3.2.tgz#746135695b15f672229b1c0b4e8f0a88a5783e35"
-  integrity sha512-UOvxJAriJ966fiNux4iKIIYH3cRCHmrBDecHuu8+yiSEK07Ql1eWDDCBxWMIZ1RMhfy3L8N9394sGL4lC+QpyQ==
+eslint-plugin-goodeggs@7.4.2:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-7.4.2.tgz#9f06a5fc07f0f63a666331b535fce1b63ef7a158"
+  integrity sha512-nHqAe+thvnVKxK/BdcTyH0vHhx37qsg6TYaiMsbRbzNKpbjFTz174p7MQscgdhgbLGXWnfBYfz1C+UYW+7h4fg==
   dependencies:
     eslint-plugin-flowtype "^3.0.0"
     eslint-plugin-import "^v2.14.0"
