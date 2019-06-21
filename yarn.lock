@@ -2794,9 +2794,9 @@ lcid@^2.0.0:
     invert-kv "^2.0.0"
 
 leasot@^7.3.1:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/leasot/-/leasot-7.4.0.tgz#5df74267af8ca67833b435e92576e4c5a1a39aaf"
-  integrity sha512-l29dwWEBiaXwDTvUyKAt5YeZXJrETyptxsTYsjaY5XaU1Q6lMM/XsF28xnWgGRAfXYJsx3kTlctEflsyI1Dfng==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/leasot/-/leasot-7.5.0.tgz#40d31b94bc7378da71837416f41745bb7532e13b"
+  integrity sha512-/vFxfV8u6X8BlJzav4ykNSGZDGoGdMYhyad56baCxk1lKIVld4O3z17EeCIKMqErX7ipwO7+H3kFHgjD5AGCHg==
   dependencies:
     async "^3.0.1"
     chalk "^2.4.2"
