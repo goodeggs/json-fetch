@@ -15,7 +15,7 @@ A wrapper around ES6 fetch to simplify interacting with JSON APIs.
 
 ## Usage
 
-```
+```sh
 yarn add json-fetch
 # or...
 npm install json-fetch
@@ -60,7 +60,7 @@ import jsonFetch, {retriers} from 'json-fetch'
 jsonFetch('http://www.test.com/products/1234', {
   method: 'POST',
   body: {name: 'apple'},
-  shouldRetry: retries.isNetworkError // after every request, retry if a network error is thrown
+  shouldRetry: retriers.isNetworkError // after every request, retry if a network error is thrown
   retry: {
     // Retry 5 times, in addition to the original request
     retries: 5,
@@ -95,7 +95,7 @@ yarn test
 
 ## Deploying a new version
 
-This module is automatically deployed when a version tag bump is detected by travis.
+This module is automatically deployed when a version tag bump is detected by Travis.
 Remember to update the [changelog](CHANGELOG.md)!
 
 ```
