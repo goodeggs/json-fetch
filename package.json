@@ -43,7 +43,7 @@
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.13.0",
-    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-goodeggs": "7.4.2",
     "eslint-plugin-prettier": "^3.0.1",
     "flow-bin": "^0.97.0",
