@@ -54,7 +54,7 @@
     "mocha": "6.1.4",
     "nock": "^10.0.6",
     "nyc": "^13.3.0",
-    "prettier": "^1.16.4"
+    "prettier": "^2.0.1"
   },
   "scripts": {
     "build": "yarn run build:clean && yarn run build:transpile",
