@@ -1,7 +1,7 @@
 dist: trusty
 language: node_js
 node_js:
-  - 8.11.4
+  - 14
 env:
   global:
     - PATH="/tmp/ci-tools:./node_modules/.bin/:$PATH"
