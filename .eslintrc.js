@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['plugin:goodeggs/recommended', 'plugin:goodeggs/flowtype'],
+  extends: ['plugin:goodeggs/recommended'],
   env: {
     node: true,
   },

@@ -39,10 +39,8 @@
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
-    "@babel/preset-flow": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@goodeggs/toolkit": "^4.0.2",
-    "flow-bin": "^0.97.0",
     "goodeggs-test-helpers": "^8.1.0",
     "husky": "^3.0.4",
     "leasot": "^7.3.1",
@@ -67,13 +65,12 @@
     "test:mocha:coverage": "yarn run nyc --report-dir=.coverage --temp-directory=.coverage/.nyc_output --reporter=lcov --reporter=text-summary yarn run test:mocha",
     "test:mocha:glob": "NODE_ENV=test yarn run mocha --opts mocha.opts",
     "todos": "yarn run todos:glob '**/*.{js,jsx,ts,tsx}'",
-    "todos:glob": "leasot --exit-nicely --tags '\\$FlowFixMe' --ignore='node_modules/**','lib/**','flow-typed/**'",
-    "typecheck": "flow"
+    "todos:glob": "leasot --exit-nicely --tags '\\$FlowFixMe' --ignore='node_modules/**','lib/**'",
+    "typecheck": "echo 'Transitioning between Flow and TS'"
   },
   "babel": {
     "presets": [
-      "@babel/preset-env",
-      "@babel/preset-flow"
+      "@babel/preset-env"
     ],
     "plugins": [
       "@babel/plugin-transform-runtime"
