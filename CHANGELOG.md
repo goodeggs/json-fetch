@@ -1,6 +1,6 @@
 # [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
-# [9.0.0](https://github.com/goodeggs/json-fetch/compare/v8.0.0...v9.0.0)
+# [9.0.3](https://github.com/goodeggs/json-fetch/compare/v8.0.0...v9.0.3)
 
 ## Breaking changes
 
