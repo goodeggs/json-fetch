@@ -1,3 +1,4 @@
+import fake from 'fake-eggs';
 import {describe, it} from 'mocha';
 import {expect} from 'goodeggs-test-helpers';
 
@@ -14,6 +15,7 @@ describe('getRequestOptions', async function () {
     const actual = getRequestOptions({});
     expect(actual).to.deep.equal(expected);
   });
+
   it('sets content type header only when there is a body', function () {
     const expected = {
       credentials: 'include',
@@ -41,5 +43,19 @@ describe('getRequestOptions', async function () {
     const options = getRequestOptions({foo: 'bar'} as never);
 
     expect(options).not.to.contain.keys('foo');
+  });
+
+  it('forwards `credentials` option when provided', function () {
+    const credentials: RequestCredentials = fake.sample(['omit', 'same-origin']);
+
+    const expected = {
+      credentials,
+      headers: {
+        accept: 'application/json',
+      },
+    };
+
+    const actual = getRequestOptions({credentials});
+    expect(actual).to.deep.equal(expected);
   });
 });
