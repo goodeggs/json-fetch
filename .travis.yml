@@ -13,8 +13,7 @@ cache:
     - '/tmp/ci-tools'
 before_install:
   - curl -sSL https://github.com/goodeggs/travis-utils/raw/master/install-ci-tools.sh
-    | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=1.9.4
-  - yarn global add codecov
+    | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=1.9.4 codecov
 after_script:
   - codecov
 install: yarn install
