@@ -5,7 +5,7 @@ export default {
   is5xx(response: Response | Error): boolean {
     if (
       isNonEmptyResponse(response) &&
-      response?.status != null &&
+      response.status != null &&
       (response.status === 503 || response.status === 504)
     )
       return true;
