@@ -21,7 +21,7 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "always-auth": true
+    "access": "public"
   },
   "homepage": "https://github.com/goodeggs/json-fetch",
   "bugs": "https://github.com/goodeggs/json-fetch/issues",

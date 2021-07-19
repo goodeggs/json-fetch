@@ -20,9 +20,11 @@ after_script:
 install: yarn install
 script: yarn run test
 deploy:
-  provider: script
-  script: yarn publish
+  provider: npm
+  email: open-source@goodeggs.com
+  api_token:
+    secure: 'mclmG0+zHQnQ3HlOCUEY3ioec8NT0jhOpk5fgN+vWnIlepFJ7cqD0LjhaXytnv4/WEQic25ym0mSD6OxFunJ+0h9CzMg3GCIIXAq7lrdQyxwFGn40kNSLlWyW+SniOE0zjb+8ne3zzMdXyquV0Lg43VflSn+5TzCRSsNjAQIXH6LySWqT/rVOzXiYvnV64A1XUCIWofCeDvrSbMmtXHqAQPXdd+N0zMN7y7jmQHjdoI4ZGcaec6Q+ygo/HfTST4anmyoe8EKfv9NFEBZx8rPlxoGJBl1HWoADl9OJdmUIaQon2bdn1oIyyhz1Jloxvp6uxZ/rdhkVaJ9qykPSbZd/du1W4itivPUcSRqIN95WxPgNXVieDLm02v5OD4F8pJV2FsvLbS+Zr8uBe5l+HgFdsFVcZ11XtimZD0lZtb9amfvfuaAn46GqpiygPANVDHt7+3wuw9rr8VlZ575MuPvz9N74fJ5hmcb/UGCiHBD4mQowLrpCvBAWPjDjli532XzXBu9Z3tHgeD6/leggDNiNlwrxL5sTUbF/UUngKD6k4I00oys6DJtwpPu02KYGMeY4sMPNQ7SlxoiRU/uAgld1iDUm5jAZTUAB8N59Hxp9Ib027v1B+xdSTOfcMW8XOxATkofEG8paAW1WBTgJBZLNSI6OxEPiZjxo9NQnAblnnU='
   skip_cleanup: true
   on:
     tags: true
-    branch: master
+    all_branches: true
