@@ -1,27 +1,29 @@
 dist: trusty
 language: node_js
 node_js:
-  - 8.11.4
+  - 14
 env:
   global:
     - PATH="/tmp/ci-tools:./node_modules/.bin/:$PATH"
-    - secure: RnOTVPol0b+qcwg3ac+hPRREA17qAQYlAV7ElZMUmWxkp5qzCVlIsHfxOHs08ZoA0S/wkwzL4RjwFeZBCbUwBLbwGdIKvWXqUPr3tZkw/EVOq713fAi5ORgHExI8DfofzHwyXMzgs0Bv9TFWiCa/xFtJ6/mZf0KmSrW3WBFMvB9IALa/JuyAfzeV2USQO0ddzmi8/pzbwFXmkaDYKjm6+YejfChE0/8WDkERugH8fKKEt9/peHiceqvqpnjmdSAFxM4I6nSYExIHvBnauWtB8+7T1/MmsHlhZPyy+/MJsn8QcsYxkkCUktVSCI7UEsnNuA1y8tBWsW9nNo+RsZMAQXfOU9M0W+qb3zjrsYNIXYVDollbwfDDy2pfQEoaI6nuhACW/Be+jgvRef5lBp5uQ5NpQIk0TzvnEtdn08xgxXsWOheHI4BOTJqQ7x9k+Ri8VoQ889L4dI7mNy7bTfsJDJtgazhOUEHqIyRtPIufo5qNbO9I6MpWdiLfZZr/yNMEwrhx7qLb6aqLGJrhFygi10r170Ix1c3CvnqLfsr50eccqS4YUS6sz95a6FBsOrwfO8+XyIQYmvHU0J2S8TMlG59DjfR3EfpkrCd08nH2b32eQTeyxm4JqJjMOAILofq2Lwl4lJd5d1OkZ7mxf9rzlVv133e6+i6eFMSsYrwGXhk= # NPM_AUTH
+    # NPM_TOKEN:
+    - secure: 'VYRtwgXf8Ez7O2R8b6ppy6L/ZiJXGkog3Llx515VXU5/Cw2LK21ddVKDR4+mqcJ9jwSBRkS7SSHM8M9GKYILgo/h444ccX3ynnFqN8Vi57ikLWCTotiKtVrijXAaZVF+TV/l60Gyx05Nn6CytyyQc++2obx4u9VgDvuwldpO8y5K7pJeEjvJyxxb+/vvdrZlmgMTxyw7+oMzRiqRsDUqQBdUzItiiMqmZGdtGDoJXG2S4HHPT3MXfqZBaz0DeSs9z7yZ0sThG1p5jWEu64rWRzlDNN71ZNdwBvP8uneWqXsf+srZKLJKcF9XRe0q7i2RasM5pK6UoWoRg4x3LL91WxU5zi6aH6Dx66Ey14XjjL8EGDL+xM5DNBQ78ONV9ktTfBYIbKVTqlpN/umyrB+ZzLSW+ALnlxCacmR99KhQST9tFuEAKT517xGn4GM9Ywa9OBWvf2i0/OEsRpPIZGfAbg/bT0/Bf3etx6xuV1d7RrsALSSgHwwiI6rJvWEUvoRZT9o2O1mM4Wg+7k95JAk7q6J6n0SqaIzpwuhx2C9T1B/ZVmoMyhRDeyYuAOHD0QwQCzrRCd/KqSsm5dNgumthspq7mczEl3iUXn6EAp++gHSzj58M5+gePAvu3vo28HTz6IOUA9u9UOLLCh9gX3sEqumITaEIBcFVrRLAYn4VYM4='
 cache:
   yarn: true
   directories:
     - '/tmp/ci-tools'
 before_install:
   - curl -sSL https://github.com/goodeggs/travis-utils/raw/master/install-ci-tools.sh
-    | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=1.9.4
-  - yarn global add codecov
+    | CACHE_DIR=/tmp/ci-tools sh -s -- yarn=1.9.4 codecov
 after_script:
   - codecov
 install: yarn install
 script: yarn run test
 deploy:
-  provider: script
-  script: yarn publish
+  provider: npm
+  email: open-source@goodeggs.com
+  api_token:
+    secure: 'mclmG0+zHQnQ3HlOCUEY3ioec8NT0jhOpk5fgN+vWnIlepFJ7cqD0LjhaXytnv4/WEQic25ym0mSD6OxFunJ+0h9CzMg3GCIIXAq7lrdQyxwFGn40kNSLlWyW+SniOE0zjb+8ne3zzMdXyquV0Lg43VflSn+5TzCRSsNjAQIXH6LySWqT/rVOzXiYvnV64A1XUCIWofCeDvrSbMmtXHqAQPXdd+N0zMN7y7jmQHjdoI4ZGcaec6Q+ygo/HfTST4anmyoe8EKfv9NFEBZx8rPlxoGJBl1HWoADl9OJdmUIaQon2bdn1oIyyhz1Jloxvp6uxZ/rdhkVaJ9qykPSbZd/du1W4itivPUcSRqIN95WxPgNXVieDLm02v5OD4F8pJV2FsvLbS+Zr8uBe5l+HgFdsFVcZ11XtimZD0lZtb9amfvfuaAn46GqpiygPANVDHt7+3wuw9rr8VlZ575MuPvz9N74fJ5hmcb/UGCiHBD4mQowLrpCvBAWPjDjli532XzXBu9Z3tHgeD6/leggDNiNlwrxL5sTUbF/UUngKD6k4I00oys6DJtwpPu02KYGMeY4sMPNQ7SlxoiRU/uAgld1iDUm5jAZTUAB8N59Hxp9Ib027v1B+xdSTOfcMW8XOxATkofEG8paAW1WBTgJBZLNSI6OxEPiZjxo9NQnAblnnU='
   skip_cleanup: true
   on:
     tags: true
-    branch: master
+    all_branches: true

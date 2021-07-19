@@ -1,6 +1,6 @@
 {
   "name": "json-fetch",
-  "version": "8.0.0",
+  "version": "9.0.3",
   "description": "A wrapper around ES6 fetch to simplify interacting with JSON APIs.",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
@@ -21,12 +21,12 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "always-auth": true
+    "access": "public"
   },
   "homepage": "https://github.com/goodeggs/json-fetch",
   "bugs": "https://github.com/goodeggs/json-fetch/issues",
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
