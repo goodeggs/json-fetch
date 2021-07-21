@@ -1,0 +1,19 @@
+// Config to be used when building type declarations (.d.ts) to be packaged with this library
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "rootDir": "src/",
+    "outDir": "lib/",
+    "declarationDir": "lib/"
+  }
+}

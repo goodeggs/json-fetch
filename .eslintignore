@@ -1,6 +1,0 @@
-node_modules
-lib
-npm-debug.log*
-flow-typed
-.DS_Store
-.coverage

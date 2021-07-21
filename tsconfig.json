@@ -1,0 +1,6 @@
+{
+  "extends": "@goodeggs/tsconfig/base",
+  "compilerOptions": {
+    "downlevelIteration": true
+  }
+}
