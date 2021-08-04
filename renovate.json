@@ -1,5 +1,20 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", ":automergeMinor", ":renovatePrefix", ":prHourlyLimitNone"],
+  "dependencyDashboard": true,
+  "labels": ["dependencies", "renovate"],
+  "timezone": "America/Los_Angeles",
+
+  "packageRules": [
+    {
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    }
+  ],
+
+  "rangeStrategy": "bump",
+  "recreateClosed": true,
+  "schedule": ["after 9am", "before 5pm", "on Monday through Thursday"],
+  "stabilityDays": 3,
+  "transitiveRemediation": true
 }
