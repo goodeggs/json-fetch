@@ -3203,7 +3203,7 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leasot@^7.3.1:
+leasot@^7.5.0:
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/leasot/-/leasot-7.5.0.tgz#40d31b94bc7378da71837416f41745bb7532e13b"
   integrity sha512-/vFxfV8u6X8BlJzav4ykNSGZDGoGdMYhyad56baCxk1lKIVld4O3z17EeCIKMqErX7ipwO7+H3kFHgjD5AGCHg==
