@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^3.4.1",
     "flow-bin": "^0.97.0",
     "goodeggs-test-helpers": "^8.3.2",
-    "husky": "^3.1.0",
+    "husky": "^7.0.2",
     "leasot": "^7.5.0",
     "lint-staged": "^8.2.1",
     "mocha": "6.2.3",
