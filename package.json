@@ -84,7 +84,6 @@
     "test:mocha:coverage": "yarn run nyc --report-dir=.coverage --temp-directory=.coverage/.nyc_output --reporter=lcov --reporter=text-summary yarn run test:mocha",
     "test:mocha:glob": "NODE_ENV=test yarn run mocha --require @babel/polyfill --require .register.js --colors --extension ts",
     "todos": "yarn run todos:glob '**/*.{js,jsx,ts,tsx}'",
-    "todos:glob": "leasot --exit-nicely --ignore='node_modules/**','lib/**'",
-    "typecheck": "tsc --noEmit"
+    "todos:glob": "leasot --exit-nicely --ignore='node_modules/**','lib/**'"
   }
 }
