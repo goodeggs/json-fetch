@@ -9,4 +9,23 @@ module.exports = {
     browser: true,
   },
   rules: {},
+  overrides: [
+    {
+      files: ['**/{*.,}test{.*,}.{js,jsx,ts,tsx}'],
+      extends: ['plugin:goodeggs/mocha'],
+      env: {
+        mocha: true,
+      },
+    },
+    // Project configuration files
+    {
+      files: ['*.config{.babel,}.js', '.*rc.js'],
+      env: {
+        node: true,
+      },
+      rules: {
+        'import/no-commonjs': 'off',
+      },
+    },
+  ],
 };
