@@ -8,7 +8,5 @@ module.exports = {
     node: true,
     browser: true,
   },
-  rules: {
-    camelcase: 'off',
-  },
+  rules: {},
 };
