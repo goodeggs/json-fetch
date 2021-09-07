@@ -18,9 +18,9 @@ declare global {
   }
 }
 
-describe('jsonFetch', async function () {
+describe('jsonFetch', function () {
   const {sandbox} = useSinonSandbox();
-  describe('single request with no retry', async function () {
+  describe('single request with no retry', function () {
     it('resolves with json body for 200 status codes', async function () {
       nock('http://www.test.com').get('/products/1234').reply(200, {
         name: 'apple',
@@ -156,7 +156,7 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('retry', async function () {
+  describe('retry', function () {
     let fetchSpy: sinon.SinonSpy<
       [input: RequestInfo, init?: RequestInit | undefined],
       Promise<Response>
@@ -273,8 +273,8 @@ describe('jsonFetch', async function () {
     });
   });
 
-  describe('retriers', async function () {
-    describe('.is5xx', async function () {
+  describe('retriers', function () {
+    describe('.is5xx', function () {
       it('accepts a 503 and 504 status codes', async function () {
         expect(
           retriers.is5xx(
@@ -345,7 +345,7 @@ describe('jsonFetch', async function () {
         ).to.equal(false);
       });
 
-      describe('used within jsonFetch', async function () {
+      describe('used within jsonFetch', function () {
         let fetchStub: sinon.SinonStub<
           [input: RequestInfo, init?: RequestInit | undefined],
           Promise<{status: number}>
@@ -383,7 +383,7 @@ describe('jsonFetch', async function () {
       });
     });
 
-    describe('.isNetworkError', async function () {
+    describe('.isNetworkError', function () {
       it('accepts any errors', async function () {
         expect(retriers.isNetworkError(new Error())).to.equal(true);
       });
@@ -407,7 +407,7 @@ describe('jsonFetch', async function () {
         ).to.equal(false);
       });
 
-      describe('used within jsonFetch', async function () {
+      describe('used within jsonFetch', function () {
         let fetchStub: sinon.SinonStub<
           [input: RequestInfo, init?: RequestInit | undefined],
           Promise<{status: number}>
@@ -445,7 +445,7 @@ describe('jsonFetch', async function () {
       });
     });
   });
-  describe('malformed json', async function () {
+  describe('malformed json', function () {
     it('throws error with malformed text', async function () {
       nock('http://www.test.com').get('/products/1234').reply(200, '{"name": "apple""}', {
         'Content-Type': 'application/json',
@@ -461,14 +461,14 @@ describe('jsonFetch', async function () {
       throw new Error('expected to throw');
     });
   });
-  describe('missing content type', async function () {
+  describe('missing content type', function () {
     it('handles it gracefully', async function () {
       nock('http://www.test.com').get('/products/1234').reply(200, 'test', {});
       const response = await jsonFetch('http://www.test.com/products/1234');
       expect(response.body).to.equal(undefined);
     });
   });
-  describe('thrown errors', async function () {
+  describe('thrown errors', function () {
     it('does not include request headers', async function () {
       nock('http://www.test.com').get('/products/1234').reply(200, '{""}', {
         'Content-Type': 'application/json',

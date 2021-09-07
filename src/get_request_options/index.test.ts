@@ -4,7 +4,7 @@ import {expect} from 'goodeggs-test-helpers';
 
 import getRequestOptions from '.';
 
-describe('getRequestOptions', async function () {
+describe('getRequestOptions', function () {
   it('populates an options object without undefined keys', function () {
     const expected = {
       credentials: 'include',
