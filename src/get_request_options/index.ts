@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import type {JsonFetchOptions} from '..';
+import {JsonFetchOptions} from '..';
 
 export default function getRequestOptions(jsonFetchOptions: JsonFetchOptions): RequestInit {
   const parsedOptions: RequestInit = {};
