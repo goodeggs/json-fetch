@@ -72,7 +72,7 @@ async function retryFetch(
         if (shouldRetry(res)) throwRetryError(null);
         return res;
       } catch (err) {
-        err.retryCount = retryCount != null ? retryCount - 1 : 0;
+        err.retryCount = retryCount - 1;
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
       }
