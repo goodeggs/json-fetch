@@ -53,7 +53,6 @@
     "flow-bin": "^0.97.0",
     "goodeggs-test-helpers": "^8.3.2",
     "leasot": "^7.5.0",
-    "lint-staged": "^8.2.1",
     "mocha": "6.2.3",
     "nock": "13",
     "nyc": "^15.1.0",
