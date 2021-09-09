@@ -1,5 +1,10 @@
 # [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
+# [9.0.4](https://github.com/goodeggs/json-fetch/compare/v9.0.3...v9.0.4)
+
+- Migrated to Typescript
+- Removed Husky & Lint-staged
+
 # [9.0.3](https://github.com/goodeggs/json-fetch/compare/v8.0.0...v9.0.3)
 
 ## Breaking changes
@@ -18,6 +23,7 @@
 - Eslint for code correctness
 - Prettier for formatting
 - leasot for todos
+- Husky & Lint-staged for auto format & lint on commit
 - Package scripts to run all the above
 - Deploy from CI
 - Use a changelog ;)
