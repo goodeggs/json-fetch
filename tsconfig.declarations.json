@@ -5,7 +5,8 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "**/{,*.}test.ts"
+    "**/*.test.ts",
+    "**/test.ts"
   ],
   "compilerOptions": {
     "noEmit": false,
