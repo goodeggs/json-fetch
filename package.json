@@ -59,7 +59,7 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "build": "yarn run build:clean && yarn run build:transpile",
+    "build": "yarn run build:clean && yarn run build:transpile && yarn run build:types",
     "build:clean": "rm -rf lib",
     "build:types": "tsc --project tsconfig.declarations.json",
     "build:transpile": "babel --extensions=.ts,.js,.jsx,.tsx src --out-dir lib --copy-files",
