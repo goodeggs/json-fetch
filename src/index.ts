@@ -1,4 +1,6 @@
 import 'isomorphic-fetch';
+
+import {Agent} from 'http';
 import promiseRetry from 'promise-retry';
 
 import getRequestOptions from './get_request_options';
@@ -6,6 +8,11 @@ import getRequestOptions from './get_request_options';
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
+  // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
+  // see https://github.com/node-fetch/node-fetch/blob/8721d79208ad52c44fffb4b5b5cfa13b936022c3/%40types/index.d.ts#L76:
+  agent?: Agent | ((parsedUrl: URL) => Agent);
+
+  // goodeggs-fetch options:
   body?: Record<string, unknown>;
   shouldRetry?: (responseOrError: Response | Error) => boolean;
   retry?: Parameters<typeof promiseRetry>[0];
