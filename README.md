@@ -50,6 +50,22 @@ jsonFetch('http://www.test.com/products/1234', {
   });
 ```
 
+### TypeScript
+
+This library comes with built-in TypeScript type declarations.
+
+Due to complexities in dealing with isomorphic-fetch - which uses whatwg-fetch in browsers and node-fetch
+in node.js, which are subtly different - these type declarations only work if you include the `DOM` built-in
+TypeScript lib in your `tsconfig.json`. For example:
+```json
+{
+  "lib": ["DOM", "ES2020"]
+}
+```
+This happens implicitly if you don't set a `lib`.
+
+This may be fixed in the future.
+
 ### Retry Behavior
 
 By default, jsonFetch doesn't retry requests. However, you may opt in to jsonFetch's very flexible retry behavior, provided by the excellent [`promise-retry`](https://github.com/IndigoUnited/node-promise-retry) library. Here's a quick example:
