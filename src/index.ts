@@ -12,7 +12,7 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // see https://github.com/node-fetch/node-fetch/blob/8721d79208ad52c44fffb4b5b5cfa13b936022c3/%40types/index.d.ts#L76:
   agent?: Agent | ((parsedUrl: URL) => Agent);
 
-  // goodeggs-fetch options:
+  // json-fetch options:
   body?: Record<string, unknown>;
   shouldRetry?: (responseOrError: Response | Error) => boolean;
   retry?: Parameters<typeof promiseRetry>[0];
