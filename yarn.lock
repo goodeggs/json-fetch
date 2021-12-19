@@ -2500,6 +2500,13 @@ debug@^4.1.0, debug@^4.3.1, debug@^4.3.2:
   dependencies:
     ms "2.1.2"
 
+debug@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
+  integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
+  dependencies:
+    ms "2.1.2"
+
 decamelize@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
@@ -3086,14 +3093,14 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-fake-eggs@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/fake-eggs/-/fake-eggs-6.5.0.tgz#216e546eb421ca52974971d429ee9137468b608b"
-  integrity sha512-PTGnymNO5zYQ9gYv9Nx2/uHXULnQviR4gb7LbcPNuEELrDMAXBAV2lRtTWlGwe/NmndPzSnz80GBBNIu2X5E8A==
+fake-eggs@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/fake-eggs/-/fake-eggs-6.5.2.tgz#ebd3ee2ff0cb961e6ddc29d906678d24a7ced8ab"
+  integrity sha512-MAPCifg/o+B3YeOouHK1JUxG9SHpTjcHsc4pX/3tg3KnoHoWlkqHp91Q8FC6kxTUOQDcfBYmi1fRv4G5Hw3Nvw==
   dependencies:
     "@types/chance" "^1.1.3"
     chance "^1.1.8"
-    debug "^4.3.2"
+    debug "^4.3.3"
 
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
