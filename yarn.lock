@@ -3167,10 +3167,10 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-fake-eggs@^6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/fake-eggs/-/fake-eggs-6.5.2.tgz#ebd3ee2ff0cb961e6ddc29d906678d24a7ced8ab"
-  integrity sha512-MAPCifg/o+B3YeOouHK1JUxG9SHpTjcHsc4pX/3tg3KnoHoWlkqHp91Q8FC6kxTUOQDcfBYmi1fRv4G5Hw3Nvw==
+fake-eggs@^6.5.3:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/fake-eggs/-/fake-eggs-6.5.3.tgz#7056c6aee4b6303b6947f4ca1e16cf50e3b5f639"
+  integrity sha512-3GQ+QG106KXi8vhoPobnFSQMfTLKOWkhg0VwCMJQsRYfpTOnwEDbvyRMjEEPzWxIAyNTv1Ld8WnTwdJtzUGp6w==
   dependencies:
     "@types/chance" "^1.1.3"
     chance "^1.1.8"
