@@ -271,6 +271,29 @@ describe('jsonFetch', function () {
 
       throw new Error('Should have failed');
     });
+
+    it('call the onRequestStart and onRequestEnd functions in each retry', async function () {
+      const onRequestStart = sandbox.spy(() => {});
+      const onRequestEnd = sandbox.spy(() => {});
+
+      try {
+        await jsonFetch('foo.bar', {
+          shouldRetry: () => true,
+          retry: {
+            retries: 5,
+            factor: 0,
+          },
+          onRequestStart,
+          onRequestEnd,
+        });
+      } catch (err) {
+        expect(onRequestStart.callCount).to.equal(6);
+        expect(onRequestEnd.callCount).to.equal(6);
+        return;
+      }
+
+      throw new Error('Should have failed');
+    });
   });
 
   describe('retriers', function () {

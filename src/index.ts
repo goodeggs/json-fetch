@@ -18,6 +18,8 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
   expectedStatuses?: Array<number>;
+  onRequestStart?: (url: string, retryCount: number) => void;
+  onRequestEnd?: (responseOrError: Response | Error, retryCount: number) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
@@ -69,17 +71,24 @@ async function retryFetch(
   jsonFetchOptions: JsonFetchOptions,
 ): Promise<Response> {
   const shouldRetry = jsonFetchOptions.shouldRetry ?? DEFAULT_SHOULD_RETRY;
+  const onRequestStart =
+    typeof jsonFetchOptions.onRequestStart === 'function' ? jsonFetchOptions.onRequestStart : null;
+  const onRequestEnd =
+    typeof jsonFetchOptions.onRequestEnd === 'function' ? jsonFetchOptions.onRequestEnd : null;
   const retryOptions = {...DEFAULT_RETRY_OPTIONS, ...jsonFetchOptions.retry};
   const requestOptions = getRequestOptions(jsonFetchOptions);
 
   try {
     const response = await promiseRetry(async (throwRetryError, retryCount) => {
+      if (onRequestStart !== null) onRequestStart(requestUrl, retryCount);
       try {
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res)) throwRetryError(null);
+        if (onRequestEnd !== null) onRequestEnd(res, retryCount);
         return res;
       } catch (err) {
         err.retryCount = retryCount - 1;
+        if (onRequestEnd !== null) onRequestEnd(err, retryCount);
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
       }
