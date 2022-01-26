@@ -286,7 +286,7 @@ describe('jsonFetch', function () {
           onRequestStart,
           onRequestEnd,
         });
-      } catch (err) {
+      } catch {
         expect(onRequestStart.callCount).to.equal(6);
         expect(onRequestEnd.callCount).to.equal(6);
         return;
