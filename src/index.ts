@@ -7,6 +7,12 @@ import getRequestOptions from './get_request_options';
 
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
+export interface OnRequestOptions extends JsonFetchOptions {
+  url?: string;
+  retryCount?: number;
+  responseOrError?: Response | Error | unknown;
+}
+
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
   // see https://github.com/node-fetch/node-fetch/blob/8721d79208ad52c44fffb4b5b5cfa13b936022c3/%40types/index.d.ts#L76:
@@ -18,8 +24,26 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
   expectedStatuses?: Array<number>;
-  onRequestStart?: (url: string, retryCount: number) => void;
-  onRequestEnd?: (responseOrError: Response | Error, retryCount: number) => void;
+  onRequestStart?: ({
+    agent,
+    body,
+    shouldRetry,
+    retry,
+    timeout,
+    expectedStatuses,
+    url,
+    retryCount,
+  }: OnRequestOptions) => void;
+  onRequestEnd?: ({
+    agent,
+    body,
+    shouldRetry,
+    retry,
+    timeout,
+    expectedStatuses,
+    responseOrError,
+    retryCount,
+  }: OnRequestOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
@@ -71,24 +95,20 @@ async function retryFetch(
   jsonFetchOptions: JsonFetchOptions,
 ): Promise<Response> {
   const shouldRetry = jsonFetchOptions.shouldRetry ?? DEFAULT_SHOULD_RETRY;
-  const onRequestStart =
-    typeof jsonFetchOptions.onRequestStart === 'function' ? jsonFetchOptions.onRequestStart : null;
-  const onRequestEnd =
-    typeof jsonFetchOptions.onRequestEnd === 'function' ? jsonFetchOptions.onRequestEnd : null;
   const retryOptions = {...DEFAULT_RETRY_OPTIONS, ...jsonFetchOptions.retry};
   const requestOptions = getRequestOptions(jsonFetchOptions);
 
   try {
     const response = await promiseRetry(async (throwRetryError, retryCount) => {
-      if (onRequestStart !== null) onRequestStart(requestUrl, retryCount);
+      jsonFetchOptions.onRequestStart?.({url: requestUrl, retryCount, ...jsonFetchOptions});
       try {
         const res = await fetch(requestUrl, requestOptions);
+        jsonFetchOptions.onRequestEnd?.({responseOrError: res, retryCount, ...jsonFetchOptions});
         if (shouldRetry(res)) throwRetryError(null);
-        if (onRequestEnd !== null) onRequestEnd(res, retryCount);
         return res;
       } catch (err) {
         err.retryCount = retryCount - 1;
-        if (onRequestEnd !== null) onRequestEnd(err, retryCount);
+        jsonFetchOptions.onRequestEnd?.({responseOrError: err, retryCount, ...jsonFetchOptions});
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
       }
