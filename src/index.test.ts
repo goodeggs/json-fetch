@@ -120,6 +120,24 @@ describe('jsonFetch', function () {
       expect(response.statusText).to.equal('Created');
       expect(response.headers).to.be.ok();
     });
+
+    it('calls onRequestStart when is passed', async function () {
+      const onRequestStart = sandbox.spy(() => {});
+      nock('http://www.test.com').get('/products/1234').reply(200);
+      await jsonFetch('http://www.test.com/products/1234', {
+        onRequestStart,
+      });
+      expect(onRequestStart.callCount).to.equal(1);
+    });
+
+    it('calls onRequestEnd when is passed', async function () {
+      const onRequestEnd = sandbox.spy(() => {});
+      nock('http://www.test.com').get('/products/1234').reply(200);
+      await jsonFetch('http://www.test.com/products/1234', {
+        onRequestEnd,
+      });
+      expect(onRequestEnd.callCount).to.equal(1);
+    });
   });
 
   describe('expected statuses', function () {

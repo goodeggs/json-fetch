@@ -103,8 +103,8 @@ async function retryFetch(
       jsonFetchOptions.onRequestStart?.({url: requestUrl, retryCount, ...jsonFetchOptions});
       try {
         const res = await fetch(requestUrl, requestOptions);
-        jsonFetchOptions.onRequestEnd?.({responseOrError: res, retryCount, ...jsonFetchOptions});
         if (shouldRetry(res)) throwRetryError(null);
+        jsonFetchOptions.onRequestEnd?.({responseOrError: res, retryCount, ...jsonFetchOptions});
         return res;
       } catch (err) {
         err.retryCount = retryCount - 1;
