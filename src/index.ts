@@ -42,6 +42,7 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
     timeout,
     expectedStatuses,
     responseOrError,
+    url,
     retryCount,
   }: OnRequestOptions) => void;
 }
@@ -104,11 +105,21 @@ async function retryFetch(
       try {
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res)) throwRetryError(null);
-        jsonFetchOptions.onRequestEnd?.({responseOrError: res, retryCount, ...jsonFetchOptions});
+        jsonFetchOptions.onRequestEnd?.({
+          responseOrError: res,
+          url: requestUrl,
+          retryCount,
+          ...jsonFetchOptions,
+        });
         return res;
       } catch (err) {
         err.retryCount = retryCount - 1;
-        jsonFetchOptions.onRequestEnd?.({responseOrError: err, retryCount, ...jsonFetchOptions});
+        jsonFetchOptions.onRequestEnd?.({
+          responseOrError: err,
+          url: requestUrl,
+          retryCount,
+          ...jsonFetchOptions,
+        });
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
       }

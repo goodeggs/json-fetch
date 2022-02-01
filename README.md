@@ -57,11 +57,13 @@ This library comes with built-in TypeScript type declarations.
 Due to complexities in dealing with isomorphic-fetch - which uses whatwg-fetch in browsers and node-fetch
 in node.js, which are subtly different - these type declarations only work if you include the `DOM` built-in
 TypeScript lib in your `tsconfig.json`. For example:
+
 ```json
 {
   "lib": ["DOM", "ES2020"]
 }
 ```
+
 This happens implicitly if you don't set a `lib`.
 
 This may be fixed in the future.
@@ -99,6 +101,28 @@ shouldRetry([Error || FetchResponse]) returns bool
 ```
 
 You can use any attribute of the [FetchResponse](https://developer.mozilla.org/en-US/docs/Web/API/Response) or Error to determine whether to retry or not. Your function _must_ handle both errors (such as network errors) and FetchResponse objects without blowing up. We recommend stateless, side-effect free functions. You do not need to worry about the maximum number of retries -- promise-retry will stop retrying after the maximum you specify. See the tests and `src/retriers.js` file for examples.
+
+### On Request callbacks
+
+We've implemented two callbacks functions that can be passed as part of the **jsonFetch** options to do something `onRequestStart` and `onRequestEnd`, this is specially helpful to log request and response data in retry calls.
+
+All `jsonFetch` options are availables parameters for this two callback functions plus
+
+```
+url?: string;
+retryCount?: number;
+responseOrError?: Response | Error | unknown;
+```
+
+An usage example of this callbacks fucntions is as follows:
+
+```js
+let requestUrl = 'http://www.test.com/products/1234'
+await jsonFetch(requestUrl, {
+  onRequestStart: ({url: requestUrl, retryCount: retryCount}) => { console.log(`-> AttemptStart ${retryCount}: ${url} with defined timeout ${timeout}`); },
+  onRequestEnd: ({responseOrError retryCount: retryCount, }) => { console.log(`-> AttemptEnd ${retryCount}: Response ${responseOrError.statusText}`); }
+});
+```
 
 ## Contributing
 
