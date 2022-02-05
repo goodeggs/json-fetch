@@ -121,8 +121,8 @@ describe('jsonFetch', function () {
       expect(response.headers).to.be.ok();
     });
 
-    it('calls onRequestStart when is passed', async function () {
-      const onRequestStart = sandbox.spy(() => {});
+    it('calls onRequestStart when is passed to jsonFetch in JsonFetchOptions', async function () {
+      const onRequestStart = sandbox.stub();
       nock('http://www.test.com').get('/products/1234').reply(200);
       await jsonFetch('http://www.test.com/products/1234', {
         onRequestStart,
@@ -130,8 +130,8 @@ describe('jsonFetch', function () {
       expect(onRequestStart.callCount).to.equal(1);
     });
 
-    it('calls onRequestEnd when is passed', async function () {
-      const onRequestEnd = sandbox.spy(() => {});
+    it('calls onRequestEnd when is passed to jsonFetch in JsonFetchOptions', async function () {
+      const onRequestEnd = sandbox.stub();
       nock('http://www.test.com').get('/products/1234').reply(200);
       await jsonFetch('http://www.test.com/products/1234', {
         onRequestEnd,
@@ -291,8 +291,8 @@ describe('jsonFetch', function () {
     });
 
     it('call the onRequestStart and onRequestEnd functions in each retry', async function () {
-      const onRequestStart = sandbox.spy(() => {});
-      const onRequestEnd = sandbox.spy(() => {});
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
 
       try {
         await jsonFetch('foo.bar', {
