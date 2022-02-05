@@ -108,7 +108,7 @@ We've implemented two callbacks functions that can be passed as part of the **js
 
 All `jsonFetch` options are availables parameters for this two callback functions plus
 
-```
+```typescript
 url?: string;
 retryCount?: number;
 responseOrError?: Response | Error | unknown;
