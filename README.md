@@ -114,7 +114,7 @@ retryCount?: number;
 responseOrError?: Response | Error | unknown;
 ```
 
-An usage example of this callbacks fucntions is as follows:
+For example, to log before and after each request:
 
 ```typescript
 const requestUrl = 'http://www.test.com/products/1234';
