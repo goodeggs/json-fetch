@@ -116,13 +116,14 @@ responseOrError?: Response | Error | unknown;
 
 An usage example of this callbacks fucntions is as follows:
 
-```js
-let requestUrl = 'http://www.test.com/products/1234'
+```typescript
+const requestUrl = 'http://www.test.com/products/1234';
 await jsonFetch(requestUrl, {
-  onRequestStart: ({url: requestUrl, retryCount: retryCount}) => { console.log(`-> AttemptStart ${retryCount}: ${url} with defined timeout ${timeout}`); },
-  onRequestEnd: ({responseOrError retryCount: retryCount, }) => { console.log(`-> AttemptEnd ${retryCount}: Response ${responseOrError.statusText}`); }
+  onRequestStart: ({url, retryCount}) =>
+    console.log(`Requesting ${url} with timeout ${timeout}, attempt ${retryCount}`),
+  onRequestEnd: ({url, retryCount, responseOrError}) =>
+    console.log(`Requested ${url}, attempt ${retryCount}, got status ${responseOrError.status}`),
 });
-```
 
 ## Contributing
 
