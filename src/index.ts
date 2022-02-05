@@ -7,12 +7,14 @@ import getRequestOptions from './get_request_options';
 
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
-export interface OnRequestOptions extends JsonFetchOptions {
-  url?: string;
-  retryCount?: number;
-  responseOrError?: Response | Error | unknown;
+export interface OnRequestEndOptions {
+  responseOrError?: Response | Error;
 }
 
+export interface OnRequestOptions {
+  url: string;
+  retryCount: number;
+}
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
   // see https://github.com/node-fetch/node-fetch/blob/8721d79208ad52c44fffb4b5b5cfa13b936022c3/%40types/index.d.ts#L76:
@@ -27,24 +29,22 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   onRequestStart?: ({
     agent,
     body,
-    shouldRetry,
     retry,
     timeout,
     expectedStatuses,
     url,
     retryCount,
-  }: OnRequestOptions) => void;
+  }: JsonFetchOptions & OnRequestOptions) => void;
   onRequestEnd?: ({
     agent,
     body,
-    shouldRetry,
     retry,
     timeout,
     expectedStatuses,
     responseOrError,
     url,
     retryCount,
-  }: OnRequestOptions) => void;
+  }: JsonFetchOptions & OnRequestOptions & OnRequestEndOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
