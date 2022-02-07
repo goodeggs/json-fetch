@@ -108,21 +108,22 @@ We've implemented two callbacks functions that can be passed as part of the **js
 
 All `jsonFetch` options are availables parameters for this two callback functions plus
 
-```
+```typescript
 url?: string;
 retryCount?: number;
 responseOrError?: Response | Error | unknown;
 ```
 
-An usage example of this callbacks fucntions is as follows:
+For example, to log before and after each request:
 
-```js
-let requestUrl = 'http://www.test.com/products/1234'
+```typescript
+const requestUrl = 'http://www.test.com/products/1234';
 await jsonFetch(requestUrl, {
-  onRequestStart: ({url: requestUrl, retryCount: retryCount}) => { console.log(`-> AttemptStart ${retryCount}: ${url} with defined timeout ${timeout}`); },
-  onRequestEnd: ({responseOrError retryCount: retryCount, }) => { console.log(`-> AttemptEnd ${retryCount}: Response ${responseOrError.statusText}`); }
+  onRequestStart: ({url, retryCount}) =>
+    console.log(`Requesting ${url} with timeout ${timeout}, attempt ${retryCount}`),
+  onRequestEnd: ({url, retryCount, responseOrError}) =>
+    console.log(`Requested ${url}, attempt ${retryCount}, got status ${responseOrError.status}`),
 });
-```
 
 ## Contributing
 
