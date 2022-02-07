@@ -194,6 +194,16 @@ describe('jsonFetch', function () {
       expect(fetchSpy.callCount).to.equal(1);
     });
 
+    it('does not retry and call OnRequest callbacks one single time each', async function () {
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
+      nock('http://www.test.com').get('/').reply(200, {});
+      await jsonFetch('http://www.test.com/', {onRequestStart, onRequestEnd});
+      expect(fetchSpy.callCount).to.equal(1);
+      expect(onRequestStart.callCount).to.equal(1);
+      expect(onRequestEnd.callCount).to.equal(1);
+    });
+
     it('does specified number of retries', async function () {
       nock('http://www.test.com').get('/').reply(200, {});
 
