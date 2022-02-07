@@ -312,6 +312,25 @@ describe('jsonFetch', function () {
 
       throw new Error('Should have failed');
     });
+
+    it('call the onRequestStart and onRequestEnd functions when non-retryable setup is passed', async function () {
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
+
+      try {
+        await jsonFetch('foo.bar', {
+          shouldRetry: () => false,
+          onRequestStart,
+          onRequestEnd,
+        });
+      } catch {
+        expect(onRequestStart.callCount).to.equal(1);
+        expect(onRequestEnd.callCount).to.equal(1);
+        return;
+      }
+
+      throw new Error('Should have failed');
+    });
   });
 
   describe('retriers', function () {
