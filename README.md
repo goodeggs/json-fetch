@@ -104,14 +104,32 @@ You can use any attribute of the [FetchResponse](https://developer.mozilla.org/e
 
 ### On Request callbacks
 
-We've implemented two callbacks functions that can be passed as part of the **jsonFetch** options to do something `onRequestStart` and `onRequestEnd`, this is specially helpful to log request and response data in retry calls.
+Two callback functions can be passed as options to do something `onRequestStart` and `onRequestEnd`. This may be especially helpful to log request and response data on each request.
+If you have retries enabled, these will trigger before and after each _actual, individual request_.
 
-All `jsonFetch` options are availables parameters for this two callback functions plus
+#### `onRequestStart`
+
+If given, `onRequestStart` is called with:
 
 ```typescript
-url?: string;
-retryCount?: number;
-responseOrError?: Response | Error | unknown;
+{
+  // ... all the original json-fetch options, plus:
+  url: string;
+  retryCount: number;
+}
+```
+
+#### `onRequestEnd`
+
+If given, `onRequestEnd` is called with:
+
+```typescript
+{
+  // ... all the original json-fetch options, plus:
+  ur?: string;
+  retryCount: number;
+  responseOrError: Response | Error;
+}
 ```
 
 For example, to log before and after each request:
@@ -119,11 +137,12 @@ For example, to log before and after each request:
 ```typescript
 const requestUrl = 'http://www.test.com/products/1234';
 await jsonFetch(requestUrl, {
-  onRequestStart: ({url, retryCount}) =>
+  onRequestStart: ({url, timeout, retryCount}) =>
     console.log(`Requesting ${url} with timeout ${timeout}, attempt ${retryCount}`),
   onRequestEnd: ({url, retryCount, responseOrError}) =>
     console.log(`Requested ${url}, attempt ${retryCount}, got status ${responseOrError.status}`),
 });
+```
 
 ## Contributing
 
