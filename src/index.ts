@@ -8,7 +8,7 @@ import getRequestOptions from './get_request_options';
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
 export interface OnRequestEndOptions {
-  responseOrError?: Response | Error;
+  responseOrError: Response | Error;
 }
 
 export interface OnRequestOptions {
@@ -26,25 +26,8 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
   expectedStatuses?: Array<number>;
-  onRequestStart?: ({
-    agent,
-    body,
-    retry,
-    timeout,
-    expectedStatuses,
-    url,
-    retryCount,
-  }: JsonFetchOptions & OnRequestOptions) => void;
-  onRequestEnd?: ({
-    agent,
-    body,
-    retry,
-    timeout,
-    expectedStatuses,
-    responseOrError,
-    url,
-    retryCount,
-  }: JsonFetchOptions & OnRequestOptions & OnRequestEndOptions) => void;
+  onRequestStart?: (opts: JsonFetchOptions & OnRequestOptions) => void;
+  onRequestEnd?: (opts: JsonFetchOptions & OnRequestOptions & OnRequestEndOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
