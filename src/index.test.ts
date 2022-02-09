@@ -128,6 +128,11 @@ describe('jsonFetch', function () {
         onRequestStart,
       });
       expect(onRequestStart.callCount).to.equal(1);
+      expect(onRequestStart).to.have.been.calledWithMatch({
+        url: 'http://www.test.com/products/1234',
+        retryCount: 1,
+        onRequestStart,
+      });
     });
 
     it('calls onRequestEnd when is passed to jsonFetch in JsonFetchOptions', async function () {
@@ -194,12 +199,14 @@ describe('jsonFetch', function () {
       expect(fetchSpy.callCount).to.equal(1);
     });
 
-    it('does not retry and call OnRequest callbacks one single time each', async function () {
+    it('does not retry and calls OnRequest callbacks one single time each by default', async function () {
       const onRequestStart = sandbox.stub();
       const onRequestEnd = sandbox.stub();
       nock('http://www.test.com').get('/').reply(200, {});
       await jsonFetch('http://www.test.com/', {onRequestStart, onRequestEnd});
       expect(fetchSpy.callCount).to.equal(1);
+      expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
+      expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
       expect(onRequestStart.callCount).to.equal(1);
       expect(onRequestEnd.callCount).to.equal(1);
     });
@@ -300,7 +307,7 @@ describe('jsonFetch', function () {
       throw new Error('Should have failed');
     });
 
-    it('call the onRequestStart and onRequestEnd functions in each retry', async function () {
+    it('calls the onRequestStart and onRequestEnd functions in each retry', async function () {
       const onRequestStart = sandbox.stub();
       const onRequestEnd = sandbox.stub();
 
@@ -308,15 +315,21 @@ describe('jsonFetch', function () {
         await jsonFetch('foo.bar', {
           shouldRetry: () => true,
           retry: {
-            retries: 5,
+            retries: 3,
             factor: 0,
           },
           onRequestStart,
           onRequestEnd,
         });
       } catch {
-        expect(onRequestStart.callCount).to.equal(6);
-        expect(onRequestEnd.callCount).to.equal(6);
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 2});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 2});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestStart.callCount).to.equal(4);
+        expect(onRequestEnd.callCount).to.equal(4);
         return;
       }
 
