@@ -131,7 +131,8 @@ describe('jsonFetch', function () {
       expect(onRequestStart).to.have.been.calledWithMatch({
         url: 'http://www.test.com/products/1234',
         retryCount: 1,
-        onRequestStart,
+        headers: {accept: 'application/json'},
+        credentials: 'include',
       });
     });
 
@@ -145,6 +146,7 @@ describe('jsonFetch', function () {
       expect(onRequestEnd).to.have.been.calledWithMatch({
         url: 'http://www.test.com/products/1234',
         retryCount: 1,
+        headers: {accept: 'application/json'},
       });
     });
   });

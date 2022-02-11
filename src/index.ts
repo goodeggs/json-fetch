@@ -11,7 +11,7 @@ export interface OnRequestEndOptions {
   responseOrError: Response | Error;
 }
 
-export interface OnRequestOptions extends JsonFetchOptions {
+export interface OnRequestOptions extends RequestInit {
   url: string;
   retryCount: number;
 }
@@ -84,7 +84,7 @@ async function retryFetch(
 
   try {
     const response = await promiseRetry(async (throwRetryError, retryCount) => {
-      jsonFetchOptions.onRequestStart?.({url: requestUrl, retryCount, ...jsonFetchOptions});
+      jsonFetchOptions.onRequestStart?.({url: requestUrl, retryCount, ...requestOptions});
       try {
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res)) throwRetryError(null);
@@ -92,7 +92,7 @@ async function retryFetch(
           responseOrError: res,
           url: requestUrl,
           retryCount,
-          ...jsonFetchOptions,
+          ...requestOptions,
         });
         return res;
       } catch (err) {
@@ -101,7 +101,7 @@ async function retryFetch(
           responseOrError: err,
           url: requestUrl,
           retryCount,
-          ...jsonFetchOptions,
+          ...requestOptions,
         });
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
