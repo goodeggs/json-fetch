@@ -325,9 +325,11 @@ describe('jsonFetch', function () {
         expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
         expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 2});
         expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 4});
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 2});
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 4});
         expect(onRequestStart.callCount).to.equal(4);
         expect(onRequestEnd.callCount).to.equal(4);
         return;
