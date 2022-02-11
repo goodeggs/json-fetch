@@ -11,7 +11,7 @@ export interface OnRequestEndOptions {
   responseOrError: Response | Error;
 }
 
-export interface OnRequestOptions {
+export interface OnRequestOptions extends JsonFetchOptions {
   url: string;
   retryCount: number;
 }
@@ -26,8 +26,8 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
   expectedStatuses?: Array<number>;
-  onRequestStart?: (opts: JsonFetchOptions & OnRequestOptions) => void;
-  onRequestEnd?: (opts: JsonFetchOptions & OnRequestOptions & OnRequestEndOptions) => void;
+  onRequestStart?: (opts: OnRequestOptions) => void;
+  onRequestEnd?: (opts: OnRequestOptions & OnRequestEndOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
