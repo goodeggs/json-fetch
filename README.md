@@ -126,7 +126,7 @@ If given, `onRequestEnd` is called with:
 ```typescript
 {
   // ... all the original json-fetch options, plus:
-  ur?: string;
+  url: string;
   retryCount: number;
   responseOrError: Response | Error;
 }
