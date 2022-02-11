@@ -142,6 +142,10 @@ describe('jsonFetch', function () {
         onRequestEnd,
       });
       expect(onRequestEnd.callCount).to.equal(1);
+      expect(onRequestEnd).to.have.been.calledWithMatch({
+        url: 'http://www.test.com/products/1234',
+        retryCount: 1,
+      });
     });
   });
 
