@@ -7,13 +7,13 @@ import getRequestOptions from './get_request_options';
 
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
-export interface OnRequestEndOptions {
-  responseOrError: Response | Error;
-}
-
 export interface OnRequestOptions extends RequestInit {
   url: string;
   retryCount: number;
+}
+
+export interface OnRequestEndOptions extends OnRequestOptions {
+  responseOrError: Response | Error;
 }
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
@@ -27,7 +27,7 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   timeout?: number;
   expectedStatuses?: Array<number>;
   onRequestStart?: (opts: OnRequestOptions) => void;
-  onRequestEnd?: (opts: OnRequestOptions & OnRequestEndOptions) => void;
+  onRequestEnd?: (opts: OnRequestEndOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
