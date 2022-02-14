@@ -1,5 +1,10 @@
 # [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
+# [9.0.8](https://github.com/goodeggs/json-fetch/compare/v9.0.3...v9.0.8)
+
+- Added `OnRequestStart` callback function
+- Added `OnRequestEnd` callback function
+
 # [9.0.4](https://github.com/goodeggs/json-fetch/compare/v9.0.3...v9.0.4)
 
 - Migrated to Typescript

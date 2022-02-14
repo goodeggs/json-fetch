@@ -7,6 +7,14 @@ import getRequestOptions from './get_request_options';
 
 export type ShouldRetry = (responseOrError: Response | Error) => boolean;
 
+export interface OnRequestOptions extends RequestInit {
+  url: string;
+  retryCount: number;
+}
+
+export interface OnRequestEndOptions extends OnRequestOptions {
+  responseOrError: Response | Error;
+}
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
   // see https://github.com/node-fetch/node-fetch/blob/8721d79208ad52c44fffb4b5b5cfa13b936022c3/%40types/index.d.ts#L76:
@@ -18,6 +26,8 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
   expectedStatuses?: Array<number>;
+  onRequestStart?: (opts: OnRequestOptions) => void;
+  onRequestEnd?: (opts: OnRequestEndOptions) => void;
 }
 
 export interface JsonFetchResponse<T = unknown> {
@@ -74,12 +84,25 @@ async function retryFetch(
 
   try {
     const response = await promiseRetry(async (throwRetryError, retryCount) => {
+      jsonFetchOptions.onRequestStart?.({url: requestUrl, retryCount, ...requestOptions});
       try {
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res)) throwRetryError(null);
+        jsonFetchOptions.onRequestEnd?.({
+          responseOrError: res,
+          url: requestUrl,
+          retryCount,
+          ...requestOptions,
+        });
         return res;
       } catch (err) {
         err.retryCount = retryCount - 1;
+        jsonFetchOptions.onRequestEnd?.({
+          responseOrError: err,
+          url: requestUrl,
+          retryCount,
+          ...requestOptions,
+        });
         if (err.code !== 'EPROMISERETRY' && shouldRetry(err)) throwRetryError(err);
         throw err;
       }

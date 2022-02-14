@@ -120,6 +120,35 @@ describe('jsonFetch', function () {
       expect(response.statusText).to.equal('Created');
       expect(response.headers).to.be.ok();
     });
+
+    it('calls onRequestStart when is passed to jsonFetch in JsonFetchOptions', async function () {
+      const onRequestStart = sandbox.stub();
+      nock('http://www.test.com').get('/products/1234').reply(200);
+      await jsonFetch('http://www.test.com/products/1234', {
+        onRequestStart,
+      });
+      expect(onRequestStart).to.have.been.calledOnce();
+      expect(onRequestStart).to.have.been.calledWithMatch({
+        url: 'http://www.test.com/products/1234',
+        retryCount: 1,
+        headers: {accept: 'application/json'},
+        credentials: 'include',
+      });
+    });
+
+    it('calls onRequestEnd when is passed to jsonFetch in JsonFetchOptions', async function () {
+      const onRequestEnd = sandbox.stub();
+      nock('http://www.test.com').get('/products/1234').reply(200);
+      await jsonFetch('http://www.test.com/products/1234', {
+        onRequestEnd,
+      });
+      expect(onRequestEnd).to.have.been.calledOnce();
+      expect(onRequestEnd).to.have.been.calledWithMatch({
+        url: 'http://www.test.com/products/1234',
+        retryCount: 1,
+        headers: {accept: 'application/json'},
+      });
+    });
   });
 
   describe('expected statuses', function () {
@@ -174,6 +203,18 @@ describe('jsonFetch', function () {
       nock('http://www.test.com').get('/').reply(200, {});
       await jsonFetch('http://www.test.com/');
       expect(fetchSpy.callCount).to.equal(1);
+    });
+
+    it('does not retry and calls OnRequest callbacks one single time each by default', async function () {
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
+      nock('http://www.test.com').get('/').reply(200, {});
+      await jsonFetch('http://www.test.com/', {onRequestStart, onRequestEnd});
+      expect(fetchSpy).to.have.been.calledOnce();
+      expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
+      expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
+      expect(onRequestStart).to.have.been.calledOnce();
+      expect(onRequestEnd).to.have.been.calledOnce();
     });
 
     it('does specified number of retries', async function () {
@@ -266,6 +307,56 @@ describe('jsonFetch', function () {
         expect(fetchStub.callCount).to.equal(6);
         expect(err.message).to.equal('ECONRST');
         expect(err.retryCount).to.equal(5);
+        return;
+      }
+
+      throw new Error('Should have failed');
+    });
+
+    it('calls the onRequestStart and onRequestEnd functions in each retry', async function () {
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
+
+      try {
+        await jsonFetch('foo.bar', {
+          shouldRetry: () => true,
+          retry: {
+            retries: 3,
+            factor: 0,
+          },
+          onRequestStart,
+          onRequestEnd,
+        });
+      } catch {
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 2});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 4});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 2});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 3});
+        expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 4});
+        expect(onRequestStart).to.have.callCount(4);
+        expect(onRequestEnd).to.have.callCount(4);
+        return;
+      }
+
+      throw new Error('Should have failed');
+    });
+
+    it('call the onRequestStart and onRequestEnd functions when non-retryable setup is passed', async function () {
+      const onRequestStart = sandbox.stub();
+      const onRequestEnd = sandbox.stub();
+
+      try {
+        await jsonFetch('foo.bar', {
+          shouldRetry: () => false,
+          onRequestStart,
+          onRequestEnd,
+        });
+      } catch {
+        expect(onRequestStart).to.have.been.calledOnce();
+        expect(onRequestEnd).to.have.been.calledOnce();
         return;
       }
 
