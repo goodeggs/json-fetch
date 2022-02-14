@@ -127,7 +127,7 @@ describe('jsonFetch', function () {
       await jsonFetch('http://www.test.com/products/1234', {
         onRequestStart,
       });
-      expect(onRequestStart.callCount).to.equal(1);
+      expect(onRequestStart).to.have.been.calledOnce();
       expect(onRequestStart).to.have.been.calledWithMatch({
         url: 'http://www.test.com/products/1234',
         retryCount: 1,
@@ -142,7 +142,7 @@ describe('jsonFetch', function () {
       await jsonFetch('http://www.test.com/products/1234', {
         onRequestEnd,
       });
-      expect(onRequestEnd.callCount).to.equal(1);
+      expect(onRequestEnd).to.have.been.calledOnce();
       expect(onRequestEnd).to.have.been.calledWithMatch({
         url: 'http://www.test.com/products/1234',
         retryCount: 1,
@@ -210,11 +210,11 @@ describe('jsonFetch', function () {
       const onRequestEnd = sandbox.stub();
       nock('http://www.test.com').get('/').reply(200, {});
       await jsonFetch('http://www.test.com/', {onRequestStart, onRequestEnd});
-      expect(fetchSpy.callCount).to.equal(1);
+      expect(fetchSpy).to.have.been.calledOnce();
       expect(onRequestStart).to.have.been.calledWithMatch({retryCount: 1});
       expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 1});
-      expect(onRequestStart.callCount).to.equal(1);
-      expect(onRequestEnd.callCount).to.equal(1);
+      expect(onRequestStart).to.have.been.calledOnce();
+      expect(onRequestEnd).to.have.been.calledOnce();
     });
 
     it('does specified number of retries', async function () {
@@ -336,8 +336,8 @@ describe('jsonFetch', function () {
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 2});
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 3});
         expect(onRequestEnd).to.have.been.calledWithMatch({retryCount: 4});
-        expect(onRequestStart.callCount).to.equal(4);
-        expect(onRequestEnd.callCount).to.equal(4);
+        expect(onRequestStart).to.have.callCount(4);
+        expect(onRequestEnd).to.have.callCount(4);
         return;
       }
 
@@ -355,8 +355,8 @@ describe('jsonFetch', function () {
           onRequestEnd,
         });
       } catch {
-        expect(onRequestStart.callCount).to.equal(1);
-        expect(onRequestEnd.callCount).to.equal(1);
+        expect(onRequestStart).to.have.been.calledOnce();
+        expect(onRequestEnd).to.have.been.calledOnce();
         return;
       }
 
