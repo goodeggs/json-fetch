@@ -128,7 +128,7 @@ If given, `onRequestEnd` is called with:
   // ... all the original json-fetch options, plus:
   url: string;
   retryCount: number;
-  responseOrError: Response | Error;
+  status: Response['status'];
 }
 ```
 
@@ -139,8 +139,8 @@ const requestUrl = 'http://www.test.com/products/1234';
 await jsonFetch(requestUrl, {
   onRequestStart: ({url, timeout, retryCount}) =>
     console.log(`Requesting ${url} with timeout ${timeout}, attempt ${retryCount}`),
-  onRequestEnd: ({url, retryCount, responseOrError}) =>
-    console.log(`Requested ${url}, attempt ${retryCount}, got status ${responseOrError.status}`),
+  onRequestEnd: ({url, retryCount, status}) =>
+    console.log(`Requested ${url}, attempt ${retryCount}, got status ${status}`),
 });
 ```
 
