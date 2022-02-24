@@ -147,7 +147,29 @@ describe('jsonFetch', function () {
         url: 'http://www.test.com/products/1234',
         retryCount: 1,
         headers: {accept: 'application/json'},
+        status: 200,
       });
+    });
+
+    it('onRequestEnd returns error object when request fails', async function () {
+      sandbox.stub(global, 'fetch').callsFake(async function () {
+        throw new Error('Something is broken!');
+      });
+      const onRequestEnd = sandbox.stub();
+      try {
+        await jsonFetch('http://www.test.com/products/1234', {
+          onRequestEnd,
+        });
+      } catch {
+        expect(onRequestEnd).to.have.been.calledOnce();
+        expect(onRequestEnd).to.have.been.calledWithMatch({
+          error: {
+            request: {
+              url: 'http://www.test.com/products/1234',
+            },
+          },
+        });
+      }
     });
   });
 

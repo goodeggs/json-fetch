@@ -13,7 +13,8 @@ export interface OnRequestOptions extends RequestInit {
 }
 
 export interface OnRequestEndOptions extends OnRequestOptions {
-  responseOrError: Response | Error;
+  error?: Error;
+  status?: Response['status'];
 }
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
@@ -89,7 +90,7 @@ async function retryFetch(
         const res = await fetch(requestUrl, requestOptions);
         if (shouldRetry(res)) throwRetryError(null);
         jsonFetchOptions.onRequestEnd?.({
-          responseOrError: res,
+          status: res.status,
           url: requestUrl,
           retryCount,
           ...requestOptions,
@@ -98,7 +99,7 @@ async function retryFetch(
       } catch (err) {
         err.retryCount = retryCount - 1;
         jsonFetchOptions.onRequestEnd?.({
-          responseOrError: err,
+          error: err,
           url: requestUrl,
           retryCount,
           ...requestOptions,

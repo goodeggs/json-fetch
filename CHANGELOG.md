@@ -1,5 +1,9 @@
 # [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
+# [9.0.8](https://github.com/goodeggs/json-fetch/compare/v9.0.8...v9.0.9)
+
+- Replaced `responseOrError` prop of `OnRequestEnd` by `error` and `status`
+
 # [9.0.8](https://github.com/goodeggs/json-fetch/compare/v9.0.3...v9.0.8)
 
 - Added `OnRequestStart` callback function
