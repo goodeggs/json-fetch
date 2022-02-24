@@ -128,7 +128,8 @@ If given, `onRequestEnd` is called with:
   // ... all the original json-fetch options, plus:
   url: string;
   retryCount: number;
-  status: Response['status'];
+  status?: Response['status'];
+  error?: Error;
 }
 ```
 
