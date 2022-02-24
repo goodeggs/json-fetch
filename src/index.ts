@@ -14,7 +14,7 @@ export interface OnRequestOptions extends RequestInit {
 
 export interface OnRequestEndOptions extends OnRequestOptions {
   error?: Error;
-  status?: Response;
+  status?: Response['status'];
 }
 export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   // node-fetch extensions (not available in browsers, i.e. whatwg-fetch) –
