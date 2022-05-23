@@ -52,7 +52,7 @@
     "fake-eggs": "^6.5.3",
     "flow-bin": "^0.178.1",
     "goodeggs-test-helpers": "^8.3.2",
-    "leasot": "^7.5.0",
+    "leasot": "^13.1.0",
     "mocha": "6.2.3",
     "nock": "13",
     "nyc": "^15.1.0",
