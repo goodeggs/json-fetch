@@ -47,7 +47,7 @@
     "@goodeggs/tsconfig": "^1.0.0",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/lodash": "^4.14.186",
-    "@types/mocha": "^9.1.1",
+    "@types/mocha": "^10.0.0",
     "@types/node-fetch": "^2.6.2",
     "fake-eggs": "^6.5.3",
     "flow-bin": "^0.188.2",
