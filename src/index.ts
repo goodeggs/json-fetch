@@ -26,7 +26,7 @@ export interface JsonFetchOptions extends Omit<RequestInit, 'body'> {
   shouldRetry?: (responseOrError: Response | Error) => boolean;
   retry?: Parameters<typeof promiseRetry>[0];
   timeout?: number;
-  expectedStatuses?: Array<number>;
+  expectedStatuses?: number[];
   onRequestStart?: (opts: OnRequestOptions) => void;
   onRequestEnd?: (opts: OnRequestEndOptions) => void;
 }
@@ -126,7 +126,12 @@ async function createJsonFetchResponse(response: Response): Promise<JsonFetchRes
   };
 }
 
-function createErrorResponse(response: Response, responseText: string) {
+interface ErrorResponse {
+  status: number;
+  statusText: string;
+  text: string;
+}
+function createErrorResponse(response: Response, responseText: string): ErrorResponse {
   // do not include headers as they potentially contain sensitive information
   return {
     status: response.status,
@@ -148,14 +153,14 @@ function getResponseBody(response: Response, responseText: string): JSON | null 
 
 function isApplicationJson(headers: Headers): boolean {
   const responseContentType = headers.get('Content-Type') ?? '';
-  return /application\/json/.test(responseContentType);
+  return responseContentType.includes('application/json');
 }
 
 function assertExpectedStatus<
   T extends {
     readonly status: number;
   },
->(expectedStatuses: Array<number> | null | undefined, jsonFetchResponse: T): void {
+>(expectedStatuses: number[] | null | undefined, jsonFetchResponse: T): void {
   if (Array.isArray(expectedStatuses) && !expectedStatuses.includes(jsonFetchResponse.status)) {
     const err = new FetchUnexpectedStatusError(
       `Unexpected fetch response status ${jsonFetchResponse.status}`,
@@ -168,13 +173,16 @@ function assertExpectedStatus<
   }
 }
 
+interface ErrorRequestData extends Omit<JsonFetchOptions, 'headers'> {
+  url: string;
+}
 function getErrorRequestData({
   requestUrl,
   requestOptions,
 }: {
   requestUrl: string;
   requestOptions: JsonFetchOptions;
-}) {
+}): ErrorRequestData {
   const data = {...requestOptions, url: requestUrl};
   // do not include headers as they potentially contain sensitive information
   delete data.headers;

@@ -1,6 +1,8 @@
 import 'isomorphic-fetch';
+
 import {describe, it, beforeEach, afterEach} from 'mocha';
 import {expect, useSinonSandbox} from 'goodeggs-test-helpers';
+import fake from 'fake-eggs';
 import nock from 'nock';
 
 import jsonFetch, {retriers} from '.';
@@ -406,7 +408,7 @@ describe('jsonFetch', function () {
       });
 
       it('rejects all other inputs', async function () {
-        expect(retriers.is5xx(new Error())).to.equal(false);
+        expect(retriers.is5xx(new Error(fake.sentence()))).to.equal(false);
         expect(
           retriers.is5xx(
             new Response('', {
@@ -498,7 +500,7 @@ describe('jsonFetch', function () {
 
     describe('.isNetworkError', function () {
       it('accepts any errors', async function () {
-        expect(retriers.isNetworkError(new Error())).to.equal(true);
+        expect(retriers.isNetworkError(new Error(fake.sentence()))).to.equal(true);
       });
 
       it('rejects any non errors', async function () {
