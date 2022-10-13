@@ -1382,9 +1382,10 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@goodeggs/prettier-config/-/prettier-config-1.0.0.tgz#c58c75dfeafb3dacadc586934c1622b7b5b6acab"
 
-"@goodeggs/toolkit@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@goodeggs/toolkit/-/toolkit-7.0.0.tgz#5b674a797d723b147b35f614a259ed713c43f72a"
+"@goodeggs/toolkit@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@goodeggs/toolkit/-/toolkit-7.0.1.tgz#fec2bbdc528d4467c5d83ba25e57fdb1c4a96ff1"
+  integrity sha512-n9Jj/m3z2YY769+l6VhItDO8zzUxcw8NQflEU8hSS8S+6bVAuA0r/IYoszhsgO4jMpwXAr4DS8PEK9bf5Fh5eQ==
   dependencies:
     "@babel/core" "^7.19.3"
     "@babel/eslint-parser" "^7.19.1"
@@ -1401,7 +1402,7 @@
     eslint-plugin-babel "^5.3.1"
     eslint-plugin-eslint-comments "^3.2.0"
     eslint-plugin-flowtype "^5.10.0"
-    eslint-plugin-goodeggs "^15.0.0"
+    eslint-plugin-goodeggs "^15.0.1"
     eslint-plugin-import "^2.26.0"
     eslint-plugin-jest "^27.1.0"
     eslint-plugin-lodash "^7.4.0"
@@ -2623,9 +2624,10 @@ eslint-plugin-flowtype@^5.10.0:
     lodash "^4.17.15"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-goodeggs@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-15.0.0.tgz#be720fd7ea5ef9e0081d653a386b9ff170e3cbbf"
+eslint-plugin-goodeggs@^15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-goodeggs/-/eslint-plugin-goodeggs-15.0.1.tgz#2956fd45ed07ea49c02dd72e79466decb30641d1"
+  integrity sha512-hHWfH95Tz5q12TpQ9oc50RQ2rB2X2RWpVgIQv1SIRtjgKSY9L4FYBchpuVkrKO+Xhe73gP/7iB4VQEDcIwytZQ==
   dependencies:
     "@goodeggs/prettier-config" "^1.0.0"
 
