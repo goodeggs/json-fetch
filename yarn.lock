@@ -1288,7 +1288,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.18.6"
 
-"@babel/plugin-transform-runtime@^7.22.2":
+"@babel/plugin-transform-runtime@^7.22.4":
   version "7.22.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.22.4.tgz#f8353f313f18c3ce1315688631ec48657b97af42"
   integrity sha512-Urkiz1m4zqiRo17klj+l3nXgiRTFQng91Bc1eiLF7BMQu1e7wE5Gcq9xSv062IF068NHjcutSbIMev60gXxAvA==
@@ -1379,7 +1379,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/preset-env@^7.22.2":
+"@babel/preset-env@^7.22.4":
   version "7.22.4"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.22.4.tgz#c86a82630f0e8c61d9bb9327b7b896732028cbed"
   integrity sha512-c3lHOjbwBv0TkhYCr+XCR6wKcSZ1QbQTVdSkZUaVpLv8CVWotBMArWUi5UAJrcrQaEnleVkkvaV8F/pmc/STZQ==
