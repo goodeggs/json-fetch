@@ -50,7 +50,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node-fetch": "^2.6.4",
     "fake-eggs": "^6.5.3",
-    "flow-bin": "^0.214.0",
+    "flow-bin": "^0.215.0",
     "goodeggs-test-helpers": "^8.3.2",
     "leasot": "^13.3.0",
     "mocha": "10.2.0",
