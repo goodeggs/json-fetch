@@ -29,7 +29,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.10",
+    "@babel/runtime": "^7.22.11",
     "@types/promise-retry": "^1.1.3",
     "isomorphic-fetch": "2.2.1",
     "lodash": "^4.17.21",
@@ -37,11 +37,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.22.10",
-    "@babel/core": "^7.22.10",
+    "@babel/core": "^7.22.11",
     "@babel/plugin-transform-runtime": "^7.22.10",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.22.10",
-    "@babel/preset-typescript": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.11",
     "@babel/register": "^7.22.5",
     "@goodeggs/toolkit": "^7.0.1",
     "@goodeggs/tsconfig": "^1.0.0",
