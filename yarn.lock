@@ -88,7 +88,7 @@
     json5 "^2.2.1"
     semver "^6.3.0"
 
-"@babel/core@^7.22.18":
+"@babel/core@^7.22.19":
   version "7.22.20"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.22.20.tgz#e3d0eed84c049e2a2ae0a64d27b6a37edec385b7"
   integrity sha512-Y6jd1ahLubuYweD/zJH+vvOY141v4f9igNQAQ+MBgq9JlHS2iTsZKn1aMsb3vGccZsXI16VzTBw52Xx0DWmtnA==
