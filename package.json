@@ -29,19 +29,19 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.15",
+    "@babel/runtime": "^7.23.1",
     "@types/promise-retry": "^1.1.4",
     "isomorphic-fetch": "2.2.1",
     "lodash": "^4.17.21",
     "promise-retry": "1.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.20",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
     "@babel/plugin-transform-runtime": "^7.22.15",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.22.20",
-    "@babel/preset-typescript": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.0",
     "@babel/register": "^7.22.15",
     "@goodeggs/toolkit": "^7.0.1",
     "@goodeggs/tsconfig": "^1.0.0",
