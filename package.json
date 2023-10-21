@@ -48,7 +48,7 @@
     "@types/isomorphic-fetch": "^0.0.38",
     "@types/lodash": "^4.14.200",
     "@types/mocha": "^10.0.3",
-    "@types/node-fetch": "^2.6.6",
+    "@types/node-fetch": "^2.6.7",
     "fake-eggs": "^6.5.3",
     "flow-bin": "^0.219.0",
     "goodeggs-test-helpers": "^8.3.2",
