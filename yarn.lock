@@ -1916,10 +1916,10 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
 
-"@types/promise-retry@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@types/promise-retry/-/promise-retry-1.1.4.tgz#dccd78b3e92f89973394848a2a638895df08b7fd"
-  integrity sha512-DmJeCIhfpAE0XonyVUa0BRLbkE/97L9KUO8iM2br8Bzl8GLuru842K1A8VgKJwNjtLvIbUnSqElhNKdM9mGl9w==
+"@types/promise-retry@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@types/promise-retry/-/promise-retry-1.1.5.tgz#7d4d9a32ec24d074b811101dfd927deba3a32e40"
+  integrity sha512-J87PUF6dgz2gT/U/haO97MTZvAWGEdjn3HNbuXnI9sqq7AuotSTYNCwkWS37WP1vULcl5ZASaq2ooBOADfIAsQ==
   dependencies:
     "@types/retry" "*"
 
