@@ -1666,9 +1666,10 @@
     rimraf "^3.0.2"
     yargs "^17.6.0"
 
-"@goodeggs/tsconfig@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@goodeggs/tsconfig/-/tsconfig-1.0.0.tgz#efb679fa54d32bd830f173a82a2e38f4227e5da3"
+"@goodeggs/tsconfig@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@goodeggs/tsconfig/-/tsconfig-2.0.2.tgz#f2030152dade1277e68217a04e38ac0fe5b8ed2c"
+  integrity sha512-/JsE0/GYvrCbNB3HBOobZkOkQrPT+y4NJIjSJUTIF+bi57SGYN1ExL4x28gpeCI1tql3WirBD4GvfuVuq8lNlw==
 
 "@humanwhocodes/config-array@^0.10.5":
   version "0.10.7"
