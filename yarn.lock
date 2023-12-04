@@ -3270,7 +3270,7 @@ flatted@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.1.tgz#bbef080d95fca6709362c73044a1634f7c6e7d05"
 
-flow-bin@^0.223.0:
+flow-bin@^0.223.2:
   version "0.223.2"
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.223.2.tgz#2c39f40c4a821bdeac7d340eda61738f0c142706"
   integrity sha512-wqNNzsVdgS/6sC/anloAzEiWGHEYBcANftU7rrDNRyTI9plBAYAu8xVZ/5RtymRuO2GvYWO1DR8hfEunAhdvWA==
