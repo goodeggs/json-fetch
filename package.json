@@ -29,18 +29,18 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.8",
+    "@babel/runtime": "^7.23.9",
     "@types/promise-retry": "^1.1.6",
     "isomorphic-fetch": "2.2.1",
     "lodash": "^4.17.21",
     "promise-retry": "1.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.7",
-    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/plugin-transform-runtime": "^7.23.9",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-env": "^7.23.9",
     "@babel/preset-typescript": "^7.23.3",
     "@babel/register": "^7.23.7",
     "@goodeggs/toolkit": "^7.0.1",
