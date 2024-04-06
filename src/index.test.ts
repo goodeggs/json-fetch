@@ -20,10 +20,10 @@ declare global {
   }
 }
 
-describe('jsonFetch', function () {
+describe('jsonFetch', () => {
   const {sandbox} = useSinonSandbox();
-  describe('single request with no retry', function () {
-    it('resolves with json body for 200 status codes', async function () {
+  describe('single request with no retry', () => {
+    it('resolves with json body for 200 status codes', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, {
         name: 'apple',
       });
@@ -36,7 +36,7 @@ describe('jsonFetch', function () {
       expect(response.headers).to.be.ok();
     });
 
-    it('resolves with JSON body for 500 status codes', async function () {
+    it('resolves with JSON body for 500 status codes', async () => {
       nock('http://www.test.com').get('/products/1234').reply(500, '"Something went wrong"', {
         'Content-Type': 'application/json',
       });
@@ -46,7 +46,7 @@ describe('jsonFetch', function () {
       expect(response.statusText).to.equal('Internal Server Error');
       expect(response.headers).to.be.ok();
     });
-    it('resolves with JSON body when content-type contains other values but includes application/json', async function () {
+    it('resolves with JSON body when content-type contains other values but includes application/json', async () => {
       nock('http://www.test.com').get('/products/1234').reply(204, '[{}]', {
         'Content-Type': 'application/json; charset=utf-8',
       });
@@ -54,15 +54,15 @@ describe('jsonFetch', function () {
       expect(response.body).to.deep.equal([{}]);
     });
 
-    it('resolves with non-JSON body', async function () {
+    it('resolves with non-JSON body', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, 'This is not JSON', {
         'Content-Type': 'text/plain',
       });
       const response = await jsonFetch('http://www.test.com/products/1234');
       expect(response.body).to.equal(undefined);
     });
-    it('rejects when there is a connection error', async function () {
-      sandbox.stub(global, 'fetch').callsFake(async function () {
+    it('rejects when there is a connection error', async () => {
+      sandbox.stub(global, 'fetch').callsFake(async () => {
         throw new Error('Something is broken!');
       });
       let errorThrown = false;
@@ -79,7 +79,7 @@ describe('jsonFetch', function () {
       expect(errorThrown).to.be.true();
     });
 
-    it('rejects with responseText when there is a json parse error', async function () {
+    it('rejects with responseText when there is a json parse error', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, 'foo', {
         'Content-Type': 'application/json; charset=utf-8',
       });
@@ -99,7 +99,7 @@ describe('jsonFetch', function () {
       expect(errorThrown).to.be.true();
     });
 
-    it('sends json request body', async function () {
+    it('sends json request body', async () => {
       nock('http://www.test.com')
         .post('/products/1234', {
           name: 'apple',
@@ -123,7 +123,7 @@ describe('jsonFetch', function () {
       expect(response.headers).to.be.ok();
     });
 
-    it('calls onRequestStart when is passed to jsonFetch in JsonFetchOptions', async function () {
+    it('calls onRequestStart when is passed to jsonFetch in JsonFetchOptions', async () => {
       const onRequestStart = sandbox.stub();
       nock('http://www.test.com').get('/products/1234').reply(200);
       await jsonFetch('http://www.test.com/products/1234', {
@@ -138,7 +138,7 @@ describe('jsonFetch', function () {
       });
     });
 
-    it('calls onRequestEnd when is passed to jsonFetch in JsonFetchOptions', async function () {
+    it('calls onRequestEnd when is passed to jsonFetch in JsonFetchOptions', async () => {
       const onRequestEnd = sandbox.stub();
       nock('http://www.test.com').get('/products/1234').reply(200);
       await jsonFetch('http://www.test.com/products/1234', {
@@ -153,8 +153,8 @@ describe('jsonFetch', function () {
       });
     });
 
-    it('onRequestEnd returns error object when request fails', async function () {
-      sandbox.stub(global, 'fetch').callsFake(async function () {
+    it('onRequestEnd returns error object when request fails', async () => {
+      sandbox.stub(global, 'fetch').callsFake(async () => {
         throw new Error('Something is broken!');
       });
       const onRequestEnd = sandbox.stub();
@@ -175,8 +175,8 @@ describe('jsonFetch', function () {
     });
   });
 
-  describe('expected statuses', function () {
-    it('errors with FetchUnexpectedStatus if the response has an unexpected status code', async function () {
+  describe('expected statuses', () => {
+    it('errors with FetchUnexpectedStatus if the response has an unexpected status code', async () => {
       nock('http://www.test.com').get('/products/1234').reply(400, 'not found');
 
       try {
@@ -195,21 +195,21 @@ describe('jsonFetch', function () {
       throw new Error('expected to throw');
     });
 
-    it('returns a response with an expected status code', async function () {
+    it('returns a response with an expected status code', async () => {
       nock('http://www.test.com').get('/products/1234').reply(201, 'not found');
       const response = await jsonFetch('http://www.test.com/products/1234', {
         expectedStatuses: [201],
       });
       expect(response).to.have.property('status', 201);
     });
-    it('returns a response without an expected status code', async function () {
+    it('returns a response without an expected status code', async () => {
       nock('http://www.test.com').get('/products/1234').reply(404, 'not found');
       const response = await jsonFetch('http://www.test.com/products/1234');
       expect(response).to.have.property('status', 404);
     });
   });
 
-  describe('retry', function () {
+  describe('retry', () => {
     let fetchSpy: sinon.SinonSpy<
       [input: RequestInfo, init?: RequestInit | undefined],
       Promise<Response>
@@ -223,13 +223,13 @@ describe('jsonFetch', function () {
       fetchSpy.restore();
     });
 
-    it('does not retry by default', async function () {
+    it('does not retry by default', async () => {
       nock('http://www.test.com').get('/').reply(200, {});
       await jsonFetch('http://www.test.com/');
       expect(fetchSpy.callCount).to.equal(1);
     });
 
-    it('does not retry and calls OnRequest callbacks one single time each by default', async function () {
+    it('does not retry and calls OnRequest callbacks one single time each by default', async () => {
       const onRequestStart = sandbox.stub();
       const onRequestEnd = sandbox.stub();
       nock('http://www.test.com').get('/').reply(200, {});
@@ -241,7 +241,7 @@ describe('jsonFetch', function () {
       expect(onRequestEnd).to.have.been.calledOnce();
     });
 
-    it('does specified number of retries', async function () {
+    it('does specified number of retries', async () => {
       nock('http://www.test.com').get('/').reply(200, {});
 
       try {
@@ -263,7 +263,7 @@ describe('jsonFetch', function () {
       throw new Error('Should have failed');
     });
 
-    it('respects the shouldRetry() function', async function () {
+    it('respects the shouldRetry() function', async () => {
       nock('http://www.test.com').get('/').times(6).reply(200, {});
 
       try {
@@ -282,7 +282,7 @@ describe('jsonFetch', function () {
     });
   });
 
-  describe('retry network errors', function () {
+  describe('retry network errors', () => {
     let fetchStub: sinon.SinonStub<
       [input: RequestInfo, init?: RequestInit | undefined],
       Promise<Response>
@@ -296,7 +296,7 @@ describe('jsonFetch', function () {
       fetchStub.restore();
     });
 
-    it('respects the should retry function for a network error', async function () {
+    it('respects the should retry function for a network error', async () => {
       fetchStub.rejects(new Error('ECONRST'));
 
       try {
@@ -316,7 +316,7 @@ describe('jsonFetch', function () {
       throw new Error('Should have failed');
     });
 
-    it('adds the retryCount to the error', async function () {
+    it('adds the retryCount to the error', async () => {
       fetchStub.rejects(new Error('ECONRST'));
 
       try {
@@ -337,7 +337,7 @@ describe('jsonFetch', function () {
       throw new Error('Should have failed');
     });
 
-    it('calls the onRequestStart and onRequestEnd functions in each retry', async function () {
+    it('calls the onRequestStart and onRequestEnd functions in each retry', async () => {
       const onRequestStart = sandbox.stub();
       const onRequestEnd = sandbox.stub();
 
@@ -368,7 +368,7 @@ describe('jsonFetch', function () {
       throw new Error('Should have failed');
     });
 
-    it('call the onRequestStart and onRequestEnd functions when non-retryable setup is passed', async function () {
+    it('call the onRequestStart and onRequestEnd functions when non-retryable setup is passed', async () => {
       const onRequestStart = sandbox.stub();
       const onRequestEnd = sandbox.stub();
 
@@ -388,9 +388,9 @@ describe('jsonFetch', function () {
     });
   });
 
-  describe('retriers', function () {
-    describe('.is5xx', function () {
-      it('accepts a 503 and 504 status codes', async function () {
+  describe('retriers', () => {
+    describe('.is5xx', () => {
+      it('accepts a 503 and 504 status codes', async () => {
         expect(
           retriers.is5xx(
             new Response('', {
@@ -407,7 +407,7 @@ describe('jsonFetch', function () {
         ).to.equal(true);
       });
 
-      it('rejects all other inputs', async function () {
+      it('rejects all other inputs', async () => {
         expect(retriers.is5xx(new Error(fake.sentence()))).to.equal(false);
         expect(
           retriers.is5xx(
@@ -460,7 +460,7 @@ describe('jsonFetch', function () {
         ).to.equal(false);
       });
 
-      describe('used within jsonFetch', function () {
+      describe('used within jsonFetch', () => {
         let fetchStub: sinon.SinonStub<
           [input: RequestInfo, init?: RequestInit | undefined],
           Promise<{status: number}>
@@ -474,7 +474,7 @@ describe('jsonFetch', function () {
           fetchStub.restore();
         });
 
-        it('attempts to retry on a 5xx error code', async function () {
+        it('attempts to retry on a 5xx error code', async () => {
           const is5xxSpy = sandbox.spy(retriers, 'is5xx');
 
           fetchStub.resolves({status: 503});
@@ -498,12 +498,12 @@ describe('jsonFetch', function () {
       });
     });
 
-    describe('.isNetworkError', function () {
-      it('accepts any errors', async function () {
+    describe('.isNetworkError', () => {
+      it('accepts any errors', async () => {
         expect(retriers.isNetworkError(new Error(fake.sentence()))).to.equal(true);
       });
 
-      it('rejects any non errors', async function () {
+      it('rejects any non errors', async () => {
         expect(retriers.isNetworkError(new Response('foo'))).to.equal(false);
         expect(retriers.isNetworkError(new Response(''))).to.equal(false);
         expect(
@@ -522,7 +522,7 @@ describe('jsonFetch', function () {
         ).to.equal(false);
       });
 
-      describe('used within jsonFetch', function () {
+      describe('used within jsonFetch', () => {
         let fetchStub: sinon.SinonStub<
           [input: RequestInfo, init?: RequestInit | undefined],
           Promise<{status: number}>
@@ -536,7 +536,7 @@ describe('jsonFetch', function () {
           fetchStub.restore();
         });
 
-        it('attempts to retry on a network error', async function () {
+        it('attempts to retry on a network error', async () => {
           const isNetworkErrorSpy = sandbox.spy(retriers, 'isNetworkError');
           fetchStub.rejects(new Error('ECONRST'));
 
@@ -560,8 +560,8 @@ describe('jsonFetch', function () {
       });
     });
   });
-  describe('malformed json', function () {
-    it('throws error with malformed text', async function () {
+  describe('malformed json', () => {
+    it('throws error with malformed text', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, '{"name": "apple""}', {
         'Content-Type': 'application/json',
       });
@@ -576,15 +576,15 @@ describe('jsonFetch', function () {
       throw new Error('expected to throw');
     });
   });
-  describe('missing content type', function () {
-    it('handles it gracefully', async function () {
+  describe('missing content type', () => {
+    it('handles it gracefully', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, 'test', {});
       const response = await jsonFetch('http://www.test.com/products/1234');
       expect(response.body).to.equal(undefined);
     });
   });
-  describe('thrown errors', function () {
-    it('does not include request headers', async function () {
+  describe('thrown errors', () => {
+    it('does not include request headers', async () => {
       nock('http://www.test.com').get('/products/1234').reply(200, '{""}', {
         'Content-Type': 'application/json',
       });
