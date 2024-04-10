@@ -1,5 +1,9 @@
 # [Changes since last deploy](https://github.com/goodeggs/json-fetch/compare/v8.0.0...master)
 
+# [9.0.8](https://github.com/goodeggs/json-fetch/compare/v9.0.9...v9.0.10)
+
+- Check if incoming Fetch error is of type `null` before setting the code property.
+
 # [9.0.8](https://github.com/goodeggs/json-fetch/compare/v9.0.8...v9.0.9)
 
 - Replaced `responseOrError` prop of `OnRequestEnd` by `error` and `status`
