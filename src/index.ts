@@ -110,7 +110,9 @@ async function retryFetch(
     }, retryOptions);
     return response;
   } catch (err) {
-    err.name = 'FetchError';
+    if (err != null) {
+      err.name = 'FetchError';
+    }
     throw err;
   }
 }
