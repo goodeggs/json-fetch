@@ -4180,10 +4180,6 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
 
-lodash.set@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
-
 lodash@^4.17.15, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
@@ -4388,13 +4384,13 @@ nise@^5.0.1:
     just-extend "^4.0.2"
     path-to-regexp "^1.7.0"
 
-nock@13:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-13.1.1.tgz#3c830129d4560957f59b6f480a41ddbaf9cf57af"
+nock@13.5.4:
+  version "13.5.4"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-13.5.4.tgz#8918f0addc70a63736170fef7106a9721e0dc479"
+  integrity sha512-yAyTfdeNJGGBFxWdzSKCBYxs5FxLbCg5X5Q4ets974hcQzG1+qCxvIyOo4j2Ry6MUlhWVMX4OoYDefAIIwupjw==
   dependencies:
     debug "^4.1.0"
     json-stringify-safe "^5.0.1"
-    lodash.set "^4.3.2"
     propagate "^2.0.0"
 
 node-fetch@^1.0.1:
