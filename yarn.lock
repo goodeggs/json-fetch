@@ -3897,10 +3897,10 @@ kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-leasot@^13.3.0:
-  version "13.3.0"
-  resolved "https://registry.yarnpkg.com/leasot/-/leasot-13.3.0.tgz#357a4088f562df3a6c3323a3f553183f72bbce75"
-  integrity sha512-WEAlnIRsUJJv525J9B1i20tFuwj+B8EHPgZjKnfVNkrKbaJgiGXilnS/yHDhitWKy9IpE/iQ7XKTPP/9nL5DoQ==
+leasot@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/leasot/-/leasot-14.4.0.tgz#60b08c715f693fad074cea832e4cea583773da0e"
+  integrity sha512-QGPf5zuauwsHPRMg5bqa+u6IrSrdx4XiqvIkWFVXVRFHyyI7828+oXsKJDX/0o9qXG/lLwOzsnC6d7lep+HXdA==
   dependencies:
     async "^3.2.4"
     chalk "^5.0.1"
