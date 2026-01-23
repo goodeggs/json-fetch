@@ -51,7 +51,7 @@
     "@types/node-fetch": "^2.6.11",
     "fake-eggs": "^6.5.3",
     "flow-bin": "^0.238.2",
-    "goodeggs-test-helpers": "^8.3.2",
+    "goodeggs-test-helpers": "^8.3.3",
     "leasot": "^13.3.0",
     "mocha": "10.5.2",
     "nock": "13.5.4",
