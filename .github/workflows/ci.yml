@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      # yarn 1 does not expand env vars in .npmrc and does not attach credentials to
+      # scope-routed registries, so write the token AND make npm.goodeggs.com (which
+      # proxies npmjs) the default registry at runtime. Later npmrc lines win.
+      - run: |
+          echo "registry=https://npm.goodeggs.com" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+          echo "//npm.goodeggs.com/:_authToken=${NPM_TOKEN}" >> .npmrc
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
