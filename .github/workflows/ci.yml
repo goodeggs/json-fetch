@@ -16,5 +16,7 @@ jobs:
         with:
           node-version: 22
           cache: yarn
+      # yarn 1 does not expand env vars in .npmrc, so write the token at runtime
+      - run: echo "//npm.goodeggs.com/:_authToken=${NPM_TOKEN}" >> .npmrc
       - run: yarn install --frozen-lockfile
       - run: yarn test

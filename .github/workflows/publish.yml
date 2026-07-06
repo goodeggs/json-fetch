@@ -17,9 +17,11 @@ jobs:
           node-version: 22
           cache: yarn
           registry-url: https://registry.npmjs.org
-      - run: yarn install --frozen-lockfile
+      # yarn 1 does not expand env vars in .npmrc, so write the token at runtime.
       # NPM_TOKEN reads @goodeggs packages from npm.goodeggs.com during install;
       # NPMJS_PUBLISH_TOKEN publishes this package to the public npmjs registry.
+      - run: echo "//npm.goodeggs.com/:_authToken=${NPM_TOKEN}" >> .npmrc
+      - run: yarn install --frozen-lockfile
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
