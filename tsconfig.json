@@ -1,6 +1,7 @@
 {
   "extends": "@goodeggs/tsconfig/base",
   "compilerOptions": {
-    "downlevelIteration": true
+    "skipLibCheck": true,
+    "types": ["node", "mocha", "chai", "dirty-chai", "chai-as-promised", "sinon-chai"]
   }
 }

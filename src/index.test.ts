@@ -69,7 +69,7 @@ describe('jsonFetch', () => {
 
       try {
         await jsonFetch('http://www.test.com/products/1234');
-      } catch (err) {
+      } catch (err: any) {
         errorThrown = true;
         expect(err.name).to.deep.equal('FetchError');
         expect(err.message).to.deep.equal('Something is broken!');
@@ -87,7 +87,7 @@ describe('jsonFetch', () => {
 
       try {
         await jsonFetch('http://www.test.com/products/1234');
-      } catch (err) {
+      } catch (err: any) {
         errorThrown = true;
         expect(err.name).to.deep.equal('SyntaxError');
         expect(err.message).to.match(/Unexpected token/);
@@ -183,7 +183,7 @@ describe('jsonFetch', () => {
         await jsonFetch('http://www.test.com/products/1234', {
           expectedStatuses: [201],
         });
-      } catch (err) {
+      } catch (err: any) {
         expect(err.name).to.equal('FetchUnexpectedStatusError');
         expect(err.message).to.equal('Unexpected fetch response status 400');
         expect(err.request.url).to.equal('http://www.test.com/products/1234');
@@ -210,10 +210,7 @@ describe('jsonFetch', () => {
   });
 
   describe('retry', () => {
-    let fetchSpy: sinon.SinonSpy<
-      [input: RequestInfo, init?: RequestInit | undefined],
-      Promise<Response>
-    >;
+    let fetchSpy: sinon.SinonSpy<Parameters<typeof fetch>, ReturnType<typeof fetch>>;
 
     beforeEach(() => {
       fetchSpy = sandbox.spy(global, 'fetch');
@@ -252,7 +249,7 @@ describe('jsonFetch', () => {
             factor: 0,
           },
         });
-      } catch (err) {
+      } catch (err: any) {
         expect(err.request.url).to.equal('http://www.test.com/');
         expect(err.request.retry.retries).to.equal(5);
         expect(fetchSpy.callCount).to.equal(6); // 5 retries + 1 original = 6
@@ -283,10 +280,7 @@ describe('jsonFetch', () => {
   });
 
   describe('retry network errors', () => {
-    let fetchStub: sinon.SinonStub<
-      [input: RequestInfo, init?: RequestInit | undefined],
-      Promise<Response>
-    >;
+    let fetchStub: sinon.SinonStub<Parameters<typeof fetch>, ReturnType<typeof fetch>>;
 
     beforeEach(() => {
       fetchStub = sandbox.stub(global, 'fetch');
@@ -307,7 +301,7 @@ describe('jsonFetch', () => {
             factor: 0,
           },
         });
-      } catch (err) {
+      } catch (err: any) {
         expect(fetchStub.callCount).to.equal(6);
         expect(err.message).to.equal('ECONRST');
         return;
@@ -327,7 +321,7 @@ describe('jsonFetch', () => {
             factor: 0,
           },
         });
-      } catch (err) {
+      } catch (err: any) {
         expect(fetchStub.callCount).to.equal(6);
         expect(err.message).to.equal('ECONRST');
         expect(err.retryCount).to.equal(5);
@@ -461,10 +455,7 @@ describe('jsonFetch', () => {
       });
 
       describe('used within jsonFetch', () => {
-        let fetchStub: sinon.SinonStub<
-          [input: RequestInfo, init?: RequestInit | undefined],
-          Promise<{status: number}>
-        >;
+        let fetchStub: sinon.SinonStub<Parameters<typeof fetch>, Promise<{status: number}>>;
 
         beforeEach(() => {
           fetchStub = sandbox.stub(global, 'fetch');
@@ -523,10 +514,7 @@ describe('jsonFetch', () => {
       });
 
       describe('used within jsonFetch', () => {
-        let fetchStub: sinon.SinonStub<
-          [input: RequestInfo, init?: RequestInit | undefined],
-          Promise<{status: number}>
-        >;
+        let fetchStub: sinon.SinonStub<Parameters<typeof fetch>, Promise<{status: number}>>;
 
         beforeEach(() => {
           fetchStub = sandbox.stub(global, 'fetch');
@@ -548,7 +536,7 @@ describe('jsonFetch', () => {
                 factor: 0,
               },
             });
-          } catch (err) {
+          } catch (err: any) {
             expect(fetchStub.callCount).to.equal(6);
             expect(isNetworkErrorSpy.callCount).to.equal(6);
             expect(err.message).to.equal('ECONRST');
@@ -568,7 +556,7 @@ describe('jsonFetch', () => {
 
       try {
         await jsonFetch('http://www.test.com/products/1234');
-      } catch (err) {
+      } catch (err: any) {
         expect(err.message).to.contain('in JSON at position 16');
         return;
       }
@@ -595,7 +583,7 @@ describe('jsonFetch', () => {
             secret: 'foo',
           },
         });
-      } catch (err) {
+      } catch (err: any) {
         expect(err.request.url).to.equal('http://www.test.com/products/1234');
         expect(err.request.headers).not.to.exist();
         return;
