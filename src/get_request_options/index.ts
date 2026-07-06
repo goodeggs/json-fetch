@@ -21,7 +21,8 @@ export default function getRequestOptions(jsonFetchOptions: JsonFetchOptions): R
     ...parsedOptions.headers,
   };
 
-  const pickedOptions = _.pick(jsonFetchOptions, [
+  const pickedOptions = _.pick(
+    jsonFetchOptions,
     'cache',
     'credentials',
     'headers',
@@ -32,7 +33,9 @@ export default function getRequestOptions(jsonFetchOptions: JsonFetchOptions): R
     'referrer',
     'referrerPolicy',
     'timeout',
-  ]);
+  );
 
-  return {...pickedOptions, ...parsedOptions};
+  // Picked options intentionally include node-fetch extensions (e.g. timeout) that are not part
+  // of the standard RequestInit type; runtime fetch implementations ignore what they don't know.
+  return {...pickedOptions, ...parsedOptions} as RequestInit;
 }

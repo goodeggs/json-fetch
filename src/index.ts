@@ -66,7 +66,7 @@ export default async function jsonFetch(
     const jsonFetchResponse = await createJsonFetchResponse(response);
     assertExpectedStatus(expectedStatuses, jsonFetchResponse);
     return jsonFetchResponse;
-  } catch (error) {
+  } catch (error: any) {
     error.request = getErrorRequestData({
       requestUrl,
       requestOptions: jsonFetchOptions,
@@ -96,7 +96,7 @@ async function retryFetch(
           ...requestOptions,
         });
         return res;
-      } catch (err) {
+      } catch (err: any) {
         err.retryCount = retryCount - 1;
         jsonFetchOptions.onRequestEnd?.({
           error: err,
@@ -109,7 +109,7 @@ async function retryFetch(
       }
     }, retryOptions);
     return response;
-  } catch (err) {
+  } catch (err: any) {
     if (err != null) {
       err.name = 'FetchError';
     }
@@ -146,7 +146,7 @@ function getResponseBody(response: Response, responseText: string): JSON | null 
   if (isApplicationJson(response.headers))
     try {
       return JSON.parse(responseText);
-    } catch (err) {
+    } catch (err: any) {
       err.response = createErrorResponse(response, responseText);
       throw err;
     }

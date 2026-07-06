@@ -46,7 +46,7 @@ describe('getRequestOptions', function () {
   });
 
   it('forwards `credentials` option when provided', function () {
-    const credentials: RequestCredentials = fake.sample(['omit', 'same-origin']);
+    const credentials: RequestInit['credentials'] = fake.sample(['omit', 'same-origin']);
 
     const expected = {
       credentials,
