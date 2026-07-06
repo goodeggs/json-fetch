@@ -4,22 +4,29 @@ import {JsonFetchOptions} from '..';
 
 export default function getRequestOptions(jsonFetchOptions: JsonFetchOptions): RequestInit {
   const parsedOptions: RequestInit = {};
-  parsedOptions.headers = {};
 
   if (jsonFetchOptions.body !== undefined) {
     parsedOptions.body = JSON.stringify(jsonFetchOptions.body);
-    parsedOptions.headers['Content-Type'] = 'application/json';
   }
 
   if (jsonFetchOptions.credentials === undefined) {
     parsedOptions.credentials = 'include';
   }
 
-  parsedOptions.headers = {
+  // HTTP header names are case-insensitive, but a plain object merge is not: a caller's
+  // 'content-type' plus our 'Content-Type' stay two separate keys, and native fetch combines
+  // them into the invalid header "application/json, application/json", which body parsers
+  // reject. Normalize names to lowercase so the merge deduplicates; later entries still win.
+  const mergedHeaders: Record<string, string> = {
     accept: 'application/json',
-    ...jsonFetchOptions.headers,
-    ...parsedOptions.headers,
+    ...(jsonFetchOptions.headers as Record<string, string> | undefined),
+    ...(jsonFetchOptions.body !== undefined ? {'content-type': 'application/json'} : {}),
   };
+  const headers: Record<string, string> = {};
+  for (const [name, value] of Object.entries(mergedHeaders)) {
+    headers[name.toLowerCase()] = value;
+  }
+  parsedOptions.headers = headers;
 
   const pickedOptions = _.pick(jsonFetchOptions, [
     'cache',
