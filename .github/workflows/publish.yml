@@ -18,6 +18,8 @@ jobs:
           cache: yarn
           registry-url: https://registry.npmjs.org
       - run: yarn install --frozen-lockfile
+      # NPM_TOKEN reads @goodeggs packages from npm.goodeggs.com during install;
+      # NPMJS_PUBLISH_TOKEN publishes this package to the public npmjs registry.
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
