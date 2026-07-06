@@ -17,10 +17,16 @@ jobs:
           node-version: 22
           cache: yarn
           registry-url: https://registry.npmjs.org
-      # yarn 1 does not expand env vars in .npmrc, so write the token at runtime.
+      # yarn 1 does not expand env vars in .npmrc and does not attach credentials to
+      # scope-routed registries, so write the token AND make npm.goodeggs.com (which
+      # proxies npmjs) the default registry at runtime. Later npmrc lines win.
       # NPM_TOKEN reads @goodeggs packages from npm.goodeggs.com during install;
-      # NPMJS_PUBLISH_TOKEN publishes this package to the public npmjs registry.
-      - run: echo "//npm.goodeggs.com/:_authToken=${NPM_TOKEN}" >> .npmrc
+      # NPMJS_PUBLISH_TOKEN publishes this package to the public npmjs registry
+      # (npm publish targets publishConfig.registry, not the default registry).
+      - run: |
+          echo "registry=https://npm.goodeggs.com" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+          echo "//npm.goodeggs.com/:_authToken=${NPM_TOKEN}" >> .npmrc
       - run: yarn install --frozen-lockfile
       - run: npm publish
         env:
