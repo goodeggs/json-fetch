@@ -47,7 +47,7 @@ describe('jsonFetch', () => {
       expect(response.headers).to.be.ok();
     });
     it('resolves with JSON body when content-type contains other values but includes application/json', async () => {
-      nock('http://www.test.com').get('/products/1234').reply(204, '[{}]', {
+      nock('http://www.test.com').get('/products/1234').reply(200, '[{}]', {
         'Content-Type': 'application/json; charset=utf-8',
       });
       const response = await jsonFetch('http://www.test.com/products/1234');
@@ -569,7 +569,7 @@ describe('jsonFetch', () => {
       try {
         await jsonFetch('http://www.test.com/products/1234');
       } catch (err) {
-        expect(err.message).to.contain('Unexpected string');
+        expect(err.message).to.contain('in JSON at position 16');
         return;
       }
 
