@@ -43,7 +43,7 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@babel/register": "^7.24.6",
-    "@goodeggs/toolkit": "^7.0.1",
+    "@goodeggs/toolkit": "^8.0.0",
     "@goodeggs/tsconfig": "^1.0.0",
     "@types/isomorphic-fetch": "^0.0.39",
     "@types/lodash": "^4.17.5",
